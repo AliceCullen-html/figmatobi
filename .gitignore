@@ -26,3 +26,8 @@ dist-ssr
 # local
 *.tmp.*
 __pycache__/
+
+# variáveis de ambiente (valores reais nunca vão pro git)
+.env
+.env.*
+!.env.example

@@ -11,6 +11,8 @@ import { renderDeck, ORDER, SLIDE_LABELS, type RenderResult } from './engine/eng
 import { toSvgMode } from './charts/svg';
 import { loadProjeto, saveProjeto, aplicarOverrides, statusSlide, download, SLIDE_KEY, type ProjetoState } from './ui/state';
 import { baixarZip, baixarPdf, baixarPngsZip, baixarHtml, baixarPng } from './ui/exportar';
+import { UserChip } from './auth/Gate';
+import { authEnabled } from './auth/msal';
 
 type Tela = 'upload' | 'mapeamento' | 'deck';
 
@@ -118,29 +120,32 @@ export default function App() {
           <div className="logo-tag">CATTALINI · COMERCIAL</div>
           <h1>Deck Mensal — Excel → 18 slides</h1>
         </div>
-        {etl && (
-          <div className="topo-acoes">
-            <label className="toggle" title="Mês do relatório">
-              <span>Mês:</span>
-              <select
-                className="sel-mes"
-                value={mesSel || `${manifesto?.meta?.ano}-${manifesto?.meta?.mes_num}`}
-                onChange={(e) => { setMesSel(e.target.value); rodarEtl(sheets, projeto.mapping!, e.target.value); }}
-              >
-                {etl.mesesDisponiveis.map((m) => (
-                  <option key={`${m.ano}-${m.mesN}`} value={`${m.ano}-${m.mesN}`}>{m.label}</option>
-                ))}
-              </select>
-            </label>
-            <span className="ref-badge">{manifesto?.meta?.janela_label}</span>
-            <label className="toggle">
-              <input type="checkbox" checked={modoSvg} onChange={(e) => setModoSvg(e.target.checked)} />
-              <span>{modoSvg ? 'SVG (editável Figma)' : 'Chart.js (fiel ao original)'}</span>
-            </label>
-            <button className="btn sec" onClick={() => setTela('mapeamento')}>Mapeamento</button>
-            <button className="btn sec" onClick={() => { setEtl(null); setSheets([]); setTela('upload'); }}>Novo Excel</button>
-          </div>
-        )}
+        <div className="topo-dir">
+          {etl && (
+            <div className="topo-acoes">
+              <label className="toggle" title="Mês do relatório">
+                <span>Mês:</span>
+                <select
+                  className="sel-mes"
+                  value={mesSel || `${manifesto?.meta?.ano}-${manifesto?.meta?.mes_num}`}
+                  onChange={(e) => { setMesSel(e.target.value); rodarEtl(sheets, projeto.mapping!, e.target.value); }}
+                >
+                  {etl.mesesDisponiveis.map((m) => (
+                    <option key={`${m.ano}-${m.mesN}`} value={`${m.ano}-${m.mesN}`}>{m.label}</option>
+                  ))}
+                </select>
+              </label>
+              <span className="ref-badge">{manifesto?.meta?.janela_label}</span>
+              <label className="toggle">
+                <input type="checkbox" checked={modoSvg} onChange={(e) => setModoSvg(e.target.checked)} />
+                <span>{modoSvg ? 'SVG (editável Figma)' : 'Chart.js (fiel ao original)'}</span>
+              </label>
+              <button className="btn sec" onClick={() => setTela('mapeamento')}>Mapeamento</button>
+              <button className="btn sec" onClick={() => { setEtl(null); setSheets([]); setTela('upload'); }}>Novo Excel</button>
+            </div>
+          )}
+          {authEnabled && <UserChip />}
+        </div>
       </header>
 
       {erro && <div className="erro-bar">⛔ {erro}</div>}

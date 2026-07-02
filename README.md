@@ -126,6 +126,51 @@ defeitos do **export JSON do BI** — aqui o ETL calcula tudo do banco de dados 
 Excel (grão mensal), que é limpo, e valida (linhas somam o total, shares somam 100%,
 janela com 13 meses).
 
+## Login Microsoft (Cattalini) — opcional
+
+O app pode exigir **login com conta Microsoft corporativa** (Entra ID / Azure AD),
+restrito ao tenant da Cattalini. É um fluxo **SPA + PKCE**: roda 100% no navegador,
+**sem backend e sem client secret**. Enquanto não for configurado, o app **abre sem
+login** (comportamento atual — o deploy não quebra).
+
+### 1. Criar o App Registration (uma vez, no Azure)
+
+No [portal.azure.com](https://portal.azure.com) → **Microsoft Entra ID** → **App registrations** → **New registration**:
+
+- **Name:** `Deck Cattalini`
+- **Supported account types:** *Accounts in this organizational directory only* (single tenant)
+- **Redirect URI:** plataforma **Single-page application (SPA)** → a URL do app no Vercel
+  (ex.: `https://figmatobi.vercel.app`). Adicione também `http://localhost:5173` para testar local.
+- Após criar, copie da tela **Overview**: **Application (client) ID** e **Directory (tenant) ID**.
+
+> Importante: a plataforma tem que ser **SPA** (não "Web"). Só a SPA usa PKCE sem secret.
+> Se precisar de mais URLs (previews do Vercel), adicione cada uma em Authentication → SPA.
+
+### 2. Configurar as variáveis no Vercel
+
+Em **Vercel → Settings → Environment Variables**, adicione (não vão para o git):
+
+| Variável | Valor |
+|---|---|
+| `VITE_AZURE_TENANT_ID` | Directory (tenant) ID |
+| `VITE_AZURE_CLIENT_ID` | Application (client) ID |
+| `VITE_AZURE_ALLOWED_DOMAIN` | *(opcional)* `cattalini.com.br` — reforça o filtro por e-mail |
+
+Faça **Redeploy**. Pronto: o app passa a pedir "Entrar com Microsoft" e só aceita contas
+do tenant da Cattalini (e do domínio, se informado).
+
+Para testar local: copie `.env.example` para `.env.local` e preencha os mesmos valores.
+
+### Como funciona
+
+- Sem `TENANT_ID`+`CLIENT_ID` → login desligado, app aberto.
+- Com eles → tela de login antes de tudo; sessão mantida entre reloads (localStorage);
+  chip com nome do usuário + botão "Sair" no cabeçalho.
+- A `authority` é fixada no tenant da Cattalini, então contas de outros diretórios não logam.
+- Observação de segurança: como todo o processamento (Excel → slides) é no navegador e não
+  há servidor, esse login é um **portão de acesso à ferramenta** (SSO corporativo), não uma
+  proteção de dados no servidor — não existe servidor nem dado da empresa trafegando.
+
 ## Estrutura do repositório
 
 ```
