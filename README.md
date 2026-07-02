@@ -41,10 +41,19 @@ npx vitest run
    (um exemplo gerado do Excel real está em `mapping.config.example.json`).
 3. **Preview do deck** — grade com os 18 slides renderizados. Badge por slide:
    ✅ ok · ⚠️ precisa de override · ⛔ erro de validação. Clique para abrir em 1440×829.
-4. **Overrides** — painel lateral lista os campos que o Excel **não entrega com
-   confiança** (ex.: faturamento por cliente do óleo degomado, que vem de print do BI).
-   Eles chegam **vazios** — nunca inventados (Regra de Ouro 8). Preencha pelo editor do
-   slide ou marque "sem alteração este mês". A correção re-renderiza só o slide afetado.
+4. **Editar cada slide** — botão **✏️ Editar** no card abre um editor com 3 abas:
+   - **📝 Conteúdo** (padrão) — um formulário com cada parte do slide em campos
+     rotulados em português (Título, Indicadores, Comentários, Legendas…), seletor
+     de cor visual e menus para estilos (positivo/negativo/atenção). **Não precisa
+     saber HTML.** Listas têm botões de adicionar/remover.
+   - **Dados (JSON)** — modo avançado, sincronizado com o formulário.
+   - **HTML** — modo avançado com preview ao vivo (congela o slide até restaurar).
+
+   O painel lateral também lista os campos que o Excel **não entrega com confiança**
+   (ex.: faturamento por cliente do óleo degomado). Eles chegam **vazios** — nunca
+   inventados (Regra de Ouro 8); preencha no editor (há um atalho para colar do print
+   do BI no slide 15) ou marque "sem alteração este mês". Toda edição re-renderiza só
+   o slide afetado e vai junto nos exports.
 5. **Export** — "Baixar deck .zip" (HTML para `html.to.design`), PDF (18 páginas
    1440×829), PNGs e `manifesto.json`. O `.zip` inclui manifesto, mapping e estado do
    projeto para reaproveitar no mês seguinte.

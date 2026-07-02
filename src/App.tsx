@@ -13,6 +13,7 @@ import { loadProjeto, saveProjeto, aplicarOverrides, statusSlide, download, SLID
 import { baixarZip, baixarPdf, baixarPngsZip, baixarHtml, baixarPng } from './ui/exportar';
 import { UserChip } from './auth/Gate';
 import { authEnabled } from './auth/msal';
+import { FriendlyEditor } from './ui/FriendlyEditor';
 
 type Tela = 'upload' | 'mapeamento' | 'deck';
 
@@ -25,9 +26,9 @@ export default function App() {
   const [modoSvg, setModoSvg] = useState(true);
   const [slideAberto, setSlideAberto] = useState<string | null>(null);
   const [editorSlide, setEditorSlide] = useState<string | null>(null);
+  const [editTabInicial, setEditTabInicial] = useState<'form' | 'json' | 'html'>('form');
   const [progresso, setProgresso] = useState<string>('');
   const [carregando, setCarregando] = useState(false);
-  const [editorHtml, setEditorHtml] = useState<string | null>(null);
   const [mesSel, setMesSel] = useState<string>(''); // 'ano-mes' ou '' = mais recente
 
   const salvar = useCallback((p: ProjetoState) => { setProjeto(p); saveProjeto(p); }, []);
@@ -179,7 +180,7 @@ export default function App() {
             resolvidas={projeto.pendResolvidas}
             completo={completo}
             onResolver={(id) => salvar({ ...projeto, pendResolvidas: [...new Set([...projeto.pendResolvidas, id])] })}
-            onAbrirSlide={(nn) => setEditorSlide(nn)}
+            onAbrirSlide={(nn) => { setEditTabInicial('form'); setEditorSlide(nn); }}
           />
           <div className="deck-main">
             <div className="export-bar">
@@ -208,11 +209,7 @@ export default function App() {
                     <div className="card-head">
                       <span className="card-num">{s.nn}</span>
                       <span className="card-title">{SLIDE_LABELS[s.nn]}</span>
-                      <button
-                        className={`lapis${projeto.htmlEdits[s.nn] ? ' editado' : ''}`}
-                        title={projeto.htmlEdits[s.nn] ? 'HTML editado à mão — clique para reeditar' : 'Editar HTML deste slide'}
-                        onClick={() => setEditorHtml(s.nn)}
-                      >✏️</button>
+                      {(!!projeto.htmlEdits[s.nn] || !!projeto.overrides[SLIDE_KEY[s.nn]]) && <span className="badge-editado" title="Slide editado manualmente">✏️</span>}
                       <span className={`badge-st st-${st}`}>{st === 'ok' ? '✅' : st === 'warn' ? '⚠️' : '⛔'}</span>
                     </div>
                     <div className="thumb" onClick={() => setSlideAberto(s.nn)}>
@@ -220,9 +217,9 @@ export default function App() {
                     </div>
                     <div className="card-acoes">
                       <button className="mini" onClick={() => setSlideAberto(s.nn)}>Abrir 1440×829</button>
-                      <button className="mini" onClick={() => setEditorSlide(s.nn)}>Override</button>
-                      <button className="mini" onClick={() => baixarHtml(s)}>HTML</button>
-                      <button className="mini" onClick={() => baixarPng(s)}>PNG</button>
+                      <button className="mini mini-edit" onClick={() => { setEditTabInicial('form'); setEditorSlide(s.nn); }}>✏️ Editar</button>
+                      <button className="mini" onClick={() => baixarHtml(s)}>⬇ HTML</button>
+                      <button className="mini" onClick={() => baixarPng(s)}>⬇ PNG</button>
                     </div>
                   </div>
                 );
@@ -249,39 +246,28 @@ export default function App() {
         </div>
       )}
 
-      {editorHtml && manifesto && (
-        <EditorHtml
-          nn={editorHtml}
-          htmlAtual={deckExibicao.find((s) => s.nn === editorHtml)?.html ?? ''}
-          editado={!!projeto.htmlEdits[editorHtml]}
-          onFechar={() => setEditorHtml(null)}
-          onAplicar={(html) => {
-            salvar({ ...projeto, htmlEdits: { ...projeto.htmlEdits, [editorHtml]: html } });
-          }}
-          onRestaurar={() => {
-            const e2 = { ...projeto.htmlEdits };
-            delete e2[editorHtml];
-            salvar({ ...projeto, htmlEdits: e2 });
-            setEditorHtml(null);
-          }}
-        />
-      )}
-
       {editorSlide && manifesto && etl && (
-        <EditorOverride
+        <EditorSlide
           nn={editorSlide}
+          tabInicial={editTabInicial}
           manifesto={manifesto}
+          htmlAtual={deckExibicao.find((s) => s.nn === editorSlide)?.html ?? ''}
+          temOverride={!!projeto.overrides[SLIDE_KEY[editorSlide]]}
+          temHtmlEdit={!!projeto.htmlEdits[editorSlide]}
           pendencias={pendencias.filter((p) => p.slide === editorSlide)}
           resolvidas={projeto.pendResolvidas}
           onFechar={() => setEditorSlide(null)}
-          onAplicar={(patch) => {
-            // correção aplicada NA HORA; só o slide afetado muda no manifesto
-            salvar({ ...projeto, overrides: { ...projeto.overrides, [SLIDE_KEY[editorSlide]]: patch } });
-          }}
-          onLimpar={() => {
+          onAplicarDados={(patch) => salvar({ ...projeto, overrides: { ...projeto.overrides, [SLIDE_KEY[editorSlide]]: patch } })}
+          onLimparDados={() => {
             const o = { ...projeto.overrides };
             delete o[SLIDE_KEY[editorSlide]];
             salvar({ ...projeto, overrides: o });
+          }}
+          onAplicarHtml={(html) => salvar({ ...projeto, htmlEdits: { ...projeto.htmlEdits, [editorSlide]: html } })}
+          onLimparHtml={() => {
+            const e2 = { ...projeto.htmlEdits };
+            delete e2[editorSlide];
+            salvar({ ...projeto, htmlEdits: e2 });
           }}
           onResolver={(id) => salvar({ ...projeto, pendResolvidas: [...new Set([...projeto.pendResolvidas, id])] })}
         />
@@ -480,62 +466,44 @@ function PainelStatus({ pendencias, validacoes, resolvidas, completo, onResolver
   );
 }
 
-// ---------------- Editor de HTML por slide (lápis ✏️) ----------------
-function EditorHtml({ nn, htmlAtual, editado, onFechar, onAplicar, onRestaurar }: {
-  nn: string;
-  htmlAtual: string;
-  editado: boolean;
-  onFechar: () => void;
-  onAplicar: (html: string) => void;
-  onRestaurar: () => void;
-}) {
-  const [txt, setTxt] = useState(htmlAtual);
-  const [preview, setPreview] = useState(htmlAtual);
-  return (
-    <div className="modal" onClick={onFechar}>
-      <div className="modal-inner editor-html" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-bar">
-          <strong>✏️ Editar HTML — Slide {nn} ({SLIDE_LABELS[nn]}){editado ? ' · editado à mão' : ''}</strong>
-          <button className="btn sec" onClick={onFechar}>Fechar ✕</button>
-        </div>
-        <p className="painel-sub">
-          Edite o código do slide e clique em <strong>Atualizar preview</strong> para ver o resultado.
-          <strong> Aplicar</strong> salva a edição (ela vence sobre o gerado e vai junto nos exports).
-          <strong> Restaurar gerado</strong> volta para a versão automática do Excel.
-          Atenção: um slide editado à mão <strong>não</strong> se atualiza mais quando os dados/mês mudarem, até restaurar.
-        </p>
-        <div className="editor-html-grid">
-          <textarea className="json-editor html-editor" value={txt} onChange={(e) => setTxt(e.target.value)} spellCheck={false} />
-          <div className="preview-mini">
-            <iframe title={`edit-${nn}`} srcDoc={preview} scrolling="no" />
-          </div>
-        </div>
-        <div className="map-acoes">
-          <button className="btn sec" onClick={() => setPreview(txt)}>👁 Atualizar preview</button>
-          <button className="btn" onClick={() => { onAplicar(txt); onFechar(); }}>Aplicar edição</button>
-          {editado && <button className="btn sec" onClick={onRestaurar}>Restaurar gerado</button>}
-        </div>
-      </div>
-    </div>
-  );
-}
+// ---------------- Editor unificado por slide (Conteúdo / Dados / HTML) ----------------
+type EditTab = 'form' | 'json' | 'html';
 
-// ---------------- Editor de override por slide ----------------
-function EditorOverride({ nn, manifesto, pendencias, resolvidas, onFechar, onAplicar, onLimpar, onResolver }: {
+function EditorSlide({ nn, tabInicial, manifesto, htmlAtual, temOverride, temHtmlEdit, pendencias, resolvidas, onFechar, onAplicarDados, onLimparDados, onAplicarHtml, onLimparHtml, onResolver }: {
   nn: string;
+  tabInicial: EditTab;
   manifesto: Record<string, any>;
+  htmlAtual: string;
+  temOverride: boolean;
+  temHtmlEdit: boolean;
   pendencias: EtlResult['pendencias'];
   resolvidas: string[];
   onFechar: () => void;
-  onAplicar: (patch: unknown) => void;
-  onLimpar: () => void;
+  onAplicarDados: (patch: unknown) => void;
+  onLimparDados: () => void;
+  onAplicarHtml: (html: string) => void;
+  onLimparHtml: () => void;
   onResolver: (id: string) => void;
 }) {
   const key = SLIDE_KEY[nn];
-  const [txt, setTxt] = useState(() => JSON.stringify(manifesto[key], null, 1));
-  const [err, setErr] = useState('');
+  const [tab, setTab] = useState<EditTab>(tabInicial);
+  // rascunho dos DADOS (compartilhado entre Conteúdo e JSON)
+  const [draft, setDraft] = useState<any>(() => JSON.parse(JSON.stringify(manifesto[key])));
+  const [jsonTxt, setJsonTxt] = useState(() => JSON.stringify(manifesto[key], null, 1));
+  const [jsonErr, setJsonErr] = useState('');
+  // rascunho do HTML
+  const [htmlTxt, setHtmlTxt] = useState(htmlAtual);
+  const [htmlPreview, setHtmlPreview] = useState(htmlAtual);
   const [printTxt, setPrintTxt] = useState('');
-  // "Cargill 9.280" / "LDC R$ 8,63 Mi" / "Coamo 3760" → [label, R$ x1000]
+
+  // Conteúdo → sincroniza o JSON
+  const setDraftSync = (v: unknown) => { setDraft(v); setJsonTxt(JSON.stringify(v, null, 1)); setJsonErr(''); };
+  // JSON → sincroniza o rascunho
+  const setJsonSync = (txt: string) => {
+    setJsonTxt(txt);
+    try { setDraft(JSON.parse(txt)); setJsonErr(''); } catch (e) { setJsonErr(String((e as Error).message)); }
+  };
+
   const parsePrint = (linhas: string): [string, number][] => {
     const out: [string, number][] = [];
     for (const l of linhas.split('\n')) {
@@ -543,63 +511,92 @@ function EditorOverride({ nn, manifesto, pendencias, resolvidas, onFechar, onApl
       if (!m) continue;
       let v = Number(m[2].replace(/\./g, '').replace(',', '.'));
       if (!Number.isFinite(v)) continue;
-      if ((m[3] ?? '').toLowerCase() === 'mi') v *= 1000; // R$ Mi → R$ x1000
+      if ((m[3] ?? '').toLowerCase() === 'mi') v *= 1000;
       out.push([m[1].trim(), Math.round(v)]);
     }
     return out;
   };
+
+  const salvarDados = () => { onAplicarDados(draft); onFechar(); };
+
   return (
     <div className="modal" onClick={onFechar}>
-      <div className="modal-inner editor" onClick={(e) => e.stopPropagation()}>
+      <div className={`modal-inner ${tab === 'html' ? 'editor-html' : 'editor'}`} onClick={(e) => e.stopPropagation()}>
         <div className="modal-bar">
-          <strong>Override — Slide {nn} ({SLIDE_LABELS[nn]})</strong>
+          <strong>✏️ Editar — Slide {nn} · {SLIDE_LABELS[nn]}</strong>
           <button className="btn sec" onClick={onFechar}>Fechar ✕</button>
         </div>
+
+        <div className="edit-tabs">
+          <button className={`edit-tab${tab === 'form' ? ' on' : ''}`} onClick={() => setTab('form')}>📝 Conteúdo</button>
+          <button className={`edit-tab${tab === 'json' ? ' on' : ''}`} onClick={() => setTab('json')}>{ } Dados (JSON)</button>
+          <button className={`edit-tab${tab === 'html' ? ' on' : ''}`} onClick={() => setTab('html')}>&lt;/&gt; HTML</button>
+          {temOverride && <span className="edit-flag">conteúdo editado</span>}
+          {temHtmlEdit && <span className="edit-flag">HTML editado</span>}
+        </div>
+
+        {/* pendências (sempre visíveis) */}
         {pendencias.filter((p) => !resolvidas.includes(p.id)).map((p) => (
           <div key={p.id} className={`pend pend-${p.severidade}`}>
             <div className="pend-txt">{p.severidade === 'block' ? '⛔' : '⚠️'} {p.rotulo}</div>
-            <div className="pend-acoes">
-              <button className="mini" onClick={() => onResolver(p.id)}>Marcar resolvida</button>
-            </div>
+            <div className="pend-acoes"><button className="mini" onClick={() => onResolver(p.id)}>Marcar resolvida</button></div>
           </div>
         ))}
-        <p className="painel-sub">Edite os dados desta seção do manifesto (JSON). Valores vêm vazios quando o Excel não entrega — <strong>nunca invente</strong>: use o print do BI como fonte. A correção re-renderiza só este slide.</p>
-        {nn === '15' && (
+
+        {/* atalho de print (slide 15) — em qualquer aba de dados */}
+        {nn === '15' && tab !== 'html' && (
           <div className="colar-print">
             <div className="pend-head">📷 Preencher faturamento a partir do print do BI</div>
-            <p className="painel-sub">Cole uma linha por cliente, como aparece no print — ex.: <code>Cargill R$ 9,28 Mi</code> ou <code>Cargill 9280</code> (R$ x1.000). Clique em aplicar para substituir <code>fat_labels</code>/<code>fat_vals</code> no JSON abaixo.</p>
-            <textarea
-              className="json-editor print-editor"
-              placeholder={'Cargill R$ 9,28 Mi\nLDC R$ 8,63 Mi\nCoamo 3760\n…'}
-              value={printTxt}
-              onChange={(e) => setPrintTxt(e.target.value)}
-              spellCheck={false}
-            />
+            <p className="painel-sub">Cole uma linha por cliente — ex.: <code>Cargill R$ 9,28 Mi</code> ou <code>Cargill 9280</code> (R$ x1.000).</p>
+            <textarea className="json-editor print-editor" placeholder={'Cargill R$ 9,28 Mi\nLDC R$ 8,63 Mi\nCoamo 3760\n…'} value={printTxt} onChange={(e) => setPrintTxt(e.target.value)} spellCheck={false} />
             <button className="mini" onClick={() => {
               const pares = parsePrint(printTxt);
-              if (!pares.length) { setErr('Nenhuma linha "Cliente valor" reconhecida no texto colado.'); return; }
-              try {
-                const j = JSON.parse(txt);
-                j.fat_labels = pares.map(([k]) => k);
-                j.fat_vals = pares.map(([, v]) => v);
-                setTxt(JSON.stringify(j, null, 1));
-                setErr('');
-              } catch (e) { setErr(String((e as Error).message)); }
-            }}>↧ Aplicar no JSON ({parsePrint(printTxt).length} cliente{parsePrint(printTxt).length === 1 ? '' : 's'} reconhecido{parsePrint(printTxt).length === 1 ? '' : 's'})</button>
+              if (!pares.length) return;
+              const j = { ...draft, fat_labels: pares.map(([k]) => k), fat_vals: pares.map(([, v]) => v) };
+              setDraftSync(j);
+            }}>↧ Preencher ({parsePrint(printTxt).length} clientes)</button>
           </div>
         )}
-        <textarea className="json-editor" value={txt} onChange={(e) => setTxt(e.target.value)} spellCheck={false} />
-        {err && <div className="erro-bar">JSON inválido: {err}</div>}
-        <div className="map-acoes">
-          <button className="btn" onClick={() => {
-            try {
-              onAplicar(JSON.parse(txt));
-              setErr('');
-              onFechar();
-            } catch (e) { setErr(String((e as Error).message)); }
-          }}>Aplicar override</button>
-          <button className="btn sec" onClick={() => { onLimpar(); onFechar(); }}>Restaurar valores do Excel</button>
-        </div>
+
+        {tab === 'form' && (
+          <>
+            <p className="painel-sub">Edite cada parte do slide pelos campos abaixo. Onde faltar dado do Excel, preencha com o print do BI — <strong>nunca invente número</strong>. As alterações valem só para este slide e vão nos exports.</p>
+            <div className="form-scroll">
+              <FriendlyEditor value={draft} onChange={setDraftSync} />
+            </div>
+            <div className="map-acoes">
+              <button className="btn" onClick={salvarDados}>Salvar alterações</button>
+              {temOverride && <button className="btn sec" onClick={() => { onLimparDados(); onFechar(); }}>Restaurar valores do Excel</button>}
+            </div>
+          </>
+        )}
+
+        {tab === 'json' && (
+          <>
+            <p className="painel-sub">Modo avançado: edite os dados desta seção como JSON. Sincroniza com a aba Conteúdo.</p>
+            <textarea className="json-editor" value={jsonTxt} onChange={(e) => setJsonSync(e.target.value)} spellCheck={false} />
+            {jsonErr && <div className="erro-bar">JSON inválido: {jsonErr}</div>}
+            <div className="map-acoes">
+              <button className="btn" disabled={!!jsonErr} onClick={salvarDados}>Salvar alterações</button>
+              {temOverride && <button className="btn sec" onClick={() => { onLimparDados(); onFechar(); }}>Restaurar valores do Excel</button>}
+            </div>
+          </>
+        )}
+
+        {tab === 'html' && (
+          <>
+            <p className="painel-sub">Modo avançado: edite o HTML final do slide. Um slide editado aqui <strong>congela</strong> — não se atualiza mais quando os dados/mês mudarem, até restaurar.</p>
+            <div className="editor-html-grid">
+              <textarea className="json-editor html-editor" value={htmlTxt} onChange={(e) => setHtmlTxt(e.target.value)} spellCheck={false} />
+              <div className="preview-mini"><iframe title={`edit-${nn}`} srcDoc={htmlPreview} scrolling="no" /></div>
+            </div>
+            <div className="map-acoes">
+              <button className="btn sec" onClick={() => setHtmlPreview(htmlTxt)}>👁 Atualizar preview</button>
+              <button className="btn" onClick={() => { onAplicarHtml(htmlTxt); onFechar(); }}>Salvar HTML</button>
+              {temHtmlEdit && <button className="btn sec" onClick={() => { onLimparHtml(); onFechar(); }}>Restaurar gerado</button>}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
