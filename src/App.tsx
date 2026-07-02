@@ -529,6 +529,20 @@ function EditorOverride({ nn, manifesto, pendencias, resolvidas, onFechar, onApl
   const key = SLIDE_KEY[nn];
   const [txt, setTxt] = useState(() => JSON.stringify(manifesto[key], null, 1));
   const [err, setErr] = useState('');
+  const [printTxt, setPrintTxt] = useState('');
+  // "Cargill 9.280" / "LDC R$ 8,63 Mi" / "Coamo 3760" → [label, R$ x1000]
+  const parsePrint = (linhas: string): [string, number][] => {
+    const out: [string, number][] = [];
+    for (const l of linhas.split('\n')) {
+      const m = l.trim().match(/^(.+?)[\s·|:]+R?\$?\s*([\d.,]+)\s*(mi|k)?\s*$/i);
+      if (!m) continue;
+      let v = Number(m[2].replace(/\./g, '').replace(',', '.'));
+      if (!Number.isFinite(v)) continue;
+      if ((m[3] ?? '').toLowerCase() === 'mi') v *= 1000; // R$ Mi → R$ x1000
+      out.push([m[1].trim(), Math.round(v)]);
+    }
+    return out;
+  };
   return (
     <div className="modal" onClick={onFechar}>
       <div className="modal-inner editor" onClick={(e) => e.stopPropagation()}>
@@ -545,6 +559,30 @@ function EditorOverride({ nn, manifesto, pendencias, resolvidas, onFechar, onApl
           </div>
         ))}
         <p className="painel-sub">Edite os dados desta seção do manifesto (JSON). Valores vêm vazios quando o Excel não entrega — <strong>nunca invente</strong>: use o print do BI como fonte. A correção re-renderiza só este slide.</p>
+        {nn === '15' && (
+          <div className="colar-print">
+            <div className="pend-head">📷 Preencher faturamento a partir do print do BI</div>
+            <p className="painel-sub">Cole uma linha por cliente, como aparece no print — ex.: <code>Cargill R$ 9,28 Mi</code> ou <code>Cargill 9280</code> (R$ x1.000). Clique em aplicar para substituir <code>fat_labels</code>/<code>fat_vals</code> no JSON abaixo.</p>
+            <textarea
+              className="json-editor print-editor"
+              placeholder={'Cargill R$ 9,28 Mi\nLDC R$ 8,63 Mi\nCoamo 3760\n…'}
+              value={printTxt}
+              onChange={(e) => setPrintTxt(e.target.value)}
+              spellCheck={false}
+            />
+            <button className="mini" onClick={() => {
+              const pares = parsePrint(printTxt);
+              if (!pares.length) { setErr('Nenhuma linha "Cliente valor" reconhecida no texto colado.'); return; }
+              try {
+                const j = JSON.parse(txt);
+                j.fat_labels = pares.map(([k]) => k);
+                j.fat_vals = pares.map(([, v]) => v);
+                setTxt(JSON.stringify(j, null, 1));
+                setErr('');
+              } catch (e) { setErr(String((e as Error).message)); }
+            }}>↧ Aplicar no JSON ({parsePrint(printTxt).length} cliente{parsePrint(printTxt).length === 1 ? '' : 's'} reconhecido{parsePrint(printTxt).length === 1 ? '' : 's'})</button>
+          </div>
+        )}
         <textarea className="json-editor" value={txt} onChange={(e) => setTxt(e.target.value)} spellCheck={false} />
         {err && <div className="erro-bar">JSON inválido: {err}</div>}
         <div className="map-acoes">

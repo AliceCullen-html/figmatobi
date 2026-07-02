@@ -949,14 +949,30 @@ export function buildManifest(
     const varAA = totalDegAA ? pctSafe(totalDeg, totalDegAA) : 0;
     const periodo = `Jan–${capitalizar(refLabel(ultimoMesC, refAno).split('/')[0])}/${refAno}`;
     const top3pct = totalDeg ? Math.round((sum(porCli.slice(0, 3).map(([, v]) => v)) / totalDeg) * 100) : 0;
-    addPend('15', 'slide15_oleo_degomado', 'Faturamento por cliente do óleo degomado não está no Excel — informar via override (print Fat por cliente, mesmo período da Mov).', 'block');
+    // Faturamento do degomado: no banco de faturamento o produto se chama
+    // "OLEO DE SOJA BRUTO" (sem o sufixo DEGOMADO da aba de movimentação).
+    // Validado contra o deck oficial: LDC/COAMO/OLAM/COMIGO/BTG/ADM batem 1:1.
+    const isDegFat = (p: string) => /SOJA BRUTO/i.test(p) && !/REFINADO/i.test(p);
+    const fatDeg = fat.filter((r) => r.ano === refAno && r.mesN <= ultimoMesC && isDegFat(r.produto) && !isAcost(r.cliente));
+    const fatDegAA = fat.filter((r) => r.ano === anoAnt && r.mesN <= ultimoMesC && isDegFat(r.produto) && !isAcost(r.cliente));
+    const fatPorCli = [...somaPor(fatDeg, (r) => r.cliente, (r) => r.valor).entries()].sort((a, b) => b[1] - a[1]);
+    const fatPorCliAA = somaPor(fatDegAA, (r) => r.cliente, (r) => r.valor);
+    const totalFatDeg = sum(fatPorCli.map(([, v]) => v));
+    const totalFatDegAA = sum(fatDegAA.map((r) => r.valor));
+    const varFatAA = totalFatDegAA ? pctSafe(totalFatDeg, totalFatDegAA) : 0;
+    if (fatPorCli.length) {
+      addPend('15', 'slide15_oleo_degomado', 'Fat. do degomado lido do produto "OLEO DE SOJA BRUTO" do Excel — conferir com o print do BI (nome do produto difere da aba de movimentação).', 'warn');
+    } else {
+      addPend('15', 'slide15_oleo_degomado', 'Faturamento por cliente do óleo degomado não está no Excel — informar via override (print Fat por cliente, mesmo período da Mov).', 'block');
+    }
     D['slide15_oleo_degomado'] = {
-      headline: `${porCli[0]?.[0] ?? '—'} lidera volume com <span class="hl-up">${fmtK(porCli[0]?.[1] ?? 0)} TON</span> · exportação de óleo degomado ${varAA >= 0 ? 'cresce' : 'recua'} <span class="${varAA >= 0 ? 'hl-up' : 'hl-down'}">${fmtVarPct(varAA, 0)}</span> aa no volume`,
-      hl_sub: `${periodo} · Óleo de Soja Degomado – Exportação · Movimentação (TON) por cliente · Faturamento via override`,
+      headline: `${porCli[0]?.[0] ?? '—'} lidera volume com <span class="hl-up">${fmtK(porCli[0]?.[1] ?? 0)} TON</span>${fatPorCli.length ? ` — ${fatPorCli[0][0]} lidera faturamento com <span class="hl-up">${fmtMi(fatPorCli[0][1], true, 2)}</span>` : ''} · exportação de óleo degomado ${varAA >= 0 ? 'cresce' : 'recua'} <span class="${varAA >= 0 ? 'hl-up' : 'hl-down'}">${fmtVarPct(varAA, 0)}</span> aa no volume`,
+      hl_sub: `${periodo} · Óleo de Soja Degomado – Exportação · Movimentação (TON) e Faturamento (R$) por cliente`,
       kpis: [
         { lbl: `MOV. Total ${periodo}`, val: `${fmtK(totalDeg, 0)} TON`, val_cls: 'up', sub: totalDegAA ? `<span class="up">${varAA >= 0 ? '▲' : '▼'} ${fmtVarPct(varAA, 0)}</span> vs jan–${refLabel(ultimoMesC, anoAnt)}` : 'sem base ano anterior' },
-        { lbl: `Fat. Total ${periodo}`, val: '—', sub: 'informar via override (print)' },
+        { lbl: `Fat. Total ${periodo}`, val: fatPorCli.length ? fmtMi(totalFatDeg) : '—', sub: fatPorCli.length ? 'Óleo de Soja Degomado' : 'informar via override (print)' },
         { lbl: `Top Volume — ${porCli[0]?.[0] ?? '—'}`, val: `${fmtK(porCli[0]?.[1] ?? 0)} TON`, sub: `${brNum(totalDeg ? ((porCli[0]?.[1] ?? 0) / totalDeg) * 100 : 0, 1)}% do volume total` },
+        ...(fatPorCli.length ? [{ lbl: `Top Fat. — ${fatPorCli[0][0]}`, val: fmtMi(fatPorCli[0][1], true, 2), sub: `${brNum(totalFatDeg ? (fatPorCli[0][1] / totalFatDeg) * 100 : 0, 1)}% do fat. total` }] : []),
         { lbl: 'Top 3 concentram', val: `${top3pct}%`, sub: `volume (${porCli.slice(0, 3).map(([k]) => k).join(' + ')})` },
         { lbl: 'Clientes ativos', val: String(porCli.length), val_cls: 'up', sub: `${periodo} nesse produto` },
       ],
@@ -964,8 +980,8 @@ export function buildManifest(
       sec_fat: `Faturamento por Cliente (R$ x 1.000) · ${periodo}`,
       mov_labels: porCli.slice(0, 16).map(([k]) => k),
       mov_vals: porCli.slice(0, 16).map(([, v]) => Math.round(v)),
-      fat_labels: [],
-      fat_vals: [],
+      fat_labels: fatPorCli.slice(0, 16).map(([k]) => k),
+      fat_vals: fatPorCli.slice(0, 16).map(([, v]) => Math.round(v / 1000)),
       callouts_mov: [
         { tag: 'Concentração · Volume', items: [
           { a: 'warn', t: `<strong>${porCli.slice(0, 3).map(([k]) => k).join(' + ')} = ${top3pct}%</strong> do volume — top 3 concentrados` },
@@ -981,7 +997,24 @@ export function buildManifest(
           return qued.length ? qued.map(([k, v]) => ({ a: 'down', t: `<strong>${k} ${fmtVarPct(pctSafe(v, porCliAA.get(k) ?? 1), 1)}</strong> em TON — maior recuo do grupo` })) : [{ a: 'neu', t: 'Sem quedas relevantes em TON' }];
         })() },
       ],
-      callouts_fat: [
+      // Regra de Ouro 10: callouts de Receita só falam de R$ — nunca TON
+      callouts_fat: fatPorCli.length ? [
+        { tag: 'Concentração · Receita', items: [
+          { a: 'warn', t: `<strong>${fatPorCli[0][0]} ${fmtMi(fatPorCli[0][1], false, 2)}</strong> (${brNum((fatPorCli[0][1] / (totalFatDeg || 1)) * 100, 1)}%)${fatPorCli[1] ? ` e ${fatPorCli[1][0]} ${fmtMi(fatPorCli[1][1], false, 2)} (${brNum((fatPorCli[1][1] / (totalFatDeg || 1)) * 100, 1)}%)` : ''} — top 2 = ${Math.round(((fatPorCli[0]?.[1] ?? 0) + (fatPorCli[1]?.[1] ?? 0)) / (totalFatDeg || 1) * 100)}% da receita` },
+        ] },
+        { tag: 'Destaque · Receita', items: (() => {
+          const cresc = fatPorCli.filter(([k, v]) => (fatPorCliAA.get(k) ?? 0) > 0 && v > (fatPorCliAA.get(k) ?? 0) * 1.5).slice(0, 2);
+          const itens = cresc.map(([k, v]) => ({ a: 'up', t: `<strong>${k} ${fmtVarPct(pctSafe(v, fatPorCliAA.get(k) ?? 1), 0)} aa</strong> em receita` }));
+          if (totalFatDegAA) itens.push({ a: varFatAA >= 0 ? 'up' : 'down', t: `Receita total do produto <strong>${fmtVarPct(varFatAA, 0)} aa</strong> no período` });
+          return itens.length ? itens : [{ a: 'neu', t: 'Sem crescimentos &gt;50% aa em receita no período' }];
+        })() },
+        { tag: 'Atenção · Receita', items: (() => {
+          const qued = fatPorCli.filter(([k, v]) => (fatPorCliAA.get(k) ?? 0) > 0 && v < (fatPorCliAA.get(k) ?? 0) * 0.8).slice(0, 2);
+          return qued.length
+            ? qued.map(([k, v]) => ({ a: 'down', t: `<strong>${k} ${fmtVarPct(pctSafe(v, fatPorCliAA.get(k) ?? 1), 1)}</strong> em receita vs ano anterior` }))
+            : [{ a: 'neu', t: 'Sem quedas relevantes de receita no período' }];
+        })() },
+      ] : [
         { tag: 'Concentração · Receita', items: [{ a: 'warn', t: '<strong>Informar faturamento via override</strong> — print Fat por cliente (mesmo período da Mov)' }] },
         { tag: 'Destaque · Receita', items: [{ a: 'neu', t: 'Preencher após o override de faturamento' }] },
         { tag: 'Atenção · Receita', items: [{ a: 'neu', t: 'Callouts de R$ só falam de R$ (Regra 10)' }] },

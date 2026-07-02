@@ -138,6 +138,8 @@ select {
 }
 .lapis:hover { background: #F4F6FA; }
 .lapis.editado { background: #FFF3BF; border-color: #F5C400; }
+.colar-print { border: 1px dashed #C8D4DF; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; background: #FAFBFE; }
+.print-editor { min-height: 90px; margin: 6px 0; }
 .sel-mes {
   background: #fff; color: #14204A; border: none; border-radius: 3px;
   font-size: 12px; font-weight: 600; padding: 3px 6px;

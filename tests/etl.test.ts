@@ -57,9 +57,18 @@ describe('ETL sobre o Excel real', () => {
     expect(labels.sort()).toEqual(['CBL', 'Cattalini', 'Terin']);
   });
 
-  it('campos sem fonte confiável viram pendência (nunca valor cru)', () => {
-    expect(pendencias.some((p) => p.slide === '15')).toBe(true);
-    expect(manifesto.slide15_oleo_degomado.fat_vals).toEqual([]);
+  it('fat do degomado vem do produto OLEO DE SOJA BRUTO, com pendência de conferência', () => {
+    const s15 = manifesto.slide15_oleo_degomado;
+    expect(s15.fat_vals.length).toBeGreaterThan(5);
+    // valores validados contra o deck oficial de mai/26 (R$ x1.000)
+    const ldc = s15.fat_labels.indexOf('LDC');
+    expect(ldc).toBeGreaterThanOrEqual(0);
+    expect(s15.fat_vals[ldc]).toBe(8632);
+    // Regra 10: callouts de receita não mencionam TON
+    for (const c of s15.callouts_fat) {
+      for (const it of c.items) expect(it.t).not.toMatch(/TON/);
+    }
+    expect(pendencias.some((p) => p.slide === '15' && p.severidade === 'warn')).toBe(true);
   });
 
   it('renderiza os 17 slides sem erro', () => {

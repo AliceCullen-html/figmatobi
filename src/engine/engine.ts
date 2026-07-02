@@ -562,8 +562,10 @@ function genSlide15(D: Manifest): RenderResult {
     '<div class="hl-main">\n      ' + s['headline'] + '\n    </div>');
   html = reSub(html, /<div class="hl-sub">.*?<\/div>/s,
     '<div class="hl-sub">' + s['hl_sub'] + '</div>');
-  html = reSub(html, /<div class="kpis">.*?<\/div>\s*<div class="body">/s,
-    buildKpis(s['kpis']) + '\n\n  <div class="body">');
+  // o template 15 usa .kpi-row (não .kpis) — trocar o wrapper para manter o CSS
+  const kpis15 = buildKpis(s['kpis']).replace('<div class="kpis">', '<div class="kpi-row">');
+  html = reSub(html, /<div class="kpi-row">.*?<\/div>\s*<div class="body">/s,
+    kpis15 + '\n\n  <div class="body">');
   html = reSub(html, /<div class="sec-label">Movimenta.*?<\/div>/s,
     '<div class="sec-label">' + s['sec_mov'] + '</div>');
   html = reSub(html, /<div class="sec-label">Faturamento.*?<\/div>/s,
@@ -588,9 +590,12 @@ function genSlide15(D: Manifest): RenderResult {
     }
     return '<div class="callout-col">\n      ' + blocks.join('\n      ') + '\n    </div>';
   };
-  html = reSub(html, /<div class="callout-col">.*?<\/div>\s*<\/div>\s*<div class="chart-col">/s,
+  // tolera comentários HTML (<!-- GRAFICO FATURAMENTO -->) entre as colunas
+  html = reSub(html, /<div class="callout-col">.*?<\/div>\s*<\/div>\s*(?:<!--.*?-->\s*)?<div class="chart-col">/s,
     col(s['callouts_mov']) + '\n\n    <div class="chart-col">');
-  html = reSub(html, /<div class="callout-col">.*?<\/div>\s*<\/div>\s*<\/div>\s*<script/s,
+  // ancora no ÚLTIMO callout-col (o do Fat): sem o lookahead negativo o match
+  // começava no callout-col da Mov e engolia o gráfico de Fat inteiro
+  html = reSub(html, /<div class="callout-col">(?:(?!<div class="callout-col">)[\s\S])*?<\/div>\s*<\/div>\s*<\/div>\s*<script/,
     col(s['callouts_fat']) + '\n  </div>\n</div>\n\n<script');
   return { nn: '15', file: 'slide_15_oleo_degomado.html', html };
 }

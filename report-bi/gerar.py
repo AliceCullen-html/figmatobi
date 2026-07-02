@@ -638,7 +638,9 @@ def gen_slide15():
     html=open(os.path.join(REF,"template_slide15.html"),encoding="utf-8").read()
     html=re.sub(r'<div class="hl-main">.*?</div>','<div class="hl-main">\n      '+s["headline"]+'\n    </div>',html,count=1,flags=re.DOTALL)
     html=re.sub(r'<div class="hl-sub">.*?</div>','<div class="hl-sub">'+s["hl_sub"]+'</div>',html,count=1,flags=re.DOTALL)
-    html=re.sub(r'<div class="kpis">.*?</div>\s*<div class="body">',build_kpis(s["kpis"])+'\n\n  <div class="body">',html,count=1,flags=re.DOTALL)
+    # o template 15 usa .kpi-row (nao .kpis) — trocar o wrapper para manter o CSS
+    kpis15=build_kpis(s["kpis"]).replace('<div class="kpis">','<div class="kpi-row">',1)
+    html=re.sub(r'<div class="kpi-row">.*?</div>\s*<div class="body">',kpis15+'\n\n  <div class="body">',html,count=1,flags=re.DOTALL)
     html=re.sub(r'<div class="sec-label">Movimenta.*?</div>','<div class="sec-label">'+s["sec_mov"]+'</div>',html,count=1,flags=re.DOTALL)
     html=re.sub(r'<div class="sec-label">Faturamento.*?</div>','<div class="sec-label">'+s["sec_fat"]+'</div>',html,count=1,flags=re.DOTALL)
     def arr(nm,items,q=False):
@@ -654,8 +656,11 @@ def gen_slide15():
             items="".join(f'<div class="c-item"><span class="arr {ARROW[it["a"]][0]}">{ARROW[it["a"]][1]}</span><span class="c-text">{it["t"]}</span></div>' for it in c["items"])
             blocks.append(f'<div>\n        <div class="callout-tag">{c["tag"]}</div>\n        <div class="c-items">{items}</div>\n      </div>')
         return '<div class="callout-col">\n      '+"\n      ".join(blocks)+'\n    </div>'
-    html=re.sub(r'<div class="callout-col">.*?</div>\s*</div>\s*<div class="chart-col">',col(s["callouts_mov"])+'\n\n    <div class="chart-col">',html,count=1,flags=re.DOTALL)
-    html=re.sub(r'<div class="callout-col">.*?</div>\s*</div>\s*</div>\s*<script',col(s["callouts_fat"])+'\n  </div>\n</div>\n\n<script',html,count=1,flags=re.DOTALL)
+    # tolera comentarios HTML (<!-- GRAFICO FATURAMENTO -->) entre as colunas
+    html=re.sub(r'<div class="callout-col">.*?</div>\s*</div>\s*(?:<!--.*?-->\s*)?<div class="chart-col">',col(s["callouts_mov"])+'\n\n    <div class="chart-col">',html,count=1,flags=re.DOTALL)
+    # ancora no ULTIMO callout-col (o do Fat): sem o lookahead negativo o match
+    # comecava no callout-col da Mov e engolia o grafico de Fat inteiro
+    html=re.sub(r'<div class="callout-col">(?:(?!<div class="callout-col">).)*?</div>\s*</div>\s*</div>\s*<script',col(s["callouts_fat"])+'\n  </div>\n</div>\n\n<script',html,count=1,flags=re.DOTALL)
     o=os.path.join(OUT,"slide_15_oleo_degomado.html"); open(o,"w",encoding="utf-8").write(html); return o
 
 # ============================================================ RUN
