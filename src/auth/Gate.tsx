@@ -7,6 +7,7 @@
 import { type ReactNode } from 'react';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 import { authEnabled, loginRequest, allowedDomain, dominioOk } from './msal';
+import { LoginBackground } from './LoginBackground';
 
 export function AuthGate({ children }: { children: ReactNode }) {
   if (!authEnabled) return <>{children}</>;
@@ -26,6 +27,7 @@ function TelaLogin() {
   const { instance } = useMsal();
   return (
     <div className="login-wrap">
+      <LoginBackground />
       <div className="login-card">
         <div className="login-tag">CATTALINI · COMERCIAL</div>
         <h1>Deck Mensal — Excel → 18 slides</h1>
