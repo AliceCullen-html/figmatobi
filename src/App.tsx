@@ -131,7 +131,7 @@ export default function App() {
                   value={mesSel || `${manifesto?.meta?.ano}-${manifesto?.meta?.mes_num}`}
                   onChange={(e) => { setMesSel(e.target.value); rodarEtl(sheets, projeto.mapping!, e.target.value); }}
                 >
-                  {etl.mesesDisponiveis.map((m) => (
+                  {[...etl.mesesDisponiveis].reverse().map((m) => (
                     <option key={`${m.ano}-${m.mesN}`} value={`${m.ano}-${m.mesN}`}>{m.label}</option>
                   ))}
                 </select>

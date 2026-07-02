@@ -99,7 +99,11 @@ export function UserChip() {
   return (
     <span className="user-chip" title={user.username}>
       <span className="user-nome">{user.name ?? user.username}</span>
-      <button className="user-sair" onClick={() => instance.logoutRedirect()}>Sair</button>
+      <button
+        className="user-sair"
+        title="Sair e voltar à tela de login"
+        onClick={() => instance.logoutRedirect({ account: user })}
+      >↩ Sair</button>
     </span>
   );
 }
