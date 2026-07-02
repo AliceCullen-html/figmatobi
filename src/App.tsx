@@ -321,8 +321,9 @@ function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGera
       )}
 
       <div className="upload-acoes">
-        <label className="btn sec">
-          + Adicionar arquivo
+        {/* sem arquivos → botão de escolher em destaque (amarelo); com arquivos → secundário */}
+        <label className={arquivos.length ? 'btn sec' : 'btn'}>
+          {arquivos.length ? '+ Adicionar arquivo' : '📁 Escolher os Excel do mês'}
           <input type="file" multiple accept=".xlsx,.xls,.json" hidden onChange={(e) => {
             // snapshot: o FileList é "vivo" e esvazia quando o input é limpo
             const fs = Array.from(e.target.files ?? []);
