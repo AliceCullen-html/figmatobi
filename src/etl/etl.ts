@@ -16,6 +16,8 @@ export interface EtlResult {
   manifesto: Record<string, any>;
   pendencias: Pendencia[];
   validacoes: ValidationIssue[];
+  /** meses com faturamento realizado disponíveis no Excel (para o seletor) */
+  mesesDisponiveis: { ano: number; mesN: number; label: string }[];
 }
 
 interface FatRow { ano: number; mesN: number; cliente: string; grupo: string; servico: string; servicoRaw: string; produto: string; ton: number; m3: number; valor: number; contrato: string }
@@ -54,7 +56,11 @@ function somaPor<T>(rows: T[], keyFn: (r: T) => string, valFn: (r: T) => number)
   return m;
 }
 
-export function buildManifest(sheets: SheetData[], cfg: MappingConfig): EtlResult {
+export function buildManifest(
+  sheets: SheetData[],
+  cfg: MappingConfig,
+  mesRef?: { ano: number; mesN: number },
+): EtlResult {
   const pend: Pendencia[] = [];
   const valid: ValidationIssue[] = [];
   const addPend = (slide: string, campo: string, rotulo: string, severidade: 'warn' | 'block' = 'warn') =>
@@ -143,12 +149,21 @@ export function buildManifest(sheets: SheetData[], cfg: MappingConfig): EtlResul
     ton: num(r[cp('valor')]),
   })).filter((r) => r.ano > 0 && r.mesN > 0);
 
-  // ---------- mês de referência = último mês com faturamento realizado ----------
-  let refAno = 0; let refMes = 0;
+  // ---------- meses disponíveis + mês de referência ----------
+  const mesesSet = new Map<string, { ano: number; mesN: number }>();
   for (const r of fat) {
-    if (r.ano > refAno || (r.ano === refAno && r.mesN > refMes)) { refAno = r.ano; refMes = r.mesN; }
+    if (r.valor > 0) mesesSet.set(`${r.ano}-${r.mesN}`, { ano: r.ano, mesN: r.mesN });
   }
-  if (!refAno) throw new Error('Nenhum mês com faturamento realizado encontrado no Excel.');
+  const mesesDisponiveis = [...mesesSet.values()]
+    .sort((a, b) => a.ano - b.ano || a.mesN - b.mesN)
+    .map((m) => ({ ...m, label: `${capitalizar(mesNome(m.mesN))}/${m.ano}` }));
+  if (!mesesDisponiveis.length) throw new Error('Nenhum mês com faturamento realizado encontrado no Excel.');
+  // default = último mês com dado; ou o mês escolhido no seletor (se existir na base)
+  let { ano: refAno, mesN: refMes } = mesesDisponiveis[mesesDisponiveis.length - 1];
+  if (mesRef && mesesSet.has(`${mesRef.ano}-${mesRef.mesN}`)) {
+    refAno = mesRef.ano;
+    refMes = mesRef.mesN;
+  }
   const jan = janela13(refMes, refAno);
   const ref = refLabel(refMes, refAno);
   const mesNomeRef = mesNome(refMes);
@@ -1103,5 +1118,5 @@ export function buildManifest(sheets: SheetData[], cfg: MappingConfig): EtlResul
     if (fatOrcMes <= 0) valid.push({ slide: '02', msg: 'Sem orçamento do mês — variações vs orçado zeradas', severidade: 'error' });
   }
 
-  return { manifesto: D, pendencias: pend, validacoes: valid };
+  return { manifesto: D, pendencias: pend, validacoes: valid, mesesDisponiveis };
 }

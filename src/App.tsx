@@ -25,12 +25,16 @@ export default function App() {
   const [editorSlide, setEditorSlide] = useState<string | null>(null);
   const [progresso, setProgresso] = useState<string>('');
   const [carregando, setCarregando] = useState(false);
+  const [editorHtml, setEditorHtml] = useState<string | null>(null);
+  const [mesSel, setMesSel] = useState<string>(''); // 'ano-mes' ou '' = mais recente
 
   const salvar = useCallback((p: ProjetoState) => { setProjeto(p); saveProjeto(p); }, []);
 
-  const rodarEtl = useCallback((shs: SheetData[], cfg: MappingConfig) => {
+  const rodarEtl = useCallback((shs: SheetData[], cfg: MappingConfig, mes?: string) => {
     try {
-      setEtl(buildManifest(shs, cfg));
+      const m = (mes ?? '').split('-').map(Number);
+      const mesRef = m.length === 2 && m[0] ? { ano: m[0], mesN: m[1] } : undefined;
+      setEtl(buildManifest(shs, cfg, mesRef));
       setErro('');
       setTela('deck');
     } catch (e) {
@@ -92,11 +96,15 @@ export default function App() {
   // manifesto com overrides aplicados
   const manifesto = useMemo(() => (etl ? aplicarOverrides(etl.manifesto, projeto.overrides) : null), [etl, projeto.overrides]);
 
-  // deck canônico (Chart.js) e modo de exibição (SVG default — alvo do Figma)
+  // deck canônico (Chart.js) e modo de exibição (SVG default — alvo do Figma);
+  // HTML editado à mão (✏️) vence sobre o gerado
   const deck = useMemo<RenderResult[]>(() => (manifesto ? renderDeck(manifesto) : []), [manifesto]);
   const deckExibicao = useMemo<RenderResult[]>(
-    () => (manifesto ? deck.map((s) => (modoSvg ? { ...s, html: toSvgMode(s.html, s.nn, manifesto) } : s)) : []),
-    [deck, modoSvg, manifesto],
+    () => (manifesto ? deck.map((s) => ({
+      ...s,
+      html: projeto.htmlEdits[s.nn] ?? (modoSvg ? toSvgMode(s.html, s.nn, manifesto) : s.html),
+    })) : []),
+    [deck, modoSvg, manifesto, projeto.htmlEdits],
   );
 
   const pendencias = etl?.pendencias ?? [];
@@ -112,7 +120,19 @@ export default function App() {
         </div>
         {etl && (
           <div className="topo-acoes">
-            <span className="ref-badge">{manifesto?.meta?.janela_label} · ref {manifesto?.meta?.ref}</span>
+            <label className="toggle" title="Mês do relatório">
+              <span>Mês:</span>
+              <select
+                className="sel-mes"
+                value={mesSel || `${manifesto?.meta?.ano}-${manifesto?.meta?.mes_num}`}
+                onChange={(e) => { setMesSel(e.target.value); rodarEtl(sheets, projeto.mapping!, e.target.value); }}
+              >
+                {etl.mesesDisponiveis.map((m) => (
+                  <option key={`${m.ano}-${m.mesN}`} value={`${m.ano}-${m.mesN}`}>{m.label}</option>
+                ))}
+              </select>
+            </label>
+            <span className="ref-badge">{manifesto?.meta?.janela_label}</span>
             <label className="toggle">
               <input type="checkbox" checked={modoSvg} onChange={(e) => setModoSvg(e.target.checked)} />
               <span>{modoSvg ? 'SVG (editável Figma)' : 'Chart.js (fiel ao original)'}</span>
@@ -183,6 +203,11 @@ export default function App() {
                     <div className="card-head">
                       <span className="card-num">{s.nn}</span>
                       <span className="card-title">{SLIDE_LABELS[s.nn]}</span>
+                      <button
+                        className={`lapis${projeto.htmlEdits[s.nn] ? ' editado' : ''}`}
+                        title={projeto.htmlEdits[s.nn] ? 'HTML editado à mão — clique para reeditar' : 'Editar HTML deste slide'}
+                        onClick={() => setEditorHtml(s.nn)}
+                      >✏️</button>
                       <span className={`badge-st st-${st}`}>{st === 'ok' ? '✅' : st === 'warn' ? '⚠️' : '⛔'}</span>
                     </div>
                     <div className="thumb" onClick={() => setSlideAberto(s.nn)}>
@@ -217,6 +242,24 @@ export default function App() {
             />
           </div>
         </div>
+      )}
+
+      {editorHtml && manifesto && (
+        <EditorHtml
+          nn={editorHtml}
+          htmlAtual={deckExibicao.find((s) => s.nn === editorHtml)?.html ?? ''}
+          editado={!!projeto.htmlEdits[editorHtml]}
+          onFechar={() => setEditorHtml(null)}
+          onAplicar={(html) => {
+            salvar({ ...projeto, htmlEdits: { ...projeto.htmlEdits, [editorHtml]: html } });
+          }}
+          onRestaurar={() => {
+            const e2 = { ...projeto.htmlEdits };
+            delete e2[editorHtml];
+            salvar({ ...projeto, htmlEdits: e2 });
+            setEditorHtml(null);
+          }}
+        />
       )}
 
       {editorSlide && manifesto && etl && (
@@ -429,6 +472,46 @@ function PainelStatus({ pendencias, validacoes, resolvidas, completo, onResolver
         </>
       )}
     </aside>
+  );
+}
+
+// ---------------- Editor de HTML por slide (lápis ✏️) ----------------
+function EditorHtml({ nn, htmlAtual, editado, onFechar, onAplicar, onRestaurar }: {
+  nn: string;
+  htmlAtual: string;
+  editado: boolean;
+  onFechar: () => void;
+  onAplicar: (html: string) => void;
+  onRestaurar: () => void;
+}) {
+  const [txt, setTxt] = useState(htmlAtual);
+  const [preview, setPreview] = useState(htmlAtual);
+  return (
+    <div className="modal" onClick={onFechar}>
+      <div className="modal-inner editor-html" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-bar">
+          <strong>✏️ Editar HTML — Slide {nn} ({SLIDE_LABELS[nn]}){editado ? ' · editado à mão' : ''}</strong>
+          <button className="btn sec" onClick={onFechar}>Fechar ✕</button>
+        </div>
+        <p className="painel-sub">
+          Edite o código do slide e clique em <strong>Atualizar preview</strong> para ver o resultado.
+          <strong> Aplicar</strong> salva a edição (ela vence sobre o gerado e vai junto nos exports).
+          <strong> Restaurar gerado</strong> volta para a versão automática do Excel.
+          Atenção: um slide editado à mão <strong>não</strong> se atualiza mais quando os dados/mês mudarem, até restaurar.
+        </p>
+        <div className="editor-html-grid">
+          <textarea className="json-editor html-editor" value={txt} onChange={(e) => setTxt(e.target.value)} spellCheck={false} />
+          <div className="preview-mini">
+            <iframe title={`edit-${nn}`} srcDoc={preview} scrolling="no" />
+          </div>
+        </div>
+        <div className="map-acoes">
+          <button className="btn sec" onClick={() => setPreview(txt)}>👁 Atualizar preview</button>
+          <button className="btn" onClick={() => { onAplicar(txt); onFechar(); }}>Aplicar edição</button>
+          {editado && <button className="btn sec" onClick={onRestaurar}>Restaurar gerado</button>}
+        </div>
+      </div>
+    </div>
   );
 }
 

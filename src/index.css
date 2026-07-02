@@ -127,6 +127,21 @@ select {
   zoom: min(1, calc((96vw - 60px) / 1440));
 }
 .modal-inner.editor { max-width: 900px; }
+.modal-inner.editor-html { max-width: min(1500px, 97vw); }
+.editor-html-grid { display: grid; grid-template-columns: 1fr 620px; gap: 12px; align-items: stretch; }
+.html-editor { min-height: 60vh; font-size: 11px; }
+.preview-mini { width: 620px; height: 357px; overflow: hidden; border: 1px solid #E4E9F2; border-radius: 6px; align-self: start; position: sticky; top: 0; }
+.preview-mini iframe { width: 1440px; height: 829px; border: 0; transform: scale(0.4305); transform-origin: top left; pointer-events: none; }
+.lapis {
+  background: none; border: 1px solid #DDE3EE; border-radius: 4px; cursor: pointer;
+  font-size: 12px; line-height: 1; padding: 2px 5px;
+}
+.lapis:hover { background: #F4F6FA; }
+.lapis.editado { background: #FFF3BF; border-color: #F5C400; }
+.sel-mes {
+  background: #fff; color: #14204A; border: none; border-radius: 3px;
+  font-size: 12px; font-weight: 600; padding: 3px 6px;
+}
 .json-editor {
   width: 100%; min-height: 46vh; font-family: 'DM Mono', ui-monospace, monospace;
   font-size: 11.5px; line-height: 1.5; padding: 12px; border: 1px solid #C8D4DF;

@@ -7,6 +7,8 @@ export interface ProjetoState {
   overrides: Record<string, unknown>;
   /** pendências marcadas como resolvidas / "sem alteração este mês" */
   pendResolvidas: string[];
+  /** HTML editado à mão por slide (lápis ✏️) — vence sobre o gerado */
+  htmlEdits: Record<string, string>;
 }
 
 const LS_KEY = 'reportbi.projeto.v1';
@@ -14,9 +16,9 @@ const LS_KEY = 'reportbi.projeto.v1';
 export function loadProjeto(): ProjetoState {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    if (raw) return { mapping: null, overrides: {}, pendResolvidas: [], ...JSON.parse(raw) };
+    if (raw) return { mapping: null, overrides: {}, pendResolvidas: [], htmlEdits: {}, ...JSON.parse(raw) };
   } catch { /* estado corrompido → recomeça */ }
-  return { mapping: null, overrides: {}, pendResolvidas: [] };
+  return { mapping: null, overrides: {}, pendResolvidas: [], htmlEdits: {} };
 }
 
 export function saveProjeto(p: ProjetoState): void {
