@@ -6,7 +6,7 @@
  */
 import { type ReactNode } from 'react';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { authEnabled, loginRequest, allowedDomain, dominioOk, authState } from './msal';
+import { authEnabled, loginRequest, allowedDomains, allowedDomainLabel, dominioOk, authState } from './msal';
 import { LoginBackground } from './LoginBackground';
 
 /** Casca da tela de login (fundo animado + card). */
@@ -58,7 +58,7 @@ function TelaLogin() {
       <button className="btn login-ms" onClick={() => { authState.error = ''; instance.loginRedirect(loginRequest); }}>
         <MicrosoftLogo /> Entrar com Microsoft
       </button>
-      {allowedDomain && <p className="login-dom">Somente contas <strong>@{allowedDomain}</strong>.</p>}
+      {allowedDomains.length > 0 && <p className="login-dom">Somente contas <strong>{allowedDomainLabel}</strong>.</p>}
       {erro && (
         <div className="login-erro">
           <strong>Não foi possível concluir o login.</strong>
@@ -82,7 +82,7 @@ function DominioGuard({ children }: { children: ReactNode }) {
       <LoginShell>
         <div className="login-tag">ACESSO NEGADO</div>
         <h1>Conta fora do domínio permitido</h1>
-        <p>Você entrou como <strong>{user?.username}</strong>, mas este app é restrito a contas <strong>@{allowedDomain}</strong>.</p>
+        <p>Você entrou como <strong>{user?.username}</strong>, mas este app é restrito a contas <strong>{allowedDomainLabel}</strong>.</p>
         <button className="btn sec" onClick={() => instance.logoutRedirect()}>Sair e trocar de conta</button>
       </LoginShell>
     );

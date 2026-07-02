@@ -154,7 +154,7 @@ Em **Vercel → Settings → Environment Variables**, adicione (não vão para o
 |---|---|
 | `VITE_AZURE_TENANT_ID` | Directory (tenant) ID |
 | `VITE_AZURE_CLIENT_ID` | Application (client) ID |
-| `VITE_AZURE_ALLOWED_DOMAIN` | *(opcional)* `cattalini.com.br` — reforça o filtro por e-mail |
+| `VITE_AZURE_ALLOWED_DOMAIN` | *(opcional)* `cattaliniterminais.com.br` — reforça o filtro por e-mail. Aceita lista por vírgula: `cattaliniterminais.com.br,cattalini.com.br` |
 
 Faça **Redeploy**. Pronto: o app passa a pedir "Entrar com Microsoft" e só aceita contas
 do tenant da Cattalini (e do domínio, se informado).

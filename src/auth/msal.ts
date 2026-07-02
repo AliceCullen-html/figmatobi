@@ -17,8 +17,14 @@ import { PublicClientApplication, type Configuration } from '@azure/msal-browser
 const tenant = import.meta.env.VITE_AZURE_TENANT_ID as string | undefined;
 const clientId = import.meta.env.VITE_AZURE_CLIENT_ID as string | undefined;
 
-/** Domínio de e-mail permitido (opcional). */
-export const allowedDomain = (import.meta.env.VITE_AZURE_ALLOWED_DOMAIN as string | undefined)?.trim().toLowerCase() || '';
+/** Domínio(s) de e-mail permitido(s) (opcional; aceita lista separada por vírgula). */
+export const allowedDomains = ((import.meta.env.VITE_AZURE_ALLOWED_DOMAIN as string | undefined) ?? '')
+  .split(',')
+  .map((d) => d.trim().toLowerCase().replace(/^@/, ''))
+  .filter(Boolean);
+
+/** Texto para exibir (ex.: "cattaliniterminais.com.br ou cattalini.com.br"). */
+export const allowedDomainLabel = allowedDomains.map((d) => '@' + d).join(' ou ');
 
 /** Login só é exigido quando tenant + client estão configurados. */
 export const authEnabled = Boolean(tenant && clientId);
@@ -44,8 +50,9 @@ export const loginRequest = { scopes: ['User.Read'] };
 /** Estado de erro do último redirect (mostrado na tela de login). */
 export const authState: { error: string } = { error: '' };
 
-/** Verifica se o e-mail do usuário pertence ao domínio permitido. */
+/** Verifica se o e-mail do usuário pertence a algum domínio permitido. */
 export function dominioOk(username: string | undefined): boolean {
-  if (!allowedDomain) return true;
-  return (username ?? '').toLowerCase().endsWith('@' + allowedDomain);
+  if (!allowedDomains.length) return true; // sem lista → tenant já restringe
+  const u = (username ?? '').toLowerCase();
+  return allowedDomains.some((d) => u.endsWith('@' + d));
 }
