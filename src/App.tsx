@@ -3,7 +3,7 @@
  * Fluxo: Upload → (Mapeamento, se necessário) → Preview/Overrides → Export.
  */
 import { useMemo, useState, useCallback } from 'react';
-import { parseWorkbook } from './etl/excel';
+import { parseWorkbook, parseBiJson } from './etl/excel';
 import { autoDetect, mappingCompativel } from './etl/mapping';
 import { buildManifest, type EtlResult } from './etl/etl';
 import { DATASET_FIELDS, DATASET_LABELS, type DatasetKey, type MappingConfig, type SheetData } from './etl/types';
@@ -48,10 +48,16 @@ export default function App() {
       let proj = projeto;
       for (const f of files) {
         if (f.name.endsWith('.json')) {
-          // import de mapping.config.json ou projeto.json salvos
-          const j = JSON.parse(await f.text());
-          if (j.datasets) proj = { ...proj, mapping: j };
-          else if (j.overrides) proj = { ...proj, ...j };
+          const txt = await f.text();
+          const j = JSON.parse(txt.replace(/^﻿/, ''));
+          if (j?.results?.[0]?.tables) {
+            // export JSON do Power BI (resumo-bi*.json) → vira "abas" sintéticas
+            novas.push(...parseBiJson(f.name, txt));
+          } else if (j.datasets) {
+            proj = { ...proj, mapping: j }; // mapping.config.json
+          } else if (j.overrides) {
+            proj = { ...proj, ...j }; // projeto.json
+          }
           continue;
         }
         const buf = await f.arrayBuffer();
@@ -238,7 +244,7 @@ export default function App() {
 
 // ---------------- Upload ----------------
 function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGerar }: {
-  onFiles: (f: FileList) => void;
+  onFiles: (f: File[]) => void;
   carregando: boolean;
   temMapping: boolean;
   sheets: SheetData[];
@@ -247,27 +253,29 @@ function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGera
 }) {
   const [drag, setDrag] = useState(false);
   const arquivos = [...new Set(sheets.map((s) => s.file))];
+  const ehJson = (f: string) => f.endsWith('.json');
   const pareceOrcamento = (f: string) => /or[cç]amento|or[cç]ado/i.test(f);
-  const temRealizado = arquivos.some((f) => !pareceOrcamento(f));
-  const temOrcado = arquivos.some(pareceOrcamento);
+  const tipoArquivo = (f: string) => (ehJson(f) ? '🧩 JSON do BI' : pareceOrcamento(f) ? '🎯 Orçamento' : '📈 Realizado');
+  const temRealizado = arquivos.some((f) => !ehJson(f) && !pareceOrcamento(f));
+  const temOrcado = arquivos.some((f) => !ehJson(f) && pareceOrcamento(f));
   return (
     <div
       className={`dropzone ${drag ? 'drag' : ''}`}
       onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
       onDragLeave={() => setDrag(false)}
-      onDrop={(e) => { e.preventDefault(); setDrag(false); onFiles(e.dataTransfer.files); }}
+      onDrop={(e) => { e.preventDefault(); setDrag(false); onFiles(Array.from(e.dataTransfer.files)); }}
     >
       <div className="drop-icone">📊</div>
       <h2>{carregando ? 'Lendo Excel…' : 'Arraste os Excel do mês aqui'}</h2>
       <p>Suba os <strong>dois</strong> arquivos: <strong>Realizado</strong> e <strong>Orçamento</strong> (.xlsx) — um de cada vez ou juntos.<br />
-        Também aceita <code>mapping.config.json</code> e <code>projeto.json</code> salvos.</p>
+        Também aceita os <strong>JSON do Power BI</strong> (<code>resumo-bi*.json</code>), <code>mapping.config.json</code> e <code>projeto.json</code>.</p>
       {temMapping && <p className="ok-mapping">✅ Já existe um mapeamento salvo — se o layout for igual, o preview abre direto.</p>}
 
       {arquivos.length > 0 && (
         <div className="lista-arquivos">
           {arquivos.map((f) => (
             <div key={f} className="arq-chip">
-              <span className="arq-tipo">{pareceOrcamento(f) ? '🎯 Orçamento' : '📈 Realizado'}</span>
+              <span className="arq-tipo">{tipoArquivo(f)}</span>
               <span className="arq-nome">{f.split('/').pop()}</span>
               <span className="arq-abas">{sheets.filter((s) => s.file === f).length} abas</span>
               <button className="arq-x" title="Remover" onClick={(e) => { e.stopPropagation(); onRemover(f); }}>✕</button>
@@ -281,7 +289,12 @@ function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGera
       <div className="upload-acoes">
         <label className="btn sec">
           + Adicionar arquivo
-          <input type="file" multiple accept=".xlsx,.xls,.json" hidden onChange={(e) => { if (e.target.files) { onFiles(e.target.files); e.target.value = ''; } }} />
+          <input type="file" multiple accept=".xlsx,.xls,.json" hidden onChange={(e) => {
+            // snapshot: o FileList é "vivo" e esvazia quando o input é limpo
+            const fs = Array.from(e.target.files ?? []);
+            e.target.value = '';
+            if (fs.length) onFiles(fs);
+          }} />
         </label>
         {arquivos.length > 0 && (
           <button className="btn" disabled={carregando} onClick={(e) => { e.stopPropagation(); onGerar(); }}>

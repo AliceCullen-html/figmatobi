@@ -77,4 +77,25 @@ describe('ETL sobre o Excel real', () => {
     const erros = validacoes.filter((v) => v.severidade === 'error');
     expect(erros).toEqual([]);
   });
+
+  it('espaço m³ sem duplicação de serviços (mai/26 ≈ 846k, não 2,6M)', () => {
+    const tot = manifesto.slide08_espaco_m3.chart.totals;
+    const mai = tot[tot.length - 1];
+    expect(mai).toBeGreaterThan(800_000);
+    expect(mai).toBeLessThan(900_000);
+    // nenhum mês pode estourar o eixo do template (1M)
+    for (const v of tot) expect(v).toBeLessThan(1_000_000);
+  });
+});
+
+describe('JSONs do Power BI como fonte alternativa', () => {
+  it('resumo-bi.json vira aba de terminais e alimenta o market share', async () => {
+    const { parseBiJson } = await import('../src/etl/excel');
+    const txt = readFileSync('exemplos-bi-json/resumo-bi.json', 'utf-8');
+    const sheets = parseBiJson('resumo-bi.json', txt);
+    expect(sheets[0].sheet).toBe('BI · Terminais (mensal)');
+    expect(sheets[0].rows.length).toBeGreaterThan(400); // 96 meses × 6 terminais
+    const cat = sheets[0].rows.find((r) => r['TERMINAL'] === 'Cattalini' && r['ANO'] === '2026' && r['MêsNum'] === 5);
+    expect(Math.round(Number(cat?.['Mov (TON)']))).toBe(473320);
+  });
 });

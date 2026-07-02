@@ -18,7 +18,7 @@ export interface EtlResult {
   validacoes: ValidationIssue[];
 }
 
-interface FatRow { ano: number; mesN: number; cliente: string; grupo: string; servico: string; produto: string; ton: number; m3: number; valor: number; contrato: string }
+interface FatRow { ano: number; mesN: number; cliente: string; grupo: string; servico: string; servicoRaw: string; produto: string; ton: number; m3: number; valor: number; contrato: string }
 interface MovTRow { terminal: string; ano: number; mesN: number; produto: string; grupo: string; ton: number }
 interface MovCRow { cliente: string; produto: string; grupo: string; ton: number; mesN: number; ano: number }
 interface SimplesRow { ano: number; mesN: number; grupo: string; ton: number; cliente?: string }
@@ -70,6 +70,7 @@ export function buildManifest(sheets: SheetData[], cfg: MappingConfig): EtlResul
     cliente: normCliente(String(r[c('cliente')] ?? '')),
     grupo: normGrupo(String(r[c('grupo')] ?? '')),
     servico: String(r[c('servico')] ?? '').trim(),
+    servicoRaw: String(r[c('servico_raw')] ?? '').trim(),
     produto: String(r[c('produto')] ?? '').trim(),
     ton: num(r[c('ton')]),
     m3: num(r[c('m3')]),
@@ -177,11 +178,21 @@ export function buildManifest(sheets: SheetData[], cfg: MappingConfig): EtlResul
   const movOrcMes = sum(movOrc.filter((r) => r.ano === refAno && r.mesN === refMes).map((r) => r.ton));
   const movOrcYtd = sum(movOrc.filter((r) => r.ano === refAno && r.mesN <= refMes).map((r) => r.ton));
   if (!rawMovT) addPend('12', 'slide12_market_share', 'Movimentação por terminal não mapeada — market share exige a aba "Mov - Realizada" (ou print MARKETSHARE).', 'block');
+  if (rawMovT && movT.length && !movT.some((r) => r.grupo && r.grupo !== 'null')) {
+    // fonte sem abertura por grupo (ex.: resumo-bi.json) — só o share geral é confiável
+    addPend('13', 'slide13_ms_derivados', 'A fonte de terminais não abre por grupo de produto — MS Derivados exige a aba "Mov - Realizada" do Excel ou print.', 'block');
+    addPend('14', 'slide14_soda', 'A fonte de terminais não abre por grupo — volumes de Soda Cáustica exigem a aba "Mov - Realizada" ou print.', 'block');
+    addPend('16', 'slide16_transpetro', 'A fonte de terminais não abre por produto — Transpetro por produto exige a aba "Mov - Realizada" ou print.', 'block');
+  }
 
   // m³ faturado por mês (para slide 08 e tickets)
-  // IMPORTANTE: o mesmo espaço aparece em várias linhas de serviço (Armazenagem,
-  // Seguro, SOP…) — somar tudo dobra o m³. Só linhas com GRUPO DE CONTRATOS contam.
-  const m3PorMes = somaPor(fat.filter((r) => r.contrato), (r) => `${r.ano}-${r.mesN}`, (r) => r.m3);
+  // IMPORTANTE: o mesmo espaço aparece em várias linhas de serviço (Seguro, SOP,
+  // N2, Acostagem, 2º Giro…) — somar tudo dobra o m³. Espaço físico = só os
+  // serviços de armazenagem/embarque (validado contra o BI: mai/26 846k vs 845k).
+  const SERV_ESPACO = /^(ARMAZENAGEM|ARMAZ ?EXCEDENTE|EXCEDENTE ?1)$|EMBARQUE/i;
+  const fatEspaco = fat.filter((r) =>
+    r.servicoRaw ? SERV_ESPACO.test(r.servicoRaw) : !!r.contrato);
+  const m3PorMes = somaPor(fatEspaco, (r) => `${r.ano}-${r.mesN}`, (r) => r.m3);
   const m3Ytd = sum(jan.meses.filter((m) => m.ano === refAno).map((m) => m3PorMes.get(`${m.ano}-${m.mesN}`) ?? 0));
   const mesesYtdN = jan.meses.filter((m) => m.ano === refAno).length;
 
@@ -600,7 +611,8 @@ export function buildManifest(sheets: SheetData[], cfg: MappingConfig): EtlResul
     const contrMap: [string, RegExp][] = [
       ['&gt;12 meses', /> ?12/i], ['&lt;12 meses', /< ?12/i], ['Embarque/Desembarque', /embarque/i], ['Excedente', /excedente/i],
     ];
-    const fat12m3 = fat12.filter((r) => contrMap.some(([, re]) => re.test(r.contrato)));
+    const fat12m3 = fat12.filter((r) =>
+      (r.servicoRaw ? SERV_ESPACO.test(r.servicoRaw) : true) && contrMap.some(([, re]) => re.test(r.contrato)));
     const totM3Contr = sum(fat12m3.map((r) => r.m3));
     const split8 = contrMap.map(([, re]) => Math.round((sum(fat12m3.filter((r) => re.test(r.contrato)).map((r) => r.m3)) / (totM3Contr || 1)) * 100));
     const maxM3 = Math.max(...m3Mes);
@@ -1076,6 +1088,17 @@ export function buildManifest(sheets: SheetData[], cfg: MappingConfig): EtlResul
     }
     if (!D['slide15_oleo_degomado'].fat_vals.length) {
       valid.push({ slide: '15', msg: 'Faturamento do óleo degomado vazio — resolver override', severidade: 'warn' });
+    }
+    // outlier de espaço m³ (mês fora da banda vs mediana 12M → possível duplicação na base)
+    {
+      const tot8: number[] = D['slide08_espaco_m3'].chart.totals;
+      const ord = [...tot8].sort((a, b) => a - b);
+      const mediana = ord[Math.floor(ord.length / 2)] || 1;
+      tot8.forEach((v, i) => {
+        if (v > mediana * 1.4 || v < mediana * 0.6) {
+          valid.push({ slide: '08', msg: `Espaço de ${D['slide08_espaco_m3'].chart.months[i]} (${Math.round(v).toLocaleString('pt-BR')} m³) foge da banda dos 12M — conferir base/override`, severidade: 'warn' });
+        }
+      });
     }
     if (fatOrcMes <= 0) valid.push({ slide: '02', msg: 'Sem orçamento do mês — variações vs orçado zeradas', severidade: 'error' });
   }

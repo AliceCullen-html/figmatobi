@@ -37,7 +37,8 @@ export const DATASET_FIELDS: Record<DatasetKey, { field: string; label: string; 
     { field: 'ano', label: 'Ano', required: true, hints: ['ANO'] },
     { field: 'mes', label: 'Mês', required: true, hints: ['MÊS', 'MES'] },
     { field: 'cliente', label: 'Cliente (grupo)', required: true, hints: ['Grupo de Cliente', 'Cliente'] },
-    { field: 'servico', label: 'Grupo de Serviço', required: false, hints: ['Grupo de Serviço', 'Serviço'] },
+    { field: 'servico', label: 'Grupo de Serviço', required: false, hints: ['Grupo de Serviço'] },
+    { field: 'servico_raw', label: 'Serviço (bruto)', required: false, hints: ['Serviço'] },
     { field: 'produto', label: 'Produto', required: false, hints: ['PRODUTO'] },
     { field: 'grupo', label: 'Grupo de Produtos', required: true, hints: ['GRUPO DE PRODUTOS'] },
     { field: 'ton', label: 'Espaço Faturado (TON)', required: false, hints: ['Espaço Faturado (TON)', 'TON'] },
@@ -57,7 +58,7 @@ export const DATASET_FIELDS: Record<DatasetKey, { field: string; label: string; 
     { field: 'ano', label: 'Ano', required: true, hints: ['ANO'] },
     { field: 'mes', label: 'Mês', required: true, hints: ['MÊS', 'MES'] },
     { field: 'produto', label: 'Produto', required: false, hints: ['PRODUTO'] },
-    { field: 'grupo', label: 'Grupo de Produtos', required: true, hints: ['GRUPO DE PRODUTOS'] },
+    { field: 'grupo', label: 'Grupo de Produtos', required: false, hints: ['GRUPO DE PRODUTOS'] },
     { field: 'ton', label: 'Mov (TON)', required: true, hints: ['Mov (TON)', 'TON'] },
   ],
   mov_cliente: [

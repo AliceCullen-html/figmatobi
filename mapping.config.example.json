@@ -10,6 +10,7 @@
         "mes": "MÊS",
         "cliente": "Grupo de Cliente",
         "servico": "Grupo de Serviço",
+        "servico_raw": "Serviço",
         "produto": "PRODUTO",
         "grupo": "GRUPO DE PRODUTOS",
         "ton": "Espaço Faturado (TON)",
