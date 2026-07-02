@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+
+  .slide {
+    width: 1440px; height: 829px;
+    background: #fff;
+    padding: 44px 72px 40px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  .slide-tag   { font-size: 10px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: #8B92A9; margin-bottom: 3px; }
+  .slide-title { font-size: 22px; font-weight: 300; color: #14204A; letter-spacing: -.3px; margin-bottom: 6px; }
+  .gold-rule   { height: 2px; background: #F5C400; margin-bottom: 16px; }
+
+  .headline { margin-bottom: 14px; }
+  .hl-main  { font-size: 16px; font-weight: 400; color: #14204A; line-height: 1.4; margin-bottom: 3px; }
+  .hl-up    { color: #0A8F5C; font-weight: 600; }
+  .hl-down  { color: #C93030; font-weight: 600; }
+  .hl-sub   { font-size: 11.5px; color: #8B92A9; }
+
+  /* ABC CARDS */
+  .abc-strip { display: flex; gap: 0; border: 1px solid #E4E7F0; border-radius: 6px; overflow: hidden; margin-bottom: 18px; }
+  .abc-card  { flex: 1; padding: 10px 16px 12px; border-right: 1px solid #E4E7F0; position: relative; }
+  .abc-card:last-child { border-right: none; }
+  .abc-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+  .ca::before { background: #0A8F5C; } .cb::before { background: #D08000; } .cc::before { background: #C93030; }
+  .sep-v { width: 3px; background: #14204A; flex-shrink: 0; }
+  .ac-lbl { display:flex; align-items:center; gap:6px; margin-bottom:5px; }
+  .ac-dot { width:7px; height:7px; border-radius:50%; }
+  .dot-a{background:#0A8F5C;} .dot-b{background:#D08000;} .dot-c{background:#C93030;}
+  .ac-txt { font-size:9px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
+  .txt-a{color:#0A8F5C;} .txt-b{color:#D08000;} .txt-c{color:#C93030;}
+  .ac-val { font-size:20px; font-weight:300; color:#14204A; line-height:1; letter-spacing:-.3px; margin-bottom:2px; }
+  .ac-sub { font-size:10px; color:#8B92A9; }
+
+  /* BODY */
+  .body { display: grid; grid-template-columns: 260px 1fr 280px; gap: 36px; flex: 1; min-height: 0; }
+
+  /* DONUT */
+  .donut-col { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .donut-title { font-size: 9px; font-weight: 700; letter-spacing:.09em; text-transform:uppercase; color:#14204A; text-align:center; }
+  .legend { display: flex; flex-direction: column; gap: 5px; width: 100%; }
+  .leg-item { display: flex; align-items: center; gap: 7px; }
+  .leg-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .leg-name { font-size: 10.5px; color: #4A5280; flex: 1; }
+  .leg-pct  { font-size: 10.5px; color: #14204A; font-weight: 600; }
+
+  /* PARETO */
+  .pareto-col { display: flex; flex-direction: column; }
+  .sec-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing:.08em; color:#8B92A9; padding-bottom:8px; border-bottom:1px solid #F0F2F8; margin-bottom:12px; }
+
+  .p-header { display:flex; align-items:center; gap:10px; margin-bottom:5px; }
+  .ph { font-size:9px; color:#8B92A9; }
+  .ph-lbl  { width:108px; flex-shrink:0; }
+  .ph-bar  { flex:1; }
+  .ph-acum { width:44px; text-align:right; flex-shrink:0; }
+  .ph-orç  { width:52px; text-align:right; flex-shrink:0; }
+  .ph-aa   { width:52px; text-align:right; flex-shrink:0; }
+  .ph-tkt  { width:70px; text-align:right; flex-shrink:0; }
+
+  .pareto-rows { display:flex; flex-direction:column; gap:6px; }
+  .p-row { display:flex; align-items:center; gap:10px; }
+  .p-lbl { font-size:11px; font-weight:500; color:#14204A; width:108px; flex-shrink:0; display:flex; align-items:center; gap:4px; }
+  .p-outer { flex:1; height:20px; background:#F4F5FA; border-radius:3px; overflow:hidden; }
+  .p-fill  { height:100%; border-radius:3px; display:flex; align-items:center; padding-left:7px; }
+  .p-fill-lbl { font-size:9.5px; font-weight:600; color:#fff; white-space:nowrap; }
+  .p-acum { font-size:10px; color:#8B92A9; width:44px; text-align:right; flex-shrink:0; }
+  .p-orç  { font-size:10px; font-weight:600; width:52px; text-align:right; flex-shrink:0; }
+  .p-aa   { font-size:10px; font-weight:600; width:52px; text-align:right; flex-shrink:0; }
+  .p-tkt  { font-size:10px; color:#4A5280; width:70px; text-align:right; flex-shrink:0; }
+  .col-a { background:#14204A; } .col-b { background:#3D6FCC; } .col-c { background:#8B92A9; }
+  .abc-b2 { display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:3px;font-size:8px;font-weight:700; }
+  .ba{background:#DCF3EB;color:#0A6644;} .bb{background:#FEF3DC;color:#8B5200;} .bc{background:#FDEAEA;color:#9B1C1C;}
+  .up{color:#0A8F5C;} .down{color:#C93030;} .flat{color:#8B92A9;}
+
+  /* CALLOUTS */
+  .right { display:flex; flex-direction:column; gap:16px; }
+  .callout-tag { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:#F5C400; background:#14204A; padding:3px 10px; display:inline-block; margin-bottom:9px; border-radius:2px; }
+  .c-items { display:flex; flex-direction:column; gap:8px; }
+  .c-item  { display:flex; gap:9px; align-items:flex-start; }
+  .arr     { font-size:14px; flex-shrink:0; line-height:1.4; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size:11.5px; color:#2A3060; line-height:1.6; }
+  .c-text strong { font-weight:600; color:#14204A; }
+  .rule { height:1px; background:#F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="slide-tag">Análise Pareto · Terminal Cattalini · Paranaguá</div>
+  <div class="slide-title">Cattalini — Curva ABC de Faturamento · Mar/2026</div>
+  <div class="gold-rule"></div>
+
+  <div class="headline">
+    <div class="hl-main">
+      <span class="hl-up">2 produtos Cls A</span> concentram <span class="hl-up">63%</span> do faturamento —
+      <span class="hl-down">Biocombustíveis</span> entrega apenas <span class="hl-down">27%</span> da meta ·
+      <span class="hl-up">6 clientes Cls A</span> = 54% da receita
+    </div>
+    <div class="hl-sub">mar/2026 · Fat. total R$60,8Mi · Concentração por produto e por cliente · Var. vs. orçado e vs. mar/2025</div>
+  </div>
+
+  <!-- ABC CARDS -->
+  <div class="abc-strip">
+    <div class="abc-card ca"><div class="ac-lbl"><span class="ac-dot dot-a"></span><span class="ac-txt txt-a">Classe A — Produtos</span></div><div class="ac-val">R$ 38,1 Mi</div><div class="ac-sub">63% · 2 produtos</div></div>
+    <div class="abc-card cb"><div class="ac-lbl"><span class="ac-dot dot-b"></span><span class="ac-txt txt-b">Classe B — Produtos</span></div><div class="ac-val">R$ 16,1 Mi</div><div class="ac-sub">27% · 2 produtos</div></div>
+    <div class="abc-card cc"><div class="ac-lbl"><span class="ac-dot dot-c"></span><span class="ac-txt txt-c">Classe C — Produtos</span></div><div class="ac-val">R$ 6,1 Mi</div><div class="ac-sub">10% · 4 produtos</div></div>
+    <div class="sep-v"></div>
+    <div class="abc-card ca"><div class="ac-lbl"><span class="ac-dot dot-a"></span><span class="ac-txt txt-a">Classe A — Clientes</span></div><div class="ac-val">R$ 33,1 Mi</div><div class="ac-sub">54% · 6 clientes</div></div>
+    <div class="abc-card cb"><div class="ac-lbl"><span class="ac-dot dot-b"></span><span class="ac-txt txt-b">Classe B — Clientes</span></div><div class="ac-val">R$ 20,1 Mi</div><div class="ac-sub">33% · 14 clientes</div></div>
+    <div class="abc-card cc"><div class="ac-lbl"><span class="ac-dot dot-c"></span><span class="ac-txt txt-c">Classe C — Clientes</span></div><div class="ac-val">R$ 8,1 Mi</div><div class="ac-sub">13% · 33 clientes</div></div>
+  </div>
+
+  <div class="body">
+
+    <!-- DONUT -->
+    <div class="donut-col">
+      <div class="donut-title">Fat. por Produto — Mar/2026</div>
+      <canvas id="donut" width="190" height="190"></canvas>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <!-- PARETO -->
+    <div class="pareto-col">
+      <div class="sec-label">Pareto — Faturamento por Produto · mar/2026</div>
+      <div class="p-header">
+        <div class="ph ph-lbl">Produto</div>
+        <div class="ph ph-bar">Fat. Real · distribuição acumulada</div>
+        <div class="ph ph-acum">Acum.</div>
+        <div class="ph ph-orç">Var. Orç.</div>
+        <div class="ph ph-aa">Var. AA</div>
+        <div class="ph ph-tkt">Ticket/TON</div>
+      </div>
+      <div class="pareto-rows">
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 ba">A</span>Metanol</div>
+          <div class="p-outer"><div class="p-fill col-a" style="width:100%"><span class="p-fill-lbl">R$19,3Mi · 32%</span></div></div>
+          <div class="p-acum">32%</div><div class="p-orç down">−6,0%</div><div class="p-aa down">−14,8%</div><div class="p-tkt">R$265,10</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 ba">A</span>Derivados</div>
+          <div class="p-outer"><div class="p-fill col-a" style="width:100%"><span class="p-fill-lbl">R$19,1Mi · 30%</span></div></div>
+          <div class="p-acum">62%</div><div class="p-orç up">+20,2%</div><div class="p-aa down">−3,3%</div><div class="p-tkt">R$105,68</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bb">B</span>Aquecidos</div>
+          <div class="p-outer"><div class="p-fill col-b" style="width:45%"><span class="p-fill-lbl">R$8,7Mi · 14%</span></div></div>
+          <div class="p-acum">76%</div><div class="p-orç up">+19,1%</div><div class="p-aa up">+30,4%</div><div class="p-tkt">R$369,57</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bb">B</span>Óleo Vegetal</div>
+          <div class="p-outer"><div class="p-fill col-b" style="width:39%"><span class="p-fill-lbl">R$7,5Mi · 12%</span></div></div>
+          <div class="p-acum">89%</div><div class="p-orç down">−3,8%</div><div class="p-aa up">+10,6%</div><div class="p-tkt">R$60,43</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bc">C</span>Soda Cáustica</div>
+          <div class="p-outer"><div class="p-fill col-c" style="width:18%"><span class="p-fill-lbl">R$3,4Mi · 6%</span></div></div>
+          <div class="p-acum">95%</div><div class="p-orç up">+0,8%</div><div class="p-aa up">+7,5%</div><div class="p-tkt">R$146,25</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bc">C</span>Outros</div>
+          <div class="p-outer"><div class="p-fill col-c" style="width:9%"><span class="p-fill-lbl">R$1,8Mi</span></div></div>
+          <div class="p-acum">98%</div><div class="p-orç up">+19,2%</div><div class="p-aa up">+23,6%</div><div class="p-tkt">R$261,35</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bc">C</span>Biocombust.</div>
+          <div class="p-outer"><div class="p-fill col-c" style="width:5%"></div></div>
+          <div class="p-acum">100%</div><div class="p-orç down">−72,8%</div><div class="p-aa down">−28,6%</div><div class="p-tkt">R$114,47</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALLOUTS -->
+    <div class="right">
+      <div>
+        <div class="callout-tag">Concentração — alerta</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Metanol + Derivados = 63%</strong> da receita com apenas 2 produtos — dependência alta. Risco em renovações</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>METHANEX = 14,6%</strong> do faturamento sozinho — concentração de cliente com queda de −15,9% em março</span></div>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <div class="callout-tag">Destaques positivos</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Derivados +20,2% vs orçado</strong> — único Cls A acima da meta. Compensa pressão do Metanol</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Aquecidos +30,4% aa</strong> — crescimento robusto. Ticket mais alto: R$369,57/TON</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Óleo Vegetal +10,6% aa</strong> — volume forte (124k TON), base em expansão</span></div>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <div class="callout-tag">Ação necessária</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Metanol −6,0% vs orçado</strong> e −14,8% aa — Cls A em queda. Principal risco da carteira</span></div>
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Biocombustíveis −72,8% vs orçado</strong> — R$1,0Mi vs R$3,6Mi orçados. Revisão contratual urgente</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const segs = [
+  { label:'Metanol',       pct:32, color:'#00B050' },
+  { label:'Derivados',     pct:31, color:'#14204A' },
+  { label:'Aquecidos',     pct:14, color:'#8A9BB0' },
+  { label:'Óleo Vegetal',  pct:12, color:'#F5C400' },
+  { label:'Soda Cáustica', pct: 6, color:'#C8D4DF' },
+  { label:'Outros',        pct: 3, color:'#5A82B5' },
+  { label:'Biocombust.',   pct: 2, color:'#F0A33A' },
+];
+const c = document.getElementById('donut');
+const ctx = c.getContext('2d');
+const cx=95, cy=95, R=88, r=56;
+let start = -Math.PI/2;
+segs.forEach(s => {
+  const sw = (s.pct/100)*2*Math.PI;
+  ctx.beginPath();
+  ctx.moveTo(cx+R*Math.cos(start), cy+R*Math.sin(start));
+  ctx.arc(cx,cy,R,start,start+sw);
+  ctx.arc(cx,cy,r,start+sw,start,true);
+  ctx.closePath();
+  ctx.fillStyle = s.color; ctx.fill();
+  start += sw;
+});
+ctx.beginPath(); ctx.arc(cx,cy,r-1,0,2*Math.PI);
+ctx.fillStyle='#fff'; ctx.fill();
+ctx.fillStyle='#14204A'; ctx.font='700 16px Inter'; ctx.textAlign='center'; ctx.textBaseline='middle';
+ctx.fillText('R$60,8Mi',cx,cy-9);
+ctx.font='500 9px Inter'; ctx.fillStyle='#8B92A9';
+ctx.fillText('FAT. MAR/26',cx,cy+10);
+
+const leg = document.getElementById('legend');
+segs.forEach(s => {
+  leg.innerHTML += `<div class="leg-item"><div class="leg-dot" style="background:${s.color}"></div><span class="leg-name">${s.label}</span><span class="leg-pct">${s.pct}%</span></div>`;
+});
+</script>
+</body>
+</html>

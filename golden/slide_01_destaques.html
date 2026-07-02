@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<!--
+  SLIDE 01 — DESTAQUES COMERCIAIS  (LAYOUT REAL — base: slide_destaques_marco2026)
+  FIXO: título 24px navy 700 + régua dourada 2px + navy 1px; caixa NAVY esquerda
+  (280px, radius 4px, ::after dourado 6px) com "Terminal · Paranaguá / Principais
+  destaques do mês / mes/aa"; 4 bullet-groups à direita separados por .divider.
+  Bullet: b-dot navy 6px + b-text (normal 14px, bold/.hi/.warn 15px).
+  Cores: .hi verde #0A8F5C, .warn vermelho #C93030, .gold #D08000.
+  SEM logo no topo (adicionada manualmente via canvas/Figma). SEM KPIs, barras
+  de share ou caixa YTD. Só trocar dados.
+-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+  .slide { width: 1440px; height: 829px; background: #fff; padding: 36px 56px 36px 56px; display: flex; flex-direction: column; overflow: hidden; }
+  .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+  .slide-title { font-size: 24px; font-weight: 700; color: #14204A; letter-spacing: -.2px; }
+  .gold-rule { height: 2px; background: #F5C400; margin-bottom: 0; }
+  .navy-rule { height: 1px; background: #14204A; margin-bottom: 20px; }
+  .body { display: grid; grid-template-columns: 280px 1fr; gap: 48px; flex: 1; min-height: 0; align-items: stretch; }
+  .left-box { background: #14204A; border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 28px; position: relative; overflow: hidden; }
+  .left-box::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: #F5C400; }
+  .left-box-label { font-size: 20px; font-weight: 300; color: #fff; text-align: center; line-height: 1.45; letter-spacing: -.2px; }
+  .left-box-label strong { font-weight: 600; display: block; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #F5C400; margin-bottom: 10px; }
+  .left-month { font-size: 32px; font-weight: 700; color: #F5C400; margin-top: 12px; letter-spacing: -.5px; }
+  .right-col { display: flex; flex-direction: column; justify-content: center; gap: 0; padding-top: 4px; }
+  .bullet-group { margin-bottom: 16px; }
+  .bullet-group:last-child { margin-bottom: 0; }
+  .b-main { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 6px; }
+  .b-dot { width: 6px; height: 6px; border-radius: 50%; background: #14204A; flex-shrink: 0; margin-top: 6px; }
+  .b-text { font-size: 14px; color: #1C2340; line-height: 1.55; }
+  .b-text strong { font-weight: 600; color: #14204A; font-size: 15px; }
+  .b-text .hi { font-weight: 600; color: #0A8F5C; font-size: 15px; }
+  .b-text .warn { font-weight: 600; color: #C93030; font-size: 15px; }
+  .b-text .gold { font-weight: 600; color: #D08000; font-size: 15px; }
+  .sub-bullets { display: flex; flex-direction: column; gap: 4px; padding-left: 18px; }
+  .sub-b { display: flex; gap: 10px; align-items: flex-start; }
+  .sub-dash { font-size: 14px; color: #8B92A9; flex-shrink: 0; margin-top: 1px; }
+  .sub-text { font-size: 14px; color: #3A4270; line-height: 1.55; }
+  .sub-text strong { font-weight: 600; color: #14204A; font-size: 15px; }
+  .sub-text .hi { font-weight: 600; color: #0A8F5C; font-size: 15px; }
+  .sub-text .warn { font-weight: 600; color: #C93030; font-size: 15px; }
+  .divider { height: 1px; background: #F0F2F8; margin: 12px 0 12px 18px; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <div class="slide-title">Destaques Comerciais — Maio 2026</div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="navy-rule"></div>
+  <div class="body">
+    <div class="left-box">
+      <div class="left-box-label"><strong>Terminal · Paranaguá</strong>Principais<br>destaques<br>do mês</div>
+      <div class="left-month">mai/26</div>
+    </div>
+    <div class="right-col">
+      <!-- 4x bullet-group separados por <div class="divider"></div>:
+        <div class="bullet-group">
+          <div class="b-main"><span class="b-dot"></span><span class="b-text"><strong>LEAD</strong> — texto <span class="hi">+X%</span>/<span class="warn">-Y%</span></span></div>
+          <div class="sub-bullets">
+            <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">sub <strong>destaque</strong></span></div>
+          </div>
+        </div>
+      -->
+      <div class="bullet-group">
+        <div class="b-main"><span class="b-dot"></span><span class="b-text"><strong>Faturamento recorde de R$ 67,9 Mi</strong> — maior faturamento mensal da história — <span class="hi">+16,0% aa</span>, embora <span class="warn">−3,2% vs orçado</span> (1º mês de 2026 abaixo da meta)</span></div>
+        <div class="sub-bullets">
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">YTD Jan–Mai acumula <strong>R$ 306,1 Mi</strong> (<span class="hi">+4,2% vs 2025</span>)</span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Movimentação 473k TON — <span class="warn">−13,9% vs orçado</span> num mercado de Paranaguá −11% aa</span></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="bullet-group">
+        <div class="b-main"><span class="b-dot"></span><span class="b-text"><strong>Market share Cattalini sobe para 59% em maio</strong> — <span class="hi">+5 p.p. vs abril</span> e +21 p.p. desde o piso de set/25 — YTD consolidado em <strong>58,3%</strong></span></div>
+        <div class="sub-bullets">
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Transpetro recua para <span class="warn">20%</span> (de 31% em abr) — janela de captura de share</span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">11 novos clientes incorporados no mês — base em expansão</span></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="bullet-group">
+        <div class="b-main"><span class="b-dot"></span><span class="b-text"><strong>Óleo Vegetal e Derivados sustentam o crescimento</strong> — Óleo Vegetal <span class="hi">+61,7% aa</span> e Derivados <span class="hi">+34,2% aa</span> compensam a retração de Metanol</span></div>
+        <div class="sub-bullets">
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Take or Pay representa <strong>69%</strong> da receita — base recorrente e previsível</span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Soda Cáustica <span class="hi">+42,2% aa</span> e Aquecidos <span class="hi">+19,8% aa</span> reforçam o mix</span></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="bullet-group">
+        <div class="b-main"><span class="b-dot"></span><span class="b-text"><strong>Atenção — Metanol e Biocombustíveis pressionam</strong> — Metanol <span class="warn">−17,8% aa</span> (único grupo A em queda) e Biocombustíveis a <span class="warn">43% da meta</span></span></div>
+        <div class="sub-bullets">
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Concentração: Cattalini (59%) + Transpetro (20%) somam <strong>79% do volume</strong> de Paranaguá</span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Orçado mai–dez/26 prevê R$ 70+ Mi/mês — desafio crescente no 2º semestre</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

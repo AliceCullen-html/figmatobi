@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#fff;width:1440px}
+.slide{width:1440px;height:829px;background:#fff;padding:40px 64px 32px;display:flex;flex-direction:column;overflow:hidden}
+.slide-tag{font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#8B92A9;margin-bottom:3px}
+.slide-title{font-size:21px;font-weight:300;color:#14204A;letter-spacing:-.3px;margin-bottom:6px}
+.gold-rule{height:2px;background:#F5C400;margin-bottom:14px}
+.headline{margin-bottom:12px}
+.hl-main{font-size:15px;font-weight:400;color:#14204A;line-height:1.4;margin-bottom:3px}
+.hl-up{color:#0A8F5C;font-weight:600}.hl-down{color:#C93030;font-weight:600}.hl-sub{font-size:11px;color:#8B92A9}
+.kpi-row{display:flex;gap:0;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #F0F2F8}
+.kpi{flex:1;padding-right:20px;border-right:1px solid #E8EAF2;margin-right:20px}
+.kpi:last-child{border-right:none;margin-right:0;padding-right:0}
+.kpi-bar{height:3px;border-radius:2px;margin-bottom:6px}
+.kpi-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#8B92A9;margin-bottom:3px}
+.kpi-val{font-size:20px;font-weight:300;color:#14204A;line-height:1;letter-spacing:-.3px;margin-bottom:2px}
+.kpi-val.up{color:#0A8F5C}.kpi-sub{font-size:10px;color:#8B92A9}
+.body{display:grid;grid-template-columns:1fr 240px;gap:36px;flex:1;min-height:0}
+.chart-col{display:flex;flex-direction:column;min-height:0}
+.sec-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B92A9;padding-bottom:6px;border-bottom:1px solid #F0F2F8;margin-bottom:8px}
+.chart-wrap{flex:1;position:relative;min-height:0}
+.legend-row{display:flex;flex-wrap:wrap;gap:5px 18px;margin-top:8px}
+.leg{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;color:#64748b}
+.leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.right{display:flex;flex-direction:column;gap:16px;padding-top:2px}
+.callout-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#F5C400;background:#14204A;padding:3px 10px;display:inline-block;margin-bottom:8px;border-radius:2px}
+.c-items{display:flex;flex-direction:column;gap:8px}.c-item{display:flex;gap:8px;align-items:flex-start}
+.arr{font-size:13px;flex-shrink:0;line-height:1.45}.arr-up{color:#0A8F5C}.arr-down{color:#C93030}.arr-warn{color:#D08000}
+.c-text{font-size:11px;color:#2A3060;line-height:1.6}.c-text strong{font-weight:600;color:#14204A}
+.rule{height:1px;background:#F0F2F8}
+</style></head><body><div class="slide">
+<div class="slide-tag">Movimentação Transpetro · Terminal Cattalini · Paranaguá · m³</div>
+<div class="slide-title">Movimentação Transpetro</div>
+<div class="gold-rule"></div>
+<div class="headline">
+  <div class="hl-main"><span class="hl-up">__LEAD__ lidera com __LEADV__</span> (__LEADPCT__%) em __REF__ · Total __REF__: <span class="hl-up">__TOTAL__</span></div>
+  <div class="hl-sub">__JANELA__ · Movimentação Transpetro no Terminal Cattalini (m³) · por produto</div>
+</div>
+<div class="kpi-row">
+  <div class="kpi"><div class="kpi-bar" style="background:#14204A"></div><div class="kpi-lbl">Total — __REF__</div><div class="kpi-val up">__TOTAL__</div><div class="kpi-sub">total do mês</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#14204A"></div><div class="kpi-lbl">Diesel — __REF__</div><div class="kpi-val">__DIE__</div><div class="kpi-sub">__DIEP__% do mês</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#F5C400"></div><div class="kpi-lbl">Bunker — __REF__</div><div class="kpi-val">__BUN__</div><div class="kpi-sub">__BUNP__% do mês</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#8A9BB0"></div><div class="kpi-lbl">Gasolina — __REF__</div><div class="kpi-val">__GAS__</div><div class="kpi-sub">__GASP__% do mês</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#6C809A"></div><div class="kpi-lbl">GLP — __REF__</div><div class="kpi-val">__GLP__</div><div class="kpi-sub">__GLPP__% do mês</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#D6DEE8"></div><div class="kpi-lbl">Nafta — __REF__</div><div class="kpi-val" style="color:#8B92A9;">__NAF__</div><div class="kpi-sub">no mês</div></div>
+</div>
+<div class="body">
+  <div class="chart-col">
+    <div class="sec-label">Movimentação Transpetro por Produto (m³) · __SECLBL__</div>
+    <div class="chart-wrap"><canvas id="rc"></canvas></div>
+    <div class="legend-row">
+      <div class="leg"><span class="leg-dot" style="background:#14204A"></span>Diesel</div>
+      <div class="leg"><span class="leg-dot" style="background:#F5C400"></span>Bunker</div>
+      <div class="leg"><span class="leg-dot" style="background:#6C809A"></span>GLP</div>
+      <div class="leg"><span class="leg-dot" style="background:#8A9BB0"></span>Gasolina</div>
+      <div class="leg"><span class="leg-dot" style="background:#D6DEE8;border:1px solid #bbb;"></span>Nafta</div>
+    </div>
+  </div>
+  <div class="right">
+    <div><div class="callout-tag">Composição — __REF__</div><div class="c-items">
+      <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>__LEAD__ __LEADV__</strong> — maior produto do mês (__LEADPCT__%)</span></div>
+      <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text">Diesel __DIE__ · Bunker __BUN__ · Gasolina __GAS__ · GLP __GLP__ no mês</span></div>
+      <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text">Nafta = __NAF__ — produto intermitente na operação Transpetro</span></div>
+    </div></div>
+    <div class="rule"></div>
+    <div><div class="callout-tag">Tendência do período</div><div class="c-items">
+      <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text">Total __REF__ = <strong>__TOTAL__</strong> · mês anterior __TOTPREV__ m³</span></div>
+      <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text">Volatilidade alta entre meses — acompanhar Diesel (cabotagem) e Bunker</span></div>
+    </div></div>
+  </div>
+</div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const labels=__LABELS__;const nav2026=__NAV__;
+const data=__DATA__;
+const totals=data.map(d=>d.die+d.bun+d.glp+d.gas+d.naf);
+const SRVS=[{key:'die',label:'Diesel',color:'#14204A',tc:'#fff'},{key:'bun',label:'Bunker',color:'#F5C400',tc:'#7a5500'},{key:'glp',label:'GLP',color:'#6C809A',tc:'#fff'},{key:'gas',label:'Gasolina',color:'#8A9BB0',tc:'#fff'},{key:'naf',label:'Nafta',color:'#D6DEE8',tc:'#64748b'}];
+const totalLabels={id:'totLbl',afterDatasetsDraw(ch){const ctx=ch.ctx;data.forEach((d,i)=>{const metas=ch.data.datasets.map((_,di)=>ch.getDatasetMeta(di));let topY=9999,cx=0;metas.forEach(m=>{if(m.data[i]&&m.data[i].y<topY){topY=m.data[i].y;cx=m.data[i].x;}});ctx.save();ctx.textAlign='center';ctx.fillStyle='#14204A';ctx.font='600 9.5px Inter';ctx.fillText((totals[i]/1000).toFixed(0)+'k',cx,topY-6);ctx.restore();});SRVS.forEach((s,si)=>{const meta=ch.getDatasetMeta(si);meta.data.forEach((bar,i)=>{const v=data[i][s.key];if(!v)return;const segH=Math.abs(bar.base-bar.y);if(segH<16)return;ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=s.tc;ctx.font='500 9px Inter';ctx.fillText((v/1000).toFixed(0)+'k',bar.x,bar.y+segH/2);ctx.restore();});});}};
+new Chart(document.getElementById('rc'),{type:'bar',plugins:[totalLabels],data:{labels,datasets:SRVS.map((s,si,arr)=>({label:s.label,data:data.map(d=>d[s.key]),backgroundColor:s.color,borderRadius:si===arr.length-1?{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0}:0,borderSkipped:false,stack:'s'}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(2,6,23,.96)',titleColor:'#94a3b8',bodyColor:'#fff',padding:12,cornerRadius:10,callbacks:{title:items=>items[0].label+' — '+Math.round(totals[items[0].dataIndex]/1000)+'k m³ total',label:item=>item.raw?' '+item.dataset.label+': '+(item.raw/1000).toFixed(1)+'k m³':null}}},layout:{padding:{top:22,right:8}},scales:{x:{stacked:true,grid:{display:false},border:{display:false},ticks:{color:ctx=>nav2026.includes(ctx.tick.label)?'#14204A':'#8B92A9',font:ctx=>({family:'Inter',size:11,weight:nav2026.includes(ctx.tick.label)?'700':'500'}),maxRotation:0}},y:{stacked:true,beginAtZero:true,max:__YMAX__,grid:{color:'rgba(148,163,184,.15)'},border:{display:false},ticks:{color:'#94a3b8',font:{size:10,weight:'600'},callback:v=>v?(v/1000).toFixed(0)+'k':'',maxTicksLimit:6}}}}});
+</script></body></html>

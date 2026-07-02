@@ -1,0 +1,2837 @@
+{
+ "_INSTRUCOES": "Manifesto unico do mes. Edite os numeros aqui e rode 'python3 gerar.py'. Janela = 13 meses rolantes terminando no mes do relatorio. nav_corrente = meses do ano vigente (destaque navy).",
+ "meta": {
+  "mes": "maio",
+  "mes_num": 5,
+  "ano": 2026,
+  "ref": "mai/26",
+  "janela_label": "Mai/2025 → Mai/2026",
+  "nav_corrente": [
+   "jan/26",
+   "fev/26",
+   "mar/26",
+   "abr/26",
+   "mai/26"
+  ]
+ },
+ "kpis_gerais": {
+  "fat_real_mi": 67.9,
+  "fat_orcado_mi": 70.2,
+  "ating_pct": 96.8,
+  "fat_aa_pct": 16.0,
+  "fat_ytd_mi": 306.08,
+  "fat_ytd_aa_pct": 4.2,
+  "mov_real_ton": 473320,
+  "mov_aa_pct": -0.6,
+  "mov_orcado_ton": 549848,
+  "mov_ating_pct": 86.1,
+  "mov_ytd_ton": 2272808,
+  "mov_ytd_aa_pct": 10.9,
+  "ticket_ton": 134.67,
+  "ticket_m3": 64.25,
+  "contratos_12m_pct": 66,
+  "take_or_pay_pct": 69,
+  "espaco_ytd_m3": 837353,
+  "espaco_12m_med_m3": 800752
+ },
+ "produtos_fat_mai_mi": {
+  "Derivados": 24.79,
+  "Metanol": 17.07,
+  "Óleo Vegetal": 8.8,
+  "Aquecidos": 8.01,
+  "Soda Cáustica": 4.01,
+  "Biocombustíveis": 3.31,
+  "Outros": 1.89
+ },
+ "slide14_soda": {
+  "_obs": "100% Cattalini (monopolio). volumes em K TON por mes na janela.",
+  "labels": [
+   "mai/25",
+   "jun/25",
+   "jul/25",
+   "ago/25",
+   "set/25",
+   "out/25",
+   "nov/25",
+   "dez/25",
+   "jan/26",
+   "fev/26",
+   "mar/26",
+   "abr/26",
+   "mai/26"
+  ],
+  "volumes": [
+   42,
+   22,
+   35,
+   28,
+   27,
+   16,
+   40,
+   14,
+   39,
+   22,
+   20,
+   20,
+   30
+  ],
+  "ytd_k": 134.3,
+  "min_k": 14,
+  "min_mes": "dez/25",
+  "max_k": 42,
+  "max_mes": "mai/25",
+  "meses_consecutivos": 13
+ },
+ "slide16_transpetro": {
+  "_obs": "m3. 2025 = valores antigos (template). 2026 = tabela BI atual. die/bun/glp/gas/naf.",
+  "labels": [
+   "mai/25",
+   "jun/25",
+   "jul/25",
+   "ago/25",
+   "set/25",
+   "out/25",
+   "nov/25",
+   "dez/25",
+   "jan/26",
+   "fev/26",
+   "mar/26",
+   "abr/26",
+   "mai/26"
+  ],
+  "data": {
+   "mai/25": {
+    "die": 178571,
+    "bun": 83146,
+    "glp": 9048,
+    "gas": 72933,
+    "naf": 9524
+   },
+   "jun/25": {
+    "die": 154762,
+    "bun": 188813,
+    "glp": 9524,
+    "gas": 46667,
+    "naf": 0
+   },
+   "jul/25": {
+    "die": 160833,
+    "bun": 99775,
+    "glp": 33333,
+    "gas": 46667,
+    "naf": 13619
+   },
+   "ago/25": {
+    "die": 136905,
+    "bun": 134528,
+    "glp": 13619,
+    "gas": 53333,
+    "naf": 0
+   },
+   "set/25": {
+    "die": 188690,
+    "bun": 119101,
+    "glp": 11905,
+    "gas": 96000,
+    "naf": 0
+   },
+   "out/25": {
+    "die": 213095,
+    "bun": 85393,
+    "glp": 14095,
+    "gas": 124000,
+    "naf": 0
+   },
+   "nov/25": {
+    "die": 136905,
+    "bun": 101124,
+    "glp": 9553,
+    "gas": 29849,
+    "naf": 20000
+   },
+   "dez/25": {
+    "die": 150000,
+    "bun": 92135,
+    "glp": 0,
+    "gas": 160000,
+    "naf": 0
+   },
+   "jan/26": {
+    "die": 79762,
+    "bun": 56143,
+    "glp": 49091,
+    "gas": 93243,
+    "naf": 0
+   },
+   "fev/26": {
+    "die": 122500,
+    "bun": 20408,
+    "glp": 25455,
+    "gas": 47297,
+    "naf": 0
+   },
+   "mar/26": {
+    "die": 136964,
+    "bun": 54082,
+    "glp": 23818,
+    "gas": 51351,
+    "naf": 0
+   },
+   "abr/26": {
+    "die": 269048,
+    "bun": 5102,
+    "glp": 16364,
+    "gas": 43243,
+    "naf": 0
+   },
+   "mai/26": {
+    "die": 41667,
+    "bun": 86735,
+    "glp": 22545,
+    "gas": 40541,
+    "naf": 0
+   }
+  },
+  "y_max": 480000
+ },
+ "slide18_top_meses": {
+  "volume": [
+   [
+    "março/2023",
+    "584.348 TON"
+   ],
+   [
+    "maio/2023",
+    "567.546 TON"
+   ],
+   [
+    "setembro/2022",
+    "553.554 TON"
+   ],
+   [
+    "agosto/2022",
+    "536.989 TON"
+   ],
+   [
+    "fevereiro/2023",
+    "511.190 TON"
+   ],
+   [
+    "dezembro/2023",
+    "500.642 TON"
+   ],
+   [
+    "março/2025",
+    "498.887 TON"
+   ],
+   [
+    "julho/2024",
+    "492.832 TON"
+   ],
+   [
+    "novembro/2022",
+    "486.259 TON"
+   ],
+   [
+    "março/2024",
+    "485.208 TON"
+   ]
+  ],
+  "faturamento": [
+   [
+    "maio/2026",
+    "R$ 68,1 Mi"
+   ],
+   [
+    "março/2025",
+    "R$ 62,1 Mi"
+   ],
+   [
+    "julho/2025",
+    "R$ 62,1 Mi"
+   ],
+   [
+    "março/2026",
+    "R$ 61,1 Mi"
+   ],
+   [
+    "fevereiro/2026",
+    "R$ 60,1 Mi"
+   ],
+   [
+    "junho/2025",
+    "R$ 60,1 Mi"
+   ],
+   [
+    "abril/2025",
+    "R$ 60,1 Mi"
+   ],
+   [
+    "abril/2026",
+    "R$ 59,1 Mi"
+   ],
+   [
+    "agosto/2025",
+    "R$ 59,1 Mi"
+   ],
+   [
+    "maio/2025",
+    "R$ 59,1 Mi"
+   ]
+  ],
+  "recorde_vol_k": 584,
+  "recorde_vol_mes": "mar/23",
+  "fat_top1_mi": 68.1,
+  "fat_top2_mi": 62.1,
+  "pagina": 18
+ },
+ "slide15_oleo_degomado": {
+  "headline": "LDC lidera volume com <span class=\"hl-up\">149,5k TON</span> — Cargill lidera faturamento com <span class=\"hl-up\">R$ 9,28 Mi</span> · exportação de óleo degomado cresce <span class=\"hl-up\">+44%</span> aa no volume",
+  "hl_sub": "Jan–Mai/2026 · Óleo de Soja Degomado – Exportação · Movimentação (TON) e Faturamento (R$) por cliente",
+  "kpis": [
+   {
+    "lbl": "MOV. Total Jan–Mai/26",
+    "val": "647k TON",
+    "val_cls": "up",
+    "sub": "<span class=\"up\">▲ +44%</span> vs jan–mai/2025"
+   },
+   {
+    "lbl": "Fat. Total Jan–Mai/26",
+    "val": "R$ 39,1 Mi",
+    "sub": "Óleo de Soja Degomado"
+   },
+   {
+    "lbl": "Top Volume — LDC",
+    "val": "149,5k TON",
+    "sub": "23,1% do volume total"
+   },
+   {
+    "lbl": "Top Fat. — Cargill",
+    "val": "R$ 9,28 Mi",
+    "sub": "23,7% do fat. total"
+   },
+   {
+    "lbl": "Top 3 concentram",
+    "val": "55%",
+    "sub": "volume (LDC + Cargill + Coamo)"
+   },
+   {
+    "lbl": "Clientes ativos",
+    "val": "21",
+    "val_cls": "up",
+    "sub": "Jan–Mai/26 nesse produto"
+   }
+  ],
+  "sec_mov": "Movimentação por Cliente (TON) · Jan–Mai/2026",
+  "sec_fat": "Faturamento por Cliente (R$ x 1.000) · Jan–Mai/2026",
+  "mov_labels": [
+   "LDC",
+   "Cargill",
+   "Coamo",
+   "Olam",
+   "Comigo",
+   "ADM",
+   "BTG",
+   "Brejeiro",
+   "Inpasa",
+   "Tres Tentos",
+   "Coop. Agraria",
+   "Bunge",
+   "Celena",
+   "Agraria",
+   "Amaggi",
+   "Cofco"
+  ],
+  "mov_vals": [
+   149500,
+   138800,
+   68000,
+   54000,
+   39200,
+   35900,
+   28500,
+   22000,
+   21900,
+   17200,
+   10800,
+   10700,
+   9000,
+   7300,
+   7000,
+   6000
+  ],
+  "fat_labels": [
+   "Cargill",
+   "LDC",
+   "Coamo",
+   "Olam",
+   "Comigo",
+   "BTG",
+   "ADM",
+   "Tres Tentos",
+   "Brejeiro",
+   "Agraria",
+   "Bunge",
+   "C.Vale",
+   "Amaggi",
+   "Cofco",
+   "Caramuru",
+   "Agrodanieli"
+  ],
+  "fat_vals": [
+   9280,
+   8630,
+   3760,
+   3620,
+   2510,
+   1900,
+   1780,
+   1310,
+   1310,
+   970,
+   680,
+   680,
+   450,
+   380,
+   350,
+   340
+  ],
+  "callouts_mov": [
+   {
+    "tag": "Concentração · Volume",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>LDC + Cargill + Coamo = 55%</strong> do volume — top 3 concentrados"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>12 novos clientes</strong> adicionaram +120,1k TON à base"
+     }
+    ]
+   },
+   {
+    "tag": "Destaque · Volume",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>Brejeiro +2344% aa</strong> — de 0,9k p/ 22k TON. Crescimento expressivo"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Tres Tentos +683%</strong> e Coop. Agrária +440% — novos volumes em expansão"
+     }
+    ]
+   },
+   {
+    "tag": "Atenção · Volume",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>COMIGO −35,3%</strong> — de 60,5k p/ 39,2k TON. Maior recuo do grupo"
+     },
+     {
+      "a": "down",
+      "t": "<strong>Cargill −12,1%</strong> e Bunge −44,2% — clientes em queda"
+     }
+    ]
+   }
+  ],
+  "callouts_fat": [
+   {
+    "tag": "Concentração · Receita",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>Cargill R$9,28Mi</strong> (23,7%) e LDC R$8,63Mi (22,1%) — top 2 = 46% da receita"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>Cargill é 2ª em volume</strong> mas 1ª em receita — ticket mais alto"
+     }
+    ]
+   },
+   {
+    "tag": "Destaque · Receita",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>BTG +2899%</strong> e Brejeiro +1063% aa — forte crescimento em receita"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Carteira saudável:</strong> Classe A estável · 9 novos (+R$6,1Mi)"
+     }
+    ]
+   },
+   {
+    "tag": "Atenção · Receita",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>COMIGO −17,4%</strong> e Bunge −49,9% aa — retração de receita"
+     },
+     {
+      "a": "down",
+      "t": "<strong>Bunge −68,7% vs orçado</strong> — R$0,68Mi vs R$2,18Mi previstos"
+     }
+    ]
+   }
+  ]
+ },
+ "slide09_mov_acumulado": {
+  "headline": "2026 acumula <span class=\"hl-pos\">2.272,8 kTON</span> em Jan–Mai — <span class=\"hl-pos\">+10,9% vs 2025</span> e <span class=\"hl-neg\">−3,7% vs orçado</span> · Derivados e Óleo Vegetal dominam 65% do volume",
+  "subhl": "Acumulado Jan–Mai · 2023 → 2026 · Comparação vs. orçado Jan–Mai/26 · Movimentação em TON por grupo de produto",
+  "chart_lbl": "Movimentação Acumulada Jan–Mai (TON) · 2023 → 2026 · por Categoria de Produto",
+  "kpis": [
+   {
+    "lbl": "Mov. YTD 2026",
+    "val": "2.272,8 kTON",
+    "val_cls": "pos",
+    "sub": "▲ 10,9% vs jan–mai/2025",
+    "sub_cls": "pos"
+   },
+   {
+    "lbl": "Orçado Jan–Mai/26",
+    "val": "2.359,8 kTON",
+    "sub": "▼ 3,7% vs realizado",
+    "sub_cls": "neg"
+   },
+   {
+    "lbl": "Gap vs Orçado",
+    "val": "−87,0 kTON",
+    "val_cls": "neg",
+    "sub": "Atingimento 96,3%"
+   },
+   {
+    "lbl": "Derivados + Óleo Veg.",
+    "val": "65%",
+    "val_cls": "pos",
+    "sub": "do volume realizado 2026"
+   },
+   {
+    "lbl": "vs Jan–Mai/2025",
+    "val": "2.049,4 kTON",
+    "sub": "mesmo período anterior"
+   },
+   {
+    "lbl": "Pico (2023)",
+    "val": "2.530,9 kTON",
+    "sub": "vs pico −10,2%"
+   }
+  ],
+  "callouts": [
+   {
+    "tag": "Crescimento 2026",
+    "tag_cls": "ctag-n",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>+10,9% vs 2025</strong> no acumulado Jan–Mai — maior volume desde o pico de 2023"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Derivados lidera</strong> com 39% do volume — IPIRANGA e SUL PLATA como motores"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Óleo Vegetal 26%</strong> — LDC, COAMO e BREJEIRO expandindo carteira"
+     }
+    ]
+   },
+   {
+    "tag": "Vs orçado — atenção",
+    "tag_cls": "ctag-y",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>−3,7% vs orçado</strong> (gap −87k TON) — maio ficou −13,9% vs meta"
+     },
+     {
+      "a": "down",
+      "t": "<strong>Metanol</strong> o principal detrator do volume no mês"
+     },
+     {
+      "a": "warn",
+      "t": "Gap recuperável se Metanol retomar nos próximos meses"
+     }
+    ]
+   },
+   {
+    "tag": "Contexto histórico",
+    "tag_cls": "ctag-n",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>2023 foi o pico</strong> (2.530,9k TON) — inflado por Óleo Vegetal. 2026 ainda −10,2% vs topo"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>2024–2025 em platô</strong> (~2,02–2,05 Mi). 2026 rompe a estagnação"
+     }
+    ]
+   }
+  ],
+  "chart": {
+   "engine": "group_stacked",
+   "y_max": 2800000,
+   "unit": "Ton",
+   "anos": [
+    {
+     "lbl": "2023",
+     "isOrc": false,
+     "met": 531488,
+     "der": 759268,
+     "aq": 101236,
+     "ov": 936431,
+     "sc": 101236,
+     "out": 101236
+    },
+    {
+     "lbl": "2024",
+     "isOrc": false,
+     "met": 424302,
+     "der": 747580,
+     "aq": 80819,
+     "ov": 585941,
+     "sc": 101024,
+     "out": 80821
+    },
+    {
+     "lbl": "2025",
+     "isOrc": false,
+     "met": 532837,
+     "der": 594318,
+     "aq": 102469,
+     "ov": 553330,
+     "sc": 184443,
+     "out": 81975
+    },
+    {
+     "lbl": "2026",
+     "isOrc": false,
+     "met": 500016,
+     "der": 886392,
+     "aq": 113640,
+     "ov": 590928,
+     "sc": 90912,
+     "out": 90913
+    },
+    {
+     "lbl": "Orçado\\nJan-mai/26",
+     "isOrc": true,
+     "met": 613550,
+     "der": 778737,
+     "aq": 188785,
+     "ov": 448364,
+     "sc": 188785,
+     "out": 141588
+    }
+   ]
+  }
+ },
+ "slide10_mov_maio": {
+  "headline": "Maio/2026 movimenta <span class=\"hl-pos\">473,3 kTON</span> — <span class=\"hl-neg\">−0,6% vs mai/25</span> e <span class=\"hl-neg\">−14,0% vs orçado</span> · −16,6% abaixo do pico de mai/2023",
+  "subhl": "Movimentação do mês de Maio · 2023 → 2026 + Orçado · por grupo de produto (TON) · série histórica do mês",
+  "chart_lbl": "Movimentação de Maio (TON) · 2023 → 2026 + Orçado · por Categoria de Produto",
+  "kpis": [
+   {
+    "lbl": "Mai/2026",
+    "val": "473,3 kTON",
+    "sub": "▼ 0,6% vs mai/25",
+    "sub_cls": "neg"
+   },
+   {
+    "lbl": "Orçado Maio/26",
+    "val": "549,8 kTON",
+    "sub": "meta do mês"
+   },
+   {
+    "lbl": "Gap vs Orçado",
+    "val": "−76,5 kTON",
+    "val_cls": "neg",
+    "sub": "−14,0% · ating. 86,1%",
+    "sub_cls": "neg"
+   },
+   {
+    "lbl": "Pico Mai (2023)",
+    "val": "567,5 kTON",
+    "sub": "vs pico −16,6%"
+   },
+   {
+    "lbl": "Mai/2025",
+    "val": "476,1 kTON",
+    "sub": "ano anterior"
+   },
+   {
+    "lbl": "Top Grupo (acum.)",
+    "val": "Derivados",
+    "sub": "39% · acum. maio 19–26"
+   }
+  ],
+  "callouts": [
+   {
+    "tag": "Histórico de maio",
+    "tag_cls": "ctag-n",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>Pico em mai/2023</strong> (567,5 kTON) — inflado por Derivados e Óleo Vegetal"
+     },
+     {
+      "a": "down",
+      "t": "<strong>2024 recuou</strong> para 457,3k; <strong>2025–2026 estabilizam</strong> em ~473–476k"
+     }
+    ]
+   },
+   {
+    "tag": "Vs orçado — atenção",
+    "tag_cls": "ctag-y",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>−14,0% vs orçado</strong> (549,8k → gap −76,5k) — atingimento de 86,1% no mês"
+     },
+     {
+      "a": "down",
+      "t": "<strong>Metanol</strong> o principal detrator do volume vs meta"
+     }
+    ]
+   },
+   {
+    "tag": "Composição",
+    "tag_cls": "ctag-n",
+    "items": [
+     {
+      "a": "up",
+      "t": "No <strong>acumulado de maio (2019–2026)</strong>: Derivados 39%, Óleo Vegetal 30% e Metanol 20% dominam"
+     }
+    ]
+   }
+  ],
+  "chart": {
+   "engine": "group_stacked",
+   "y_max": 650000,
+   "unit": "Ton",
+   "anos": [
+    {
+     "lbl": "2023",
+     "isOrc": false,
+     "met": 158913,
+     "der": 192966,
+     "aq": 11351,
+     "ov": 158913,
+     "sc": 28377,
+     "out": 17026
+    },
+    {
+     "lbl": "2024",
+     "isOrc": false,
+     "met": 128054,
+     "der": 192080,
+     "aq": 9147,
+     "ov": 100613,
+     "sc": 18293,
+     "out": 9147
+    },
+    {
+     "lbl": "2025",
+     "isOrc": false,
+     "met": 128538,
+     "der": 119017,
+     "aq": 19043,
+     "ov": 104735,
+     "sc": 66649,
+     "out": 38085
+    },
+    {
+     "lbl": "2026",
+     "isOrc": false,
+     "met": 141996,
+     "der": 123063,
+     "aq": 14200,
+     "ov": 141996,
+     "sc": 18933,
+     "out": 33132
+    },
+    {
+     "lbl": "Orçado\\nmaio/2026",
+     "isOrc": true,
+     "met": 142960,
+     "der": 159456,
+     "aq": 27492,
+     "ov": 93474,
+     "sc": 43988,
+     "out": 82478
+    }
+   ]
+  }
+ },
+ "slide11_previsao": {
+  "headline": "Realizado de maio (<span class=\"hl-pos\">473,3 kTON</span>) supera a previsão em <span class=\"hl-pos\">+8,8%</span>, mas fica <span class=\"hl-neg\">−14,0% abaixo do orçado</span> · Óleo Vegetal o único acima da meta",
+  "subhl": "Previsão vs. Realizado vs. Orçado · Maio 2026 · Movimentação por categoria de produto (TON)",
+  "chart_lbl": "Previsão x Realizado x Orçado · Maio 2026 · por Categoria de Produto (TON)",
+  "kpis": [
+   {
+    "lbl": "Previsão Mai/26",
+    "val": "435,0 kTON",
+    "sub": "▼ 20,9% vs orçado",
+    "sub_cls": "neg"
+   },
+   {
+    "lbl": "Realizado Mai/26",
+    "val": "473,3 kTON",
+    "val_cls": "pos",
+    "sub": "▲ 8,8% vs previsão",
+    "sub_cls": "pos"
+   },
+   {
+    "lbl": "Orçado Mai/26",
+    "val": "549,8 kTON",
+    "sub": "meta do mês"
+   },
+   {
+    "lbl": "Gap Real. vs Orç.",
+    "val": "−76,5 kTON",
+    "val_cls": "neg",
+    "sub": "−14,0% · ating. 86,1%",
+    "sub_cls": "neg"
+   },
+   {
+    "lbl": "Real. vs Previsão",
+    "val": "+38,3 kTON",
+    "val_cls": "pos",
+    "sub": "▲ 8,8% acima do previsto",
+    "sub_cls": "pos"
+   },
+   {
+    "lbl": "Óleo Vegetal",
+    "val": "+49 kTON",
+    "val_cls": "pos",
+    "sub": "único acima do orçado"
+   }
+  ],
+  "callouts": [
+   {
+    "tag": "Realizado superou previsão",
+    "tag_cls": "ctag-n",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>+8,8% vs previsão</strong> (435k) — operação entregou acima do previsto no mês"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Óleo Vegetal +49k</strong> vs orçado — único grupo acima da meta"
+     }
+    ]
+   },
+   {
+    "tag": "Vs Orçado — atenção",
+    "tag_cls": "ctag-y",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>−14,0% vs orçado</strong> — atingimento de 86,1%; Metanol e Soda os detratores"
+     },
+     {
+      "a": "down",
+      "t": "<strong>Soda −27k</strong> e <strong>Metanol −1k</strong> vs orçado puxam o gap"
+     }
+    ]
+   },
+   {
+    "tag": "Ação necessária",
+    "tag_cls": "ctag-n",
+    "items": [
+     {
+      "a": "warn",
+      "t": "Calibrar previsão e orçado — gap entre os dois (114k) sinaliza meta agressiva"
+     }
+    ]
+   }
+  ],
+  "chart": {
+   "engine": "trio",
+   "y_max": 600000,
+   "bars": [
+    {
+     "lbl": "Previsão",
+     "kind": "prev",
+     "met": 122000,
+     "der": 113000,
+     "aq": 13000,
+     "ov": 130000,
+     "sc": 17000,
+     "bio": 13000,
+     "out": 27000
+    },
+    {
+     "lbl": "Realizado",
+     "kind": "real",
+     "met": 142000,
+     "der": 123000,
+     "aq": 14000,
+     "ov": 142000,
+     "sc": 19000,
+     "bio": 14000,
+     "out": 19320
+    },
+    {
+     "lbl": "Orçado",
+     "kind": "orc",
+     "met": 143000,
+     "der": 159000,
+     "aq": 27000,
+     "ov": 93000,
+     "sc": 44000,
+     "bio": 15000,
+     "out": 68848
+    }
+   ]
+  }
+ },
+ "slide12_market_share": {
+  "headline": "Cattalini encerra maio em <span class=\"hl-warn\">59%</span> — <span class=\"hl-pos\">+5 p.p. vs abr</span> e <span class=\"hl-pos\">+21 p.p. vs o piso de set/25</span> (38%) · Transpetro recua para 20%",
+  "subhl": "Mai/2025 → Mai/2026 · Market share mensal por terminal · Granéis Líquidos Paranaguá (%/t)",
+  "chart_lbl": "Market Share por Terminal (%/t) · Mai/25 → Mai/26",
+  "kpis": [
+   {
+    "lbl": "Cattalini — mai/26",
+    "val": "59%",
+    "val_color": "#10253F",
+    "sub": "+5 p.p. vs abr",
+    "bar": "#10253F"
+   },
+   {
+    "lbl": "Cattalini — mín / máx",
+    "val": "38% / 63%",
+    "val_color": "#10253F",
+    "sub": "set/25 · fev/26",
+    "bar": "#10253F;opacity:.35"
+   },
+   {
+    "lbl": "Transpetro — mai/26",
+    "val": "20%",
+    "val_color": "#6C809A",
+    "sub": "de 31% em abr",
+    "bar": "#6C809A"
+   },
+   {
+    "lbl": "CBL — mai/26",
+    "val": "12%",
+    "val_color": "#C09000",
+    "sub": "estável",
+    "bar": "#FFC000"
+   },
+   {
+    "lbl": "Terin — mai/26",
+    "val": "9%",
+    "val_color": "#6A8A30",
+    "sub": "de 3% em abr",
+    "bar": "#9BBB59"
+   },
+   {
+    "lbl": "Cattalini — YTD Jan–Mai/26",
+    "val": "58,3%",
+    "val_color": "#10253F",
+    "sub": "média do ano",
+    "bar": "#10253F"
+   }
+  ],
+  "callouts": [
+   {
+    "tag": "Cattalini",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>59% em mai/26</strong> — +5 p.p. vs abril e bem acima da média de 2025"
+     },
+     {
+      "a": "up",
+      "t": "<strong>YTD 58,3%</strong> — domínio consistente nos 5 primeiros meses de 2026"
+     },
+     {
+      "a": "up",
+      "t": "Recuperação de <strong>+21 p.p.</strong> desde o piso de set/25 (38%)"
+     }
+    ]
+   },
+   {
+    "tag": "Concorrência",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>Transpetro 20%</strong> — maior recuo do mês (de 31% em abr; pico foi 46% em out/25)"
+     },
+     {
+      "a": "neu",
+      "t": "<strong>CBL estável em 12%</strong> ao longo do período"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Terin subiu p/ 9%</strong> (de 3% em abr) — terminal volátil, monitorar"
+     }
+    ]
+   },
+   {
+    "tag": "Ação",
+    "items": [
+     {
+      "a": "up",
+      "t": "Cattalini ganhou share de <strong>Transpetro</strong> em maio — consolidar a captura com contratos de prazo"
+     }
+    ]
+   }
+  ],
+  "chart": {
+   "engine": "share",
+   "meses": [
+    "mai/25",
+    "jun/25",
+    "jul/25",
+    "ago/25",
+    "set/25",
+    "out/25",
+    "nov/25",
+    "dez/25",
+    "jan/26",
+    "fev/26",
+    "mar/26",
+    "abr/26",
+    "mai/26"
+   ],
+   "totals": [
+    898,
+    943,
+    881,
+    900,
+    905,
+    829,
+    728,
+    731,
+    725,
+    741,
+    754,
+    873,
+    800
+   ],
+   "series": [
+    {
+     "label": "Terin",
+     "color": "#9BBB59",
+     "textColor": "#3a5a10",
+     "data": [
+      9,
+      8,
+      5,
+      7,
+      15,
+      3,
+      5,
+      7,
+      1,
+      2,
+      3,
+      3,
+      9
+     ]
+    },
+    {
+     "label": "CBL",
+     "color": "#FFC000",
+     "textColor": "#7a5500",
+     "data": [
+      5,
+      11,
+      10,
+      6,
+      7,
+      6,
+      13,
+      2,
+      11,
+      12,
+      10,
+      12,
+      12
+     ]
+    },
+    {
+     "label": "Transpetro",
+     "color": "#6C809A",
+     "textColor": "#ffffff",
+     "data": [
+      33,
+      37,
+      37,
+      34,
+      40,
+      46,
+      36,
+      45,
+      30,
+      23,
+      29,
+      31,
+      20
+     ]
+    },
+    {
+     "label": "Cattalini",
+     "color": "#10253F",
+     "textColor": "#ffffff",
+     "data": [
+      53,
+      44,
+      48,
+      53,
+      38,
+      45,
+      46,
+      46,
+      58,
+      63,
+      58,
+      54,
+      59
+     ]
+    }
+   ]
+  }
+ },
+ "slide13_ms_derivados": {
+  "headline": "Cattalini mantém a liderança em derivados com <span class=\"hl-warn\">52%</span> em maio — mas <span class=\"hl-neg\">recua −12 p.p. vs abr</span> (64%) · CBL sobe a 39% e Terin reaparece com 9%",
+  "subhl": "Mai/2025 → Mai/2026 · Market share de Derivados por terminal · sem Transpetro (Cattalini × CBL × Terin) · %/t",
+  "chart_lbl": "Market Share — Derivados (%/t) · sem Transpetro · Mai/25 → Mai/26",
+  "kpis": [
+   {
+    "lbl": "Cattalini — mai/26",
+    "val": "52%",
+    "val_color": "#10253F",
+    "sub": "−12 p.p. vs abr",
+    "bar": "#10253F"
+   },
+   {
+    "lbl": "Cattalini — mín / máx",
+    "val": "36% / 69%",
+    "val_color": "#10253F",
+    "sub": "jul/25 · fev/26",
+    "bar": "#10253F;opacity:.35"
+   },
+   {
+    "lbl": "CBL — mai/26",
+    "val": "39%",
+    "val_color": "#C09000",
+    "sub": "de 36% em abr",
+    "bar": "#FFC000"
+   },
+   {
+    "lbl": "Terin — mai/26",
+    "val": "9%",
+    "val_color": "#6A8A30",
+    "sub": "reaparece (0% em abr)",
+    "bar": "#9BBB59"
+   },
+   {
+    "lbl": "Cattalini — média",
+    "val": "50,6%",
+    "val_color": "#10253F",
+    "sub": "share médio em derivados",
+    "bar": "#10253F"
+   },
+   {
+    "lbl": "Volume Derivados mai/26",
+    "val": "250k",
+    "val_color": "#14204A",
+    "sub": "TON (sem Transpetro)",
+    "bar": "#10253F;opacity:0"
+   }
+  ],
+  "callouts": [
+   {
+    "tag": "Cattalini",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>52% em mai</strong> — segue líder de derivados, share médio de 50,6% no período"
+     },
+     {
+      "a": "down",
+      "t": "Recuou <strong>−12 p.p. vs abr</strong> (64%) — abriu espaço pra CBL e Terin no mês"
+     }
+    ]
+   },
+   {
+    "tag": "Concorrência",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>CBL 39%</strong> — subiu de 36% (abr); principal concorrente em derivados"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Terin 9%</strong> — reaparece (estava em 0% em abr e fev). Terminal volátil"
+     }
+    ]
+   },
+   {
+    "tag": "Ação",
+    "items": [
+     {
+      "a": "warn",
+      "t": "Avanço de <strong>CBL e Terin</strong> em maio merece atenção — reforçar contratos de derivados pra reverter"
+     }
+    ]
+   }
+  ],
+  "chart": {
+   "engine": "share",
+   "meses": [
+    "mai/25",
+    "jun/25",
+    "jul/25",
+    "ago/25",
+    "set/25",
+    "out/25",
+    "nov/25",
+    "dez/25",
+    "jan/26",
+    "fev/26",
+    "mar/26",
+    "abr/26",
+    "mai/26"
+   ],
+   "totals": [
+    247,
+    281,
+    205,
+    230,
+    305,
+    209,
+    277,
+    175,
+    226,
+    274,
+    270,
+    290,
+    250
+   ],
+   "series": [
+    {
+     "label": "Terin",
+     "color": "#9BBB59",
+     "textColor": "#3a5a10",
+     "data": [
+      25,
+      27,
+      21,
+      17,
+      38,
+      11,
+      14,
+      27,
+      7,
+      0,
+      8,
+      0,
+      9
+     ]
+    },
+    {
+     "label": "CBL",
+     "color": "#FFC000",
+     "textColor": "#7a5500",
+     "data": [
+      12,
+      31,
+      43,
+      20,
+      15,
+      25,
+      33,
+      10,
+      31,
+      31,
+      27,
+      36,
+      39
+     ]
+    },
+    {
+     "label": "Cattalini",
+     "color": "#10253F",
+     "textColor": "#ffffff",
+     "data": [
+      63,
+      42,
+      36,
+      63,
+      47,
+      64,
+      53,
+      63,
+      62,
+      69,
+      65,
+      64,
+      52
+     ]
+    }
+   ]
+  }
+ },
+ "slide03_carteira_fat": {
+  "tokens": {
+   "MES_ANO": "Maio 2026",
+   "MES_ANO_ANT": "mai/2025",
+   "MES_REF": "mai/2026",
+   "CLI_ATIVOS": "53",
+   "TOP3_PCT": "32,5%"
+  },
+  "headline": "<span class=\"hl-neg\">8 clientes perdidos</span> representam R$ 3,1 Mi de receita — taxa de retenção <span class=\"hl-warn\">84,0%</span>, abaixo do referencial de 85%",
+  "kpis": [
+   {
+    "lbl": "Clientes Ativos",
+    "val": "53",
+    "sub": "+11 novos no período",
+    "sub_cls": "pos"
+   },
+   {
+    "lbl": "Clientes Novos",
+    "val": "11",
+    "val_cls": "pos",
+    "sub": "6 novos reais · 5 retornos"
+   },
+   {
+    "lbl": "Clientes Perdidos",
+    "val": "8",
+    "val_cls": "neg",
+    "sub": "4 churn real · 4 c/ orçado",
+    "sub_cls": "neg"
+   },
+   {
+    "lbl": "Em Risco",
+    "val": "8",
+    "val_cls": "warn",
+    "sub": "Queda &gt;30% vs. mesmo período AA"
+   },
+   {
+    "lbl": "Taxa de Retenção",
+    "val": "84,0%",
+    "val_cls": "warn",
+    "sub": "Referência: &gt;85% ideal"
+   },
+   {
+    "lbl": "Fat. Top 3",
+    "val": "R$ 22,1 Mi",
+    "sub": "32,5% do total Maio 2026"
+   }
+  ],
+  "rows": [
+   [
+    1,
+    "IPIRANGA",
+    "A",
+    "Derivados",
+    100,
+    "R$ 8,70 Mi",
+    "12,8%",
+    "▲ 101,2%",
+    "up"
+   ],
+   [
+    2,
+    "METHANEX",
+    "A",
+    "Metanol",
+    80,
+    "R$ 6,96 Mi",
+    "10,3%",
+    "▼ 8,0%",
+    "down"
+   ],
+   [
+    3,
+    "BLUEWAY",
+    "A",
+    "Derivados",
+    70,
+    "R$ 6,11 Mi",
+    "9,0%",
+    "▲ 61,7%",
+    "up"
+   ],
+   [
+    4,
+    "VALENZ",
+    "A",
+    "Metanol",
+    61,
+    "R$ 5,33 Mi",
+    "7,8%",
+    "▼ 14,2%",
+    "down"
+   ],
+   [
+    5,
+    "MITSUBISHI",
+    "A",
+    "Metanol",
+    50,
+    "R$ 4,33 Mi",
+    "6,4%",
+    "▼ 8,2%",
+    "down"
+   ],
+   [
+    6,
+    "VIBRA",
+    "A",
+    "Derivados",
+    38,
+    "R$ 3,30 Mi",
+    "4,9%",
+    "▲ 87,7%",
+    "up"
+   ],
+   [
+    7,
+    "FS",
+    "A",
+    "Biocombustíveis",
+    33,
+    "R$ 2,86 Mi",
+    "4,2%",
+    "▲ 77,5%",
+    "up"
+   ],
+   [
+    8,
+    "SUL PLATA",
+    "A",
+    "Derivados",
+    33,
+    "R$ 2,85 Mi",
+    "4,2%",
+    "▼ 14,1%",
+    "down"
+   ],
+   [
+    9,
+    "CARGILL",
+    "B",
+    "Aquecidos",
+    27,
+    "R$ 2,37 Mi",
+    "3,5%",
+    "▼ 27,5%",
+    "down"
+   ],
+   [
+    10,
+    "OLIN BLUE CUBE",
+    "B",
+    "Soda Cáustica",
+    25,
+    "R$ 2,21 Mi",
+    "3,3%",
+    "▲ 27,6%",
+    "up"
+   ]
+  ],
+  "total": [
+   "R$ 45,0 Mi",
+   "66,4%"
+  ],
+  "sidecol": [
+   {
+    "tag": "Risco Elevado",
+    "cls": "ctag-r",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>3 clientes Cls A</strong> com queda &gt;10% vs mai/25 — exposição de <strong>R$2,1Mi</strong> (3,3% da receita). Parcialmente compensado por 11 novos clientes (<strong>+R$4,1Mi</strong>)"
+     }
+    ]
+   },
+   {
+    "tag": "Maior Risco",
+    "cls": "ctag-r",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>CARGILL −27,5%</strong> vs mai/25 — de R$3,1Mi para R$2,1Mi. Causa provável: <strong>perda de volume movimentado</strong>"
+     },
+     {
+      "a": "down",
+      "t": "<strong>VALENZ −14,2%</strong> e <strong>SUL PLATA −14,1%</strong> — Cls A em queda no mesmo período"
+     }
+    ]
+   },
+   {
+    "tag": "Oportunidade",
+    "cls": "ctag-g",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>5 clientes Cls A com crescimento &gt;20%</strong> — expandir contratos de longo prazo e aumentar capacidade alocada antes da renovação"
+     },
+     {
+      "a": "up",
+      "t": "<strong>IPIRANGA +101,2%</strong> e <strong>VIBRA +87,7%</strong> — motores do crescimento em Derivados"
+     }
+    ]
+   }
+  ],
+  "prioridades": [
+   "Acionar plano de retenção para <strong>CARGILL</strong> — investigar perda de volume e apresentar proposta de renegociação em até 15 dias",
+   "Consolidar os <strong>11 novos clientes</strong> (R$4,1Mi) — priorizar contratos de prazo estendido",
+   "Expandir nos <strong>5 clientes &gt;20% aa</strong> — propor aditivos contratuais antes do pico de demanda"
+  ]
+ },
+ "slide02_faturamento": {
+  "tokens": {
+   "MES_ANO": "maio/2026"
+  },
+  "headline": "[mai/2026] Faturamento <span class=\"hl-neg\">−3,2% abaixo da meta</span> — mas <span class=\"hl-pos\">+16,0% aa</span> e maior faturamento mensal da história · Óleo Vegetal e Derivados compensam Metanol e Biocombustíveis",
+  "subhl": "Óleo Vegetal (+R$3,2Mi) e Derivados (+R$2,7Mi) acima do orçado compensam parcialmente Metanol (−R$5,3Mi) e Biocombustíveis (−R$4,4Mi) · Mercado de Paranaguá −11% aa · 1º mês de 2026 abaixo do orçado",
+  "kpis": [
+   {
+    "lbl": "FAT. REALIZADO",
+    "val": "R$ 67,9 Mi",
+    "d1": "▼ 3,2% vs orçado",
+    "d1c": "down",
+    "d2": "▲ 16,0% vs mai/2025",
+    "d2c": "up",
+    "d2color": "#0A8F5C"
+   },
+   {
+    "lbl": "MOV. REALIZADA",
+    "val": "473k TON",
+    "vcolor": "#14204A",
+    "d1": "▼ 13,9% vs orçado",
+    "d1c": "down",
+    "d2": "▼ 0,6% aa · apenas Cattalini",
+    "d2c": "neu"
+   },
+   {
+    "lbl": "TICKET MÉDIO / TON",
+    "val": "R$ 143,41",
+    "vcolor": "#0A8F5C",
+    "d1": "▲ +16,7% vs mai/2025",
+    "d1c": "up",
+    "d2": "Receita por TON movimentada",
+    "d2c": "neu"
+   },
+   {
+    "lbl": "% ATINGIMENTO",
+    "val": "96,8%",
+    "vcolor": "#F59E0B",
+    "d1": "Abaixo da meta · 1ª vez em 2026",
+    "d1c": "warn",
+    "d2": "Meta: R$ 70,2 Mi · mov 86,1%",
+    "d2c": "neu"
+   }
+  ],
+  "rows": [
+   [
+    "Derivados",
+    "A",
+    "R$24,8Mi",
+    "R$22,0Mi",
+    "+R$2,74Mi",
+    "up",
+    "129,4k",
+    "193,5k",
+    "−64,1k",
+    "down"
+   ],
+   [
+    "Metanol",
+    "A",
+    "R$17,1Mi",
+    "R$22,4Mi",
+    "−R$5,28Mi",
+    "down",
+    "127,2k",
+    "142,5k",
+    "−15,4k",
+    "down"
+   ],
+   [
+    "Óleo Vegetal",
+    "B",
+    "R$8,5Mi",
+    "R$5,2Mi",
+    "+R$3,23Mi",
+    "up",
+    "132,8k",
+    "78,7k",
+    "+54,0k",
+    "up"
+   ],
+   [
+    "Aquecidos",
+    "B",
+    "R$8,0Mi",
+    "R$7,3Mi",
+    "+R$0,67Mi",
+    "up",
+    "33,2k",
+    "34,3k",
+    "−1,2k",
+    "down"
+   ],
+   [
+    "Soda Cáustica",
+    "C",
+    "R$4,0Mi",
+    "R$3,4Mi",
+    "+R$0,59Mi",
+    "up",
+    "35,0k",
+    "35,8k",
+    "−0,8k",
+    "down"
+   ],
+   [
+    "Biocombustíveis",
+    "C",
+    "R$3,3Mi",
+    "R$7,7Mi",
+    "−R$4,41Mi",
+    "down",
+    "9,9k",
+    "59,0k",
+    "−49,0k",
+    "down"
+   ],
+   [
+    "Outros",
+    "C",
+    "R$1,9Mi",
+    "R$2,0Mi",
+    "−R$0,15Mi",
+    "down",
+    "5,9k",
+    "6,0k",
+    "−0,1k",
+    "down"
+   ]
+  ],
+  "total": [
+   "R$67,9Mi",
+   "R$70,2Mi",
+   "−R$2,3Mi",
+   "down",
+   "473,3k",
+   "549,9k",
+   "−76,5k",
+   "down"
+  ],
+  "ajudou": [
+   "<strong>Óleo Vegetal +R$3,23Mi vs orçado</strong> — volume 69% acima do orçado (+54k TON). Maior contribuição positiva do mês",
+   "<strong>Derivados +R$2,74Mi vs orçado</strong> — único grupo A acima da meta em faturamento",
+   "<strong>Aquecidos +R$0,67Mi</strong> e <strong>Soda Cáustica +R$0,59Mi</strong> vs orçado — grupos B/C entregando acima"
+  ],
+  "pressionou": [
+   [
+    "down",
+    "<strong>Metanol −R$5,28Mi vs orçado</strong> — maior detrator; volume −15,4k TON e receita unitária abaixo. Revisar condições comerciais"
+   ],
+   [
+    "down",
+    "<strong>Biocombustíveis −R$4,41Mi vs orçado</strong> — entregou 9,9k vs 59,0k TON orçados (−83%). Revisão contratual urgente"
+   ],
+   [
+    "warn",
+    "<strong>Movimentação total −76,5k TON</strong> vs orçado (−13,9%) — gap de volume correlacionado à pressão na receita"
+   ]
+  ]
+ },
+ "slide04_carteira_mov": {
+  "tokens": {
+   "PERIODO": "YTD Jan–Abr/2026",
+   "PERIODO_ANT": "jan–abr/2025",
+   "MES_ANO": "Maio 2026"
+  },
+  "headline": "Derivados e Óleo Vegetal concentram <span class=\"hl-pos\">68%</span> do volume — crescimento total <span class=\"hl-pos\">+14,4% aa</span>, mas Metanol recua <span class=\"hl-neg\">−39,4%</span> no maior cliente",
+  "subhl": "YTD Jan–Abr/2026 · 1.799,5k TON realizados · comparação vs. jan–abr/2025 · Top 10 por movimentação",
+  "kpis": [
+   {
+    "lbl": "Mov. Realizada YTD",
+    "val": "1.799,5 kTON",
+    "subs": [
+     [
+      "▲ 14,4% vs. ano anterior",
+      "pos"
+     ],
+     [
+      "2026 · meses 01, 02, 03, 04",
+      ""
+     ]
+    ]
+   },
+   {
+    "lbl": "Maior Volume",
+    "val": "IPIRANGA",
+    "vsize": "18px",
+    "subs": [
+     [
+      "328,4k TON · 18,3% do total",
+      ""
+     ],
+     [
+      "▲ 58,3% vs. jan–abr/25",
+      "pos"
+     ]
+    ]
+   },
+   {
+    "lbl": "Ticket Médio / TON",
+    "val": "R$ 132,37",
+    "subs": [
+     [
+      "▼ 11,4% vs. ano anterior",
+      "neg"
+     ],
+     [
+      "Receita por tonelada movimentada",
+      ""
+     ]
+    ]
+   },
+   {
+    "lbl": "Gap vs. Orçado",
+    "val": "−10,5 kTON",
+    "vcls": "warn",
+    "subs": [
+     [
+      "−0,6% vs. orçado parcial",
+      ""
+     ],
+     [
+      "Atingimento: 99,4%",
+      "warn"
+     ]
+    ]
+   }
+  ],
+  "rows": [
+   [
+    1,
+    "IPIRANGA",
+    "Óleo Diesel",
+    "A",
+    100,
+    "328,4k TON",
+    "207,4k",
+    "▲ 58,3%",
+    "up"
+   ],
+   [
+    2,
+    "SUL PLATA",
+    "Óleo Diesel",
+    "A",
+    74.8,
+    "245,5k TON",
+    "136,1k",
+    "▲ 78,9%",
+    "up"
+   ],
+   [
+    3,
+    "METHANEX",
+    "Metanol",
+    "A",
+    64.9,
+    "213,1k TON",
+    "351,9k",
+    "▼ 39,4%",
+    "down"
+   ],
+   [
+    4,
+    "LDC",
+    "Óleo de Soja",
+    "A",
+    40.3,
+    "132,2k TON",
+    "90,2k",
+    "▲ 46,5%",
+    "up"
+   ],
+   [
+    5,
+    "CARGILL",
+    "Estearina P.",
+    "A",
+    34.5,
+    "113,2k TON",
+    "125,4k",
+    "▼ 9,7%",
+    "down"
+   ],
+   [
+    6,
+    "RAIZEN",
+    "Óleo Diesel",
+    "A",
+    20.5,
+    "67,3k TON",
+    "173,5k",
+    "▼ 61,2%",
+    "down"
+   ],
+   [
+    7,
+    "VALENZ",
+    "Metanol",
+    "A",
+    19.8,
+    "65,1k TON",
+    "176,0k",
+    "▼ 63,0%",
+    "down"
+   ],
+   [
+    8,
+    "COAMO",
+    "Estearina P.",
+    "B",
+    18.3,
+    "60,2k TON",
+    "43,3k",
+    "▲ 38,8%",
+    "up"
+   ],
+   [
+    9,
+    "OLIN BLUE CUBE",
+    "Soda Cáustica",
+    "B",
+    17.8,
+    "58,6k TON",
+    "124,4k",
+    "▼ 52,9%",
+    "down"
+   ],
+   [
+    10,
+    "COMIGO",
+    "Óleo de Soja",
+    "B",
+    10.8,
+    "35,4k TON",
+    "46,0k",
+    "▼ 23,1%",
+    "down"
+   ]
+  ],
+  "sidecol": [
+   {
+    "tag": "Risco Elevado",
+    "cls": "ctag-r",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>3 clientes Cls A</strong> com queda &gt;10% vs jan–abr/25 — exposição de <strong>356,1k TON</strong> (19,8% do volume). Parcialmente compensado por 16 novos clientes (<strong>+138,1k TON</strong>)"
+     }
+    ]
+   },
+   {
+    "tag": "Maior Risco",
+    "cls": "ctag-r",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>VALENZ −63,0%</strong> vs jan–abr/25 — de 176,1k para 65,1k TON. Principal produto: <strong>METANOL</strong>"
+     },
+     {
+      "a": "down",
+      "t": "<strong>RAIZEN −61,2%</strong> — de 173,5k para 67,3k TON. Queda estrutural em Derivados"
+     },
+     {
+      "a": "down",
+      "t": "<strong>METHANEX −39,4%</strong> — maior detrator absoluto (−138,8k TON). Pressão de volume em Metanol"
+     }
+    ]
+   },
+   {
+    "tag": "Oportunidade",
+    "cls": "ctag-g",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>4 clientes Cls A crescendo &gt;20%</strong> em volume — 764,1k TON adicionais. Expandir capacidade alocada antes da renovação"
+     },
+     {
+      "a": "up",
+      "t": "<strong>IPIRANGA +58,3%</strong> e <strong>SUL PLATA +78,9%</strong> — motores do crescimento em Derivados"
+     }
+    ]
+   }
+  ],
+  "prioridades": [
+   "Acionar recuperação para <strong>VALENZ</strong> — renegociar volume mínimo contratual em Metanol em até 15 dias",
+   "Consolidar os <strong>16 novos clientes</strong> (+138,1k TON) — priorizar contratos com compromisso de volume mínimo",
+   "Expandir capacidade para os <strong>4 clientes &gt;20% aa</strong> — propor aditivos de volume antes do pico de demanda"
+  ]
+ },
+ "slide07_receita_servico": {
+  "headline": "Take or Pay domina <span class=\"hl-pos\">69%</span> da receita — base contratual de <span class=\"hl-pos\">66%</span> em contratos &gt;12 meses · Espaço faturado M³ <span class=\"hl-pos\">+6,8% aa</span>",
+  "subhl": "mai/2026 · Receita bruta YTD R$306,1Mi · 12 meses rolling (jun/25 – mai/26) · valores em R$ x 1.000",
+  "chart_lbl": "Receita Bruta por Serviço — 12M Rolling (R$ x 1.000) · jun/25 → mai/26",
+  "kpis": [
+   {
+    "lbl": "Fat. YTD Jan–Mai",
+    "val": "R$ 306,08 Mi",
+    "sub": "▲ 4,2% vs jan–mai/25",
+    "sub_cls": "pos"
+   },
+   {
+    "lbl": "Ticket / TON",
+    "val": "R$ 134,67",
+    "sub": "▼ 6,0% vs jan–mai/25",
+    "sub_cls": "neg"
+   },
+   {
+    "lbl": "Ticket / M³",
+    "val": "R$ 64,25",
+    "sub": "Receita por metro cúbico"
+   },
+   {
+    "lbl": "Contratos &gt;12M",
+    "val": "66%",
+    "val_cls": "pos",
+    "sub": "Base estável"
+   },
+   {
+    "lbl": "Take or Pay",
+    "val": "69%",
+    "val_cls": "pos",
+    "sub": "Predominante"
+   },
+   {
+    "lbl": "Espaço M³ YTD",
+    "val": "837.353 m³",
+    "sub": "▲ 6,8% vs AA",
+    "sub_cls": "pos"
+   }
+  ],
+  "chart": {
+   "axis_max": 75000,
+   "axis_ticks": [
+    "75Mi",
+    "60Mi",
+    "40Mi",
+    "20Mi"
+   ],
+   "axis_tops": [
+    0,
+    20,
+    46.67,
+    73.33
+   ],
+   "months": [
+    "jun/25",
+    "jul/25",
+    "ago/25",
+    "set/25",
+    "out/25",
+    "nov/25",
+    "dez/25",
+    "jan/26",
+    "fev/26",
+    "mar/26",
+    "abr/26",
+    "mai/26"
+   ],
+   "totals": [
+    60161,
+    62255,
+    59016,
+    54610,
+    52998,
+    52296,
+    55194,
+    57586,
+    60301,
+    60838,
+    59479,
+    67879
+   ],
+   "split": [
+    73,
+    6,
+    9,
+    4,
+    8
+   ],
+   "colors": [
+    "#14204A",
+    "#3D6FCC",
+    "#F5C400",
+    "#F0A33A",
+    "#C8D4DF"
+   ],
+   "legend": [
+    "Take or Pay",
+    "Des/Embarque",
+    "SOP",
+    "Outros Serviços",
+    "Excedente/2ºGiro"
+   ],
+   "foot": "Totais mensais reais. Split por serviço = composição 12M — BI não exporta o split mensal."
+  },
+  "sidecol": [
+   {
+    "tag": "Base Contratual",
+    "cls": "ctag-n",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>Take or Pay = 69%</strong> da receita — recorrente e previsível. Base sólida mensal"
+     },
+     {
+      "a": "up",
+      "t": "<strong>66% em contratos &gt;12M</strong> — baixa exposição a contratos spot. Estabilidade de carteira"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Espaço M³ 837k +6,8% aa</strong> — espaço médio faturado em expansão. Tendência positiva"
+     }
+    ]
+   },
+   {
+    "tag": "Atenção",
+    "cls": "ctag-y",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>Ticket/TON −6,0% aa</strong> — mix menos valorizado pressionando receita por tonelada"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>Excedente = 8% da receita</strong> — abaixo do potencial. Oportunidade de ampliar serviços complementares"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>Take or Pay −4,2% vs 12M ant.</strong> — leve recuo na fatia recorrente"
+     }
+    ]
+   },
+   {
+    "tag": "Top Cliente",
+    "cls": "ctag-n",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>METHANEX</strong> — maior faturador YTD (R$40,57Mi). Concentra a maior parte do Take or Pay do terminal"
+     }
+    ]
+   }
+  ]
+ },
+ "slide08_espaco_m3": {
+  "headline": "Espaço faturado em expansão — média 12M de <span class=\"hl-pos\">800.752 m³</span>, com mai/26 em <span class=\"hl-pos\">844.598 m³</span> e <span class=\"hl-pos\">77%</span> em contratos &gt;12 meses",
+  "subhl": "12M Rolling (jun/25 → mai/26) · Espaço Faturado M³ por tipo de contrato · média 12M 800.752 m³",
+  "chart_lbl": "Espaço Faturado M³ por Tipo de Contrato — 12M Rolling · jun/25 → mai/26",
+  "kpis": [
+   {
+    "lbl": "Média 12M Rolling",
+    "val": "800.752 m³",
+    "sub": "jun/25 → mai/26"
+   },
+   {
+    "lbl": "Espaço M³ YTD",
+    "val": "837.353 m³",
+    "sub": "▲ 6,8% vs AA",
+    "sub_cls": "pos"
+   },
+   {
+    "lbl": "Mai/26",
+    "val": "844.598 m³",
+    "sub": "acima da média 12M"
+   },
+   {
+    "lbl": "Maior mês",
+    "val": "858.684 m³",
+    "sub": "mar/26 · pico 12M"
+   },
+   {
+    "lbl": "&gt;12 Meses",
+    "val": "77%",
+    "val_cls": "pos",
+    "sub": "base contratual"
+   },
+   {
+    "lbl": "Excedente",
+    "val": "12%",
+    "sub": "▲ 194,5% aa",
+    "sub_cls": "pos"
+   }
+  ],
+  "chart": {
+   "axis_max": 1000000,
+   "axis_ticks": [
+    "1,0M",
+    "0,8M",
+    "0,6M",
+    "0,4M",
+    "0,2M"
+   ],
+   "axis_tops": [
+    0,
+    20,
+    40,
+    60,
+    80
+   ],
+   "months": [
+    "jun/25",
+    "jul/25",
+    "ago/25",
+    "set/25",
+    "out/25",
+    "nov/25",
+    "dez/25",
+    "jan/26",
+    "fev/26",
+    "mar/26",
+    "abr/26",
+    "mai/26"
+   ],
+   "totals": [
+    828849,
+    833753,
+    819255,
+    738173,
+    709212,
+    730388,
+    762629,
+    824262,
+    839838,
+    858684,
+    819385,
+    844598
+   ],
+   "split": [
+    77,
+    2,
+    9,
+    12
+   ],
+   "colors": [
+    "#14204A",
+    "#A8C4FF",
+    "#3D6FCC",
+    "#C8D4DF"
+   ],
+   "legend": [
+    "&gt;12 meses",
+    "&lt;12 meses",
+    "Embarque/Desembarque",
+    "Excedente"
+   ],
+   "foot": "Totais mensais reais (m³). Split por tipo de contrato = composição do período (&gt;12m 77% · &lt;12m 2% · Embarque/Des 9% · Excedente 12%) — BI não exporta o split mensal."
+  },
+  "sidecol": [
+   {
+    "tag": "Expansão de tancagem",
+    "cls": "ctag-n",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>mar/26 com 858.684 m³</strong> — maior marca dos 12 meses. Forte recuperação desde set/25"
+     },
+     {
+      "a": "up",
+      "t": "<strong>YTD +6,8% aa</strong> — 837.353 m³ médios vs ~784k no mesmo período de 2025"
+     },
+     {
+      "a": "up",
+      "t": "<strong>77% em contratos &gt;12 meses</strong> — base sólida e previsível"
+     }
+    ]
+   },
+   {
+    "tag": "Atenção",
+    "cls": "ctag-y",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>Set–nov/25 foi o vale</strong> (709k–738k m³) — recuperação concluída; sazonalidade a monitorar"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>&lt;12m −21,1%</strong> e <strong>Embarque/Des −15,1% aa</strong> — migração pra contratos longos (positivo p/ previsibilidade)"
+     }
+    ]
+   },
+   {
+    "tag": "Excedente",
+    "cls": "ctag-n",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>Excedente/2º giro +194,5% aa</strong> — hoje 12% do espaço. Oportunidade de converter em contratos firmes"
+     }
+    ]
+   }
+  ]
+ },
+ "slide05_abc_produto": {
+  "headline": "<span class=\"hl-up\">2 produtos Cls A</span> (Derivados + Metanol) concentram <span class=\"hl-up\">62%</span> do faturamento (R$ 42,1 Mi) — <span class=\"hl-down\">Biocombustíveis</span> entrega só <span class=\"hl-down\">43%</span> da meta · <span class=\"hl-up\">8 clientes Cls A</span> = 60% da receita",
+  "hl_sub": "mai/2026 · Fat. total R$67,9Mi · Concentração por produto e por cliente · Var. vs. orçado e vs. mai/2025",
+  "cards": [
+   [
+    "ca",
+    "a",
+    "Classe A — Produtos",
+    "R$ 42,1 Mi",
+    "62% · 2 produtos"
+   ],
+   [
+    "cb",
+    "b",
+    "Classe B — Produtos",
+    "R$ 16,1 Mi",
+    "24% · 2 produtos"
+   ],
+   [
+    "cc",
+    "c",
+    "Classe C — Produtos",
+    "R$ 9,1 Mi",
+    "14% · 3 produtos"
+   ],
+   [
+    "ca",
+    "a",
+    "Classe A — Clientes",
+    "R$ 40,1 Mi",
+    "60% · 8 clientes"
+   ],
+   [
+    "cb",
+    "b",
+    "Classe B — Clientes",
+    "R$ 20,1 Mi",
+    "29% · 14 clientes"
+   ],
+   [
+    "cc",
+    "c",
+    "Classe C — Clientes",
+    "R$ 8,1 Mi",
+    "12% · 31 clientes · A>2,5Mi B>0,8Mi"
+   ]
+  ],
+  "donut_title": "Fat. por Produto — Mai/2026",
+  "donut_center": [
+   "R$67,9Mi",
+   "FAT. MAI/26"
+  ],
+  "segs": [
+   [
+    "Derivados",
+    37,
+    "#14204A"
+   ],
+   [
+    "Metanol",
+    25,
+    "#00B050"
+   ],
+   [
+    "Óleo Vegetal",
+    13,
+    "#F5C400"
+   ],
+   [
+    "Aquecidos",
+    12,
+    "#8A9BB0"
+   ],
+   [
+    "Soda Cáustica",
+    6,
+    "#C8D4DF"
+   ],
+   [
+    "Biocombust.",
+    5,
+    "#F0A33A"
+   ],
+   [
+    "Outros",
+    3,
+    "#5A82B5"
+   ]
+  ],
+  "pareto_lbl": "Pareto — Faturamento por Produto · mai/2026",
+  "pareto": [
+   [
+    "A",
+    "Derivados",
+    "col-a",
+    100,
+    "R$24,8Mi · 37%",
+    "37%",
+    [
+     "+12,4%",
+     "up"
+    ],
+    [
+     "+34,2%",
+     "up"
+    ]
+   ],
+   [
+    "A",
+    "Metanol",
+    "col-a",
+    69,
+    "R$17,1Mi · 25%",
+    "62%",
+    [
+     "−23,6%",
+     "down"
+    ],
+    [
+     "−17,8%",
+     "down"
+    ]
+   ],
+   [
+    "B",
+    "Óleo Vegetal",
+    "col-b",
+    35,
+    "R$8,8Mi · 13%",
+    "75%",
+    [
+     "+67,9%",
+     "up"
+    ],
+    [
+     "+61,7%",
+     "up"
+    ]
+   ],
+   [
+    "B",
+    "Aquecidos",
+    "col-b",
+    32,
+    "R$8,0Mi · 12%",
+    "86%",
+    [
+     "+9,2%",
+     "up"
+    ],
+    [
+     "+19,8%",
+     "up"
+    ]
+   ],
+   [
+    "C",
+    "Soda Cáustica",
+    "col-c",
+    16,
+    "R$4,0Mi · 6%",
+    "92%",
+    [
+     "+17,3%",
+     "up"
+    ],
+    [
+     "+42,2%",
+     "up"
+    ]
+   ],
+   [
+    "C",
+    "Biocombust.",
+    "col-c",
+    13,
+    "R$3,3Mi · 5%",
+    "97%",
+    [
+     "−57,3%",
+     "down"
+    ],
+    [
+     "+32,4%",
+     "up"
+    ]
+   ],
+   [
+    "C",
+    "Outros",
+    "col-c",
+    8,
+    "",
+    "100%",
+    [
+     "−5,0%",
+     "down"
+    ],
+    [
+     "+35,3%",
+     "up"
+    ]
+   ]
+  ],
+  "callouts": [
+   {
+    "tag": "Concentração — alerta",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>Derivados + Metanol = 62%</strong> da receita com 2 produtos — dependência alta. Risco em renovações"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>Metanol −23,6% vs orçado</strong> e −17,8% aa — único grupo em queda anual"
+     }
+    ]
+   },
+   {
+    "tag": "Destaques positivos",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>Derivados +12,4% vs orçado</strong> e +34,2% aa — único Cls A acima da meta"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Óleo Vegetal +67,9% vs orçado</strong> e +61,7% aa — volume forte, base em expansão"
+     },
+     {
+      "a": "up",
+      "t": "<strong>Soda +42,2% aa</strong> e <strong>Aquecidos +19,8% aa</strong> — Cls C/B reforçando"
+     }
+    ]
+   },
+   {
+    "tag": "Ação necessária",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>Metanol −23,6% vs orçado</strong> — Cls A em queda. Principal risco da carteira"
+     },
+     {
+      "a": "down",
+      "t": "<strong>Biocombustíveis −57,3% vs orçado</strong> — R$3,3Mi vs R$7,7Mi orçados. Revisão contratual urgente"
+     }
+    ]
+   }
+  ]
+ },
+ "slide06_abc_cliente": {
+  "headline": "<span class=\"hl-up\">8 clientes Cls A</span> concentram <span class=\"hl-up\">60%</span> do faturamento (R$ 40,1 Mi) — taxa de retenção <span class=\"hl-down\">84,0%</span>, abaixo do referencial de 85%",
+  "hl_sub": "mai/2026 · 53 clientes ativos · Fat. total R$67,9Mi · Classificação: A &gt;R$2,5Mi · B &gt;R$0,8Mi · C demais",
+  "cards": [
+   [
+    "ca",
+    "a",
+    "Classe A — Produtos",
+    "R$ 42,1 Mi",
+    "62% · 2 produtos"
+   ],
+   [
+    "cb",
+    "b",
+    "Classe B — Produtos",
+    "R$ 16,1 Mi",
+    "24% · 2 produtos"
+   ],
+   [
+    "cc",
+    "c",
+    "Classe C — Produtos",
+    "R$ 9,1 Mi",
+    "14% · 3 produtos"
+   ],
+   [
+    "ca",
+    "a",
+    "Classe A — Clientes",
+    "R$ 40,1 Mi",
+    "60% · 8 clientes"
+   ],
+   [
+    "cb",
+    "b",
+    "Classe B — Clientes",
+    "R$ 20,1 Mi",
+    "29% · 14 clientes"
+   ],
+   [
+    "cc",
+    "c",
+    "Classe C — Clientes",
+    "R$ 8,1 Mi",
+    "12% · 31 clientes · A>2,5Mi B>0,8Mi"
+   ]
+  ],
+  "donut_title": "Carteira — Mai/2026",
+  "donut_center": [
+   "53",
+   "CLIENTES"
+  ],
+  "segs": [
+   [
+    "IPIRANGA",
+    13,
+    "#F5C400"
+   ],
+   [
+    "METHANEX",
+    10,
+    "#14204A"
+   ],
+   [
+    "BLUEWAY",
+    9,
+    "#3D6FCC"
+   ],
+   [
+    "VALENZ",
+    8,
+    "#5A82B5"
+   ],
+   [
+    "MITSUBISHI",
+    6,
+    "#7B9FE8"
+   ],
+   [
+    "VIBRA",
+    5,
+    "#A8C4FF"
+   ],
+   [
+    "FS",
+    4,
+    "#C8D8FF"
+   ],
+   [
+    "SUL PLATA",
+    4,
+    "#DCE7F5"
+   ],
+   [
+    "Nível B",
+    29,
+    "#1D9E75"
+   ],
+   [
+    "Nível C",
+    12,
+    "#E4E7F0"
+   ]
+  ],
+  "niveis": [
+   {
+    "badge": "a",
+    "label": "Nível A",
+    "meta": "60% do fat. · 8 clientes · &gt;R$2,5Mi",
+    "pills": [
+     [
+      "IPIRANGA 12,8%",
+      0
+     ],
+     [
+      "METHANEX 10,3%",
+      0
+     ],
+     [
+      "BLUEWAY 9,0%",
+      0
+     ],
+     [
+      "VALENZ 7,8%",
+      0
+     ],
+     [
+      "MITSUBISHI 6,4%",
+      0
+     ],
+     [
+      "VIBRA 4,9%",
+      0
+     ],
+     [
+      "FS 4,2%",
+      0
+     ],
+     [
+      "SUL PLATA 4,2%",
+      0
+     ]
+    ]
+   },
+   {
+    "badge": "b",
+    "label": "Nível B",
+    "meta": "29% do fat. · 14 clientes · &gt;R$0,8Mi",
+    "pills": [
+     [
+      "CARGILL",
+      0
+     ],
+     [
+      "OLIN BLUE CUBE",
+      0
+     ],
+     [
+      "LDC",
+      0
+     ],
+     [
+      "CELENA",
+      0
+     ],
+     [
+      "INTER-CONTINENTAL",
+      0
+     ],
+     [
+      "INPASA",
+      0
+     ],
+     [
+      "BRF",
+      0
+     ],
+     [
+      "CIAPETRO",
+      0
+     ],
+     [
+      "ADISSEO",
+      0
+     ],
+     [
+      "AAK DO BRASIL",
+      0
+     ],
+     [
+      "COAMO",
+      0
+     ],
+     [
+      "JBS",
+      0
+     ],
+     [
+      "OIL TRADING",
+      1
+     ],
+     [
+      "GOLDEN AGRI",
+      1
+     ]
+    ]
+   },
+   {
+    "badge": "c",
+    "label": "Nível C",
+    "meta": "12% do fat. · 31 clientes · demais",
+    "pills": [
+     [
+      "OLAM",
+      0
+     ],
+     [
+      "BE8",
+      0
+     ],
+     [
+      "AAA OILS & FATS",
+      1
+     ],
+     [
+      "OQ GROUP",
+      0
+     ],
+     [
+      "BUNGE",
+      0
+     ],
+     [
+      "COMIGO",
+      0
+     ],
+     [
+      "EVONIK",
+      0
+     ],
+     [
+      "BTG",
+      0
+     ],
+     [
+      "ADM",
+      0
+     ],
+     [
+      "AGÊNCIA",
+      0
+     ],
+     [
+      "GPC",
+      0
+     ],
+     [
+      "TRICON ENERGY",
+      0
+     ],
+     [
+      "RODOBRAS",
+      1
+     ],
+     [
+      "PRISMA",
+      1
+     ],
+     [
+      "TRES TENTOS",
+      0
+     ],
+     [
+      "BRENNTAG",
+      1
+     ],
+     [
+      "BREJEIRO",
+      0
+     ],
+     [
+      "BSC QUIMICA",
+      0
+     ],
+     [
+      "AGRARIA",
+      0
+     ],
+     [
+      "BIMCO TRADING",
+      0
+     ],
+     [
+      "C.VALE",
+      0
+     ],
+     [
+      "MUNDO NOVO",
+      0
+     ],
+     [
+      "AMAGGI",
+      0
+     ],
+     [
+      "COFCO",
+      0
+     ],
+     [
+      "CARAMURU",
+      0
+     ],
+     [
+      "AGRODANIELI",
+      0
+     ],
+     [
+      "INGREDION",
+      1
+     ],
+     [
+      "COPACOL",
+      0
+     ],
+     [
+      "ALFA",
+      1
+     ],
+     [
+      "TRANSATLANTICA",
+      0
+     ],
+     [
+      "BALDO",
+      0
+     ]
+    ]
+   }
+  ],
+  "callouts": [
+   {
+    "tag": "Concentração — alerta",
+    "items": [
+     {
+      "a": "warn",
+      "t": "<strong>8 clientes Cls A = 60%</strong> da receita — concentração moderada. Risco elevado se 1–2 saírem"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>IPIRANGA = 12,8%</strong> do fat. — maior cliente, em forte expansão (+101,2% aa)"
+     },
+     {
+      "a": "warn",
+      "t": "<strong>3 dos 8 Cls A em queda</strong> — METHANEX, VALENZ, MITSUBISHI"
+     }
+    ]
+   },
+   {
+    "tag": "Expansão de carteira",
+    "items": [
+     {
+      "a": "up",
+      "t": "<strong>IPIRANGA +101,2%</strong> e <strong>VIBRA +87,7%</strong> — forte expansão em Cls A"
+     },
+     {
+      "a": "up",
+      "t": "<strong>11 novos clientes</strong> incorporados — base crescendo mesmo com mercado em retração"
+     },
+     {
+      "a": "up",
+      "t": "<strong>BLUEWAY e FS</strong> entram no Cls A — diversificação da concentração"
+     }
+    ]
+   },
+   {
+    "tag": "Retenção",
+    "items": [
+     {
+      "a": "down",
+      "t": "<strong>Taxa de retenção 84,0%</strong> — abaixo do referencial de 85%. Plano de retenção Cls A urgente"
+     },
+     {
+      "a": "neu",
+      "t": "<strong>VALENZ −14,2%</strong> e <strong>MITSUBISHI −8,2%</strong> — dois Cls A em queda no Metanol"
+     }
+    ]
+   }
+  ]
+ },
+ "slide01_destaques": {
+  "tokens": {
+   "MES_ANO": "Maio 2026",
+   "MES_CURTO": "mai/26"
+  },
+  "bullets": [
+   "<div class=\"bullet-group\">\n        <div class=\"b-main\"><span class=\"b-dot\"></span><span class=\"b-text\"><strong>Faturamento recorde de R$ 67,9 Mi</strong> — maior faturamento mensal da história — <span class=\"hi\">+16,0% aa</span>, embora <span class=\"warn\">−3,2% vs orçado</span> (1º mês de 2026 abaixo da meta)</span></div>\n        <div class=\"sub-bullets\">\n          <div class=\"sub-b\"><span class=\"sub-dash\">–</span><span class=\"sub-text\">YTD Jan–Mai acumula <strong>R$ 306,1 Mi</strong> (<span class=\"hi\">+4,2% vs 2025</span>)</span></div>\n          <div class=\"sub-b\"><span class=\"sub-dash\">–</span><span class=\"sub-text\">Movimentação 473k TON — <span class=\"warn\">−13,9% vs orçado</span> num mercado de Paranaguá −11% aa</span></div>\n        </div>\n      </div>",
+   "<div class=\"bullet-group\">\n        <div class=\"b-main\"><span class=\"b-dot\"></span><span class=\"b-text\"><strong>Market share Cattalini sobe para 59% em maio</strong> — <span class=\"hi\">+5 p.p. vs abril</span> e +21 p.p. desde o piso de set/25 — YTD consolidado em <strong>58,3%</strong></span></div>\n        <div class=\"sub-bullets\">\n          <div class=\"sub-b\"><span class=\"sub-dash\">–</span><span class=\"sub-text\">Transpetro recua para <span class=\"warn\">20%</span> (de 31% em abr) — janela de captura de share</span></div>\n          <div class=\"sub-b\"><span class=\"sub-dash\">–</span><span class=\"sub-text\">11 novos clientes incorporados no mês — base em expansão</span></div>\n        </div>\n      </div>",
+   "<div class=\"bullet-group\">\n        <div class=\"b-main\"><span class=\"b-dot\"></span><span class=\"b-text\"><strong>Óleo Vegetal e Derivados sustentam o crescimento</strong> — Óleo Vegetal <span class=\"hi\">+61,7% aa</span> e Derivados <span class=\"hi\">+34,2% aa</span> compensam a retração de Metanol</span></div>\n        <div class=\"sub-bullets\">\n          <div class=\"sub-b\"><span class=\"sub-dash\">–</span><span class=\"sub-text\">Take or Pay representa <strong>69%</strong> da receita — base recorrente e previsível</span></div>\n          <div class=\"sub-b\"><span class=\"sub-dash\">–</span><span class=\"sub-text\">Soda Cáustica <span class=\"hi\">+42,2% aa</span> e Aquecidos <span class=\"hi\">+19,8% aa</span> reforçam o mix</span></div>\n        </div>\n      </div>",
+   "<div class=\"bullet-group\">\n        <div class=\"b-main\"><span class=\"b-dot\"></span><span class=\"b-text\"><strong>Atenção — Metanol e Biocombustíveis pressionam</strong> — Metanol <span class=\"warn\">−17,8% aa</span> (único grupo A em queda) e Biocombustíveis a <span class=\"warn\">43% da meta</span></span></div>\n        <div class=\"sub-bullets\">\n          <div class=\"sub-b\"><span class=\"sub-dash\">–</span><span class=\"sub-text\">Concentração: Cattalini (59%) + Transpetro (20%) somam <strong>79% do volume</strong> de Paranaguá</span></div>\n          <div class=\"sub-b\"><span class=\"sub-dash\">–</span><span class=\"sub-text\">Orçado mai–dez/26 prevê R$ 70+ Mi/mês — desafio crescente no 2º semestre</span></div>\n        </div>\n      </div>"
+  ]
+ }
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+
+  .slide { width: 1440px; height: 829px; background: #fff; padding: 40px 64px 32px; display: flex; flex-direction: column; overflow: hidden; }
+
+  .slide-tag   { font-size: 10px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: #8B92A9; margin-bottom: 3px; }
+  .slide-title { font-size: 21px; font-weight: 300; color: #14204A; letter-spacing: -.3px; margin-bottom: 6px; }
+  .gold-rule   { height: 2px; background: #F5C400; margin-bottom: 14px; }
+
+  .headline { margin-bottom: 12px; }
+  .hl-main  { font-size: 15px; font-weight: 400; color: #14204A; line-height: 1.4; margin-bottom: 3px; }
+  .hl-up   { color: #0A8F5C; font-weight: 600; }
+  .hl-down { color: #C93030; font-weight: 600; }
+  .hl-warn { color: #D08000; font-weight: 600; }
+  .hl-sub  { font-size: 11px; color: #8B92A9; }
+
+  .kpi-row { display: flex; gap: 0; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #F0F2F8; }
+  .kpi     { flex: 1; padding-right: 22px; border-right: 1px solid #E8EAF2; margin-right: 22px; }
+  .kpi:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+  .kpi-bar { height: 3px; border-radius: 2px; margin-bottom: 6px; }
+  .kpi-lbl { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #8B92A9; margin-bottom: 3px; }
+  .kpi-val { font-size: 26px; font-weight: 400; line-height: 1; letter-spacing: -.3px; margin-bottom: 2px; }
+  .kpi-sub { font-size: 10px; color: #8B92A9; }
+  .up   { color: #0A8F5C; font-weight: 500; }
+  .down { color: #C93030; font-weight: 500; }
+
+  .body { display: grid; grid-template-columns: 1fr 240px; gap: 36px; flex: 1; min-height: 0; }
+  .chart-col { display: flex; flex-direction: column; min-height: 0; }
+  .sec-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #8B92A9; padding-bottom: 6px; border-bottom: 1px solid #F0F2F8; margin-bottom: 8px; }
+  .chart-wrap { flex: 1; position: relative; min-height: 0; }
+  .legend-row { display: flex; gap: 24px; margin-top: 10px; align-items: center; }
+  .leg { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; }
+  .leg-line { width: 28px; height: 4px; border-radius: 2px; flex-shrink: 0; }
+
+  .right { display: flex; flex-direction: column; gap: 16px; padding-top: 2px; }
+  .callout-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #F5C400; background: #14204A; padding: 3px 10px; display: inline-block; margin-bottom: 8px; border-radius: 2px; }
+  .c-items { display: flex; flex-direction: column; gap: 8px; }
+  .c-item  { display: flex; gap: 8px; align-items: flex-start; }
+  .arr     { font-size: 13px; flex-shrink: 0; line-height: 1.45; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size: 11px; color: #2A3060; line-height: 1.6; }
+  .c-text strong { font-weight: 600; color: #14204A; }
+  .rule { height: 1px; background: #F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="slide-tag">Market Share · Granéis Líquidos · Paranaguá · %/t</div>
+  <div class="slide-title">Market Share</div>
+  <div class="gold-rule"></div>
+
+  <div class="headline">
+    <div class="hl-main">
+      Cattalini encerra março em <span class="hl-warn">58%</span> — recuperação de <span class="hl-up">+19 p.p.</span> desde o piso de set/25 ·
+      Terin perde <span class="hl-up">−2 p.p. vs mar/25</span> — janela de captura ativa
+    </div>
+    <div class="hl-sub">Mar/2025 → Mar/2026 · Market share mensal por terminal · Granéis Líquidos Paranaguá (%/t)</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#10253F"></div>
+      <div class="kpi-lbl">Cattalini — mar/26</div>
+      <div class="kpi-val" style="color:#10253F;font-weight:600;">58%</div>
+      <div class="kpi-sub"><span class="down">▼ 1 p.p.</span> vs mar/25 (59%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#10253F;opacity:.3"></div>
+      <div class="kpi-lbl">Cattalini — mín. / máx.</div>
+      <div class="kpi-val" style="color:#D08000;">39% → 63%</div>
+      <div class="kpi-sub">set/25 → fev/26</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#6C809A"></div>
+      <div class="kpi-lbl">Transpetro — mar/26</div>
+      <div class="kpi-val" style="color:#6C809A;">29%</div>
+      <div class="kpi-sub"><span class="down">▲ 5 p.p.</span> vs mar/25 (24%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#FFC000"></div>
+      <div class="kpi-lbl">CBL — mar/26</div>
+      <div class="kpi-val" style="color:#C09000;">10%</div>
+      <div class="kpi-sub"><span class="down">▼ 2 p.p.</span> vs mar/25 (12%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#9BBB59"></div>
+      <div class="kpi-lbl">Terin — mar/26</div>
+      <div class="kpi-val" style="color:#6A8A30;">3%</div>
+      <div class="kpi-sub"><span class="down">▼ 2 p.p.</span> vs mar/25 (5%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#F5C400"></div>
+      <div class="kpi-lbl">Cattalini — YTD Jan–Mar/26</div>
+      <div class="kpi-val" style="color:#0A8F5C;">59,7%</div>
+      <div class="kpi-sub">Média dos 3 primeiros meses</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="chart-col">
+      <div class="sec-label">Market Share por Terminal (%/t) · Mar/25 → Mar/26</div>
+      <div class="chart-wrap">
+        <canvas id="rc"></canvas>
+      </div>
+      <div class="legend-row">
+        <div class="leg"><span class="leg-line" style="background:#10253F;height:5px;"></span><span style="color:#10253F;">Cattalini</span></div>
+        <div class="leg"><span class="leg-line" style="background:#6C809A"></span><span style="color:#6C809A;">Transpetro</span></div>
+        <div class="leg"><span class="leg-line" style="background:#FFC000"></span><span style="color:#C09000;">CBL</span></div>
+        <div class="leg"><span class="leg-line" style="background:#9BBB59"></span><span style="color:#6A8A30;">Terin</span></div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <div class="callout-tag">Cattalini</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>+19 p.p.</strong> de recuperação de set/25 (39%) a fev/26 (63%) — retomada expressiva de posição</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Mar/26: 58%</strong> — recuo de 5 p.p. vs fev/26. Monitorar tendência em abril</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text">YTD <strong>59,7%</strong> — média sólida nos 3 primeiros meses de 2026</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Competidores</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Transpetro</strong> subiu de 24% (mar/25) para pico de 46% (out/25) — retornou a 29% em mar/26</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Terin: 3%</strong> — perdeu 12 p.p. desde set/25 (15%). Clientes disponíveis para captura</span></div>
+          <div class="c-item"><span class="arr arr-neu">→</span><span class="c-text"><strong>CBL: 10%</strong> — estável, perdeu −2 p.p. vs mar/25 (12%)</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Oportunidade</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text">Terin perdeu <strong>−12 p.p.</strong> de share desde set/25 — priorizar prospecção dos clientes desse terminal agora</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const labels = ['mar/25','abr/25','mai/25','jun/25','jul/25','ago/25','set/25','out/25','nov/25','dez/25','jan/26','fev/26','mar/26'];
+
+const volumes = [845,870,898,943,881,900,905,829,728,730,725,742,750]; // K TON
+
+// Ordem: Terin embaixo → CBL → Transpetro → Cattalini no topo
+const series = [
+  { label:'Terin',      color:'#9BBB59', textColor:'#3a5a10', data:[ 5, 3, 9, 8, 5, 7,15, 3, 5, 6, 1, 2, 3] },
+  { label:'CBL',        color:'#FFC000', textColor:'#7a5500', data:[12,18, 5,11,10, 6, 7, 6,13, 2,11,12,10] },
+  { label:'Transpetro', color:'#6C809A', textColor:'#fff',    data:[24,25,33,37,37,34,40,46,36,45,30,23,29] },
+  { label:'Cattalini',  color:'#10253F', textColor:'#fff',    data:[59,53,53,44,48,53,39,45,46,46,58,63,58] },
+];
+
+const allLabels = {
+  id: 'allLbls',
+  afterDatasetsDraw(ch) {
+    const ctx = ch.ctx;
+    // % dentro de cada segmento
+    series.forEach((s, si) => {
+      const meta = ch.getDatasetMeta(si);
+      meta.data.forEach((bar, i) => {
+        const v = s.data[i];
+        const segH = Math.abs(bar.base - bar.y);
+        if (segH < 14) return; // segmento muito pequeno
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = s.textColor;
+        ctx.font = `${si === 3 ? '700' : '600'} ${si === 3 ? 11 : 10}px Inter`;
+        ctx.fillText(v + '%', bar.x, bar.y + segH / 2);
+        ctx.restore();
+      });
+    });
+    // Total no topo
+    const topMeta = ch.getDatasetMeta(3);
+    topMeta.data.forEach((bar, i) => {
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#14204A';
+      ctx.font = '600 10.5px Inter';
+      ctx.fillText(volumes[i].toLocaleString('pt-BR') + ' K', bar.x, bar.y - 7);
+      ctx.restore();
+    });
+  }
+};
+
+new Chart(document.getElementById('rc'), {
+  type: 'bar',
+  plugins: [allLabels],
+  data: {
+    labels,
+    datasets: series.map((s, si, arr) => ({
+      label: s.label,
+      data: s.data,
+      backgroundColor: s.color,
+      borderRadius: si === arr.length - 1
+        ? { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 } : 0,
+      borderSkipped: false,
+      stack: 's',
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(2,6,23,.96)',
+        titleColor: '#94a3b8',
+        bodyColor: '#fff',
+        titleFont: { size: 11, weight: '700', family: 'Inter' },
+        bodyFont: { size: 11, weight: '600', family: 'Inter' },
+        padding: 12, cornerRadius: 10,
+        callbacks: {
+          title: items => items[0].label,
+          label: item => ' ' + item.dataset.label + ': ' + item.raw + '%',
+        }
+      }
+    },
+    layout: { padding: { top: 24, right: 8 } },
+    scales: {
+      x: {
+        stacked: true,
+        grid: { display: false },
+        border: { display: false },
+        ticks: {
+          color: ctx => ['jan/26','fev/26','mar/26'].includes(ctx.tick.label) ? '#14204A' : '#8B92A9',
+          font: ctx => ({
+            family: 'Inter', size: 11,
+            weight: ['jan/26','fev/26','mar/26'].includes(ctx.tick.label) ? '700' : '500'
+          }),
+          maxRotation: 0,
+        }
+      },
+      y: {
+        stacked: true,
+        min: 0, max: 100,
+        grid: { color: 'rgba(148,163,184,.15)' },
+        border: { display: false },
+        ticks: {
+          color: '#94a3b8',
+          font: { size: 10.5, weight: '600' },
+          callback: v => v + '%',
+          maxTicksLimit: 6,
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

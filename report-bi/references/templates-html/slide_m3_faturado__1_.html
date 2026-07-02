@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+
+  .slide {
+    width: 1440px; height: 829px;
+    background: #fff;
+    padding: 40px 64px 32px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  .slide-tag   { font-size: 10px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: #8B92A9; margin-bottom: 3px; }
+  .slide-title { font-size: 21px; font-weight: 300; color: #14204A; letter-spacing: -.3px; margin-bottom: 6px; }
+  .gold-rule   { height: 2px; background: #F5C400; margin-bottom: 14px; }
+
+  .headline { margin-bottom: 12px; }
+  .hl-main  { font-size: 15px; font-weight: 400; color: #14204A; line-height: 1.4; margin-bottom: 3px; }
+  .hl-up    { color: #0A8F5C; font-weight: 600; }
+  .hl-down  { color: #C93030; font-weight: 600; }
+  .hl-sub   { font-size: 11px; color: #8B92A9; }
+
+  .kpi-row { display: flex; gap: 0; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #F0F2F8; }
+  .kpi     { flex: 1; padding-right: 24px; border-right: 1px solid #E8EAF2; margin-right: 24px; }
+  .kpi:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+  .kpi-lbl { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #8B92A9; margin-bottom: 3px; }
+  .kpi-val { font-size: 22px; font-weight: 300; color: #14204A; line-height: 1; letter-spacing: -.3px; margin-bottom: 2px; }
+  .kpi-val.up   { color: #0A8F5C; }
+  .kpi-val.warn { color: #D08000; }
+  .kpi-sub { font-size: 10px; color: #8B92A9; }
+  .up   { color: #0A8F5C; font-weight: 500; }
+  .down { color: #C93030; font-weight: 500; }
+
+  .body { display: grid; grid-template-columns: 1fr 240px; gap: 36px; flex: 1; min-height: 0; }
+
+  .chart-col { display: flex; flex-direction: column; min-height: 0; }
+  .sec-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #8B92A9; padding-bottom: 6px; border-bottom: 1px solid #F0F2F8; margin-bottom: 8px; }
+  .chart-wrap { flex: 1; position: relative; min-height: 0; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 5px 16px; margin-top: 8px; }
+  .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 500; color: #64748b; }
+  .leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+
+  .right { display: flex; flex-direction: column; gap: 16px; padding-top: 2px; }
+  .callout-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #F5C400; background: #14204A; padding: 3px 10px; display: inline-block; margin-bottom: 8px; border-radius: 2px; }
+  .c-items { display: flex; flex-direction: column; gap: 8px; }
+  .c-item  { display: flex; gap: 8px; align-items: flex-start; }
+  .arr     { font-size: 13px; flex-shrink: 0; line-height: 1.45; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size: 11px; color: #2A3060; line-height: 1.6; }
+  .c-text strong { font-weight: 600; color: #14204A; }
+  .rule { height: 1px; background: #F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="slide-tag">Análise Realizado · Terminal Cattalini · Paranaguá</div>
+  <div class="slide-title">Cattalini — Espaço Faturado M³ · Mar/2026</div>
+  <div class="gold-rule"></div>
+
+  <div class="headline">
+    <div class="hl-main">
+      Espaço faturado em <span class="hl-up">expansão consistente</span> — mar/26 atinge <span class="hl-up">858.684 m³</span>, maior marca dos últimos 12 meses ·
+      YTD <span class="hl-up">+6,5% aa</span>
+    </div>
+    <div class="hl-sub">12M Rolling (abr/25 → mar/26) · Espaço Faturado M³ por tipo de contrato · Total 12M: 791.405 m³ médio mensal</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Espaço Fat. M³ mar/26</div>
+      <div class="kpi-val up">858.684 m³</div>
+      <div class="kpi-sub">Maior do período 12M</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">YTD Jan–Mar/26</div>
+      <div class="kpi-val">840.928 m³</div>
+      <div class="kpi-sub"><span class="up">▲ 6,5%</span> vs jan–mar/2025</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Ticket M³</div>
+      <div class="kpi-val">R$ 70,85</div>
+      <div class="kpi-sub">Receita por metro cúbico</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">&gt;12 Meses</div>
+      <div class="kpi-val up">69%</div>
+      <div class="kpi-sub">Base contratual estável</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Média 12M Rolling</div>
+      <div class="kpi-val">791.405 m³</div>
+      <div class="kpi-sub"><span class="up">+0,0%</span> vs AA</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Jan–Mar/25</div>
+      <div class="kpi-val">789.255 m³</div>
+      <div class="kpi-sub">Mesmo período anterior</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="chart-col">
+      <div class="sec-label">Espaço Faturado M³ — 12M Rolling · abr/25 → mar/26 · por Tipo de Contrato</div>
+      <div class="chart-wrap">
+        <canvas id="rc"></canvas>
+      </div>
+      <div class="legend-row">
+        <div class="leg"><span class="leg-dot" style="background:#14204A"></span>&gt;12 meses</div>
+        <div class="leg"><span class="leg-dot" style="background:#5A82B5"></span>&lt;12 meses</div>
+        <div class="leg"><span class="leg-dot" style="background:#8A9BB0"></span>Embarque/Desembarque</div>
+        <div class="leg"><span class="leg-dot" style="background:#D6DEE8;border:1px solid #bbb;"></span>Excedente</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <div class="callout-tag">Expansão de tancagem</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>858.684 m³ em mar/26</strong> — maior marca dos 12 meses. Tendência de alta consistente de jan a mar/26</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>YTD +6,5% aa</strong> — 840.928 m³ acumulados vs 789.255 m³ no mesmo período de 2025</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Contratos &gt;12M = 69%</strong> do espaço faturado — base de longo prazo garante previsibilidade de ocupação</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Atenção</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Set–nov/25</strong> com queda acentuada (709k → 730k m³) — recuperação concluída, mas sazonalidade a monitorar</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Ticket M³ R$70,85</strong> — monitorar evolução. Queda de ticket/TON (−14,8% aa) sinaliza pressão de mix</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Embarque/Desembarque</strong> como fração relevante — oportunidade de ampliar contratos de maior prazo nessa categoria</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Contexto de mercado</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-neu">→</span><span class="c-text">Mercado Paranaguá <strong>−11%</strong> em mar/26 vs mar/25, mas espaço M³ cresce — eficiência de ocupação de tancagem melhorando</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// Dados 12M Rolling — Espaço Faturado M³ por tipo de contrato
+// Totais extraídos do visual PBI; breakdown proporcional ao YTD
+const data = [
+  { lbl:'abr/25', tot:777800 },
+  { lbl:'mai/25', tot:774017 },
+  { lbl:'jun/25', tot:828849 },
+  { lbl:'jul/25', tot:833753 },
+  { lbl:'ago/25', tot:819255 },
+  { lbl:'set/25', tot:738173 },
+  { lbl:'out/25', tot:709212 },
+  { lbl:'nov/25', tot:730388 },
+  { lbl:'dez/25', tot:762629 },
+  { lbl:'jan/26', tot:824262 },
+  { lbl:'fev/26', tot:839838 },
+  { lbl:'mar/26', tot:858684 },
+];
+
+// Mix por contrato (proporcional ao YTD: >12M=80%, Emb=12%, <12M=5%, Exc=3%)
+const pct = { mai12:0.800, men12:0.050, emb:0.120, exc:0.030 };
+
+const SRVS = [
+  { key:'mai12', label:'>12 meses',             color:'#14204A' },
+  { key:'men12', label:'<12 meses',              color:'#5A82B5' },
+  { key:'emb',   label:'Embarque/Desembarque',   color:'#8A9BB0' },
+  { key:'exc',   label:'Excedente',              color:'#D6DEE8' },
+];
+
+const fmtM3 = v => v >= 1000000
+  ? (v/1000000).toLocaleString('pt-BR', {minimumFractionDigits:3}) + 'M m³'
+  : v.toLocaleString('pt-BR') + ' m³';
+
+const totalLabels = {
+  id: 'totlbl',
+  afterDatasetsDraw(ch) {
+    const ctx = ch.ctx;
+    data.forEach((d, i) => {
+      const metas = ch.data.datasets.map((_, di) => ch.getDatasetMeta(di));
+      let topY = 9999, cx = 0;
+      metas.forEach(m => { if (m.data[i] && m.data[i].y < topY) { topY = m.data[i].y; cx = m.data[i].x; } });
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#14204A';
+      ctx.font = '600 9.5px Inter, sans-serif';
+      ctx.fillText(d.tot.toLocaleString('pt-BR') + 'm³', cx, topY - 5);
+      ctx.restore();
+    });
+  }
+};
+
+new Chart(document.getElementById('rc'), {
+  type: 'bar',
+  plugins: [totalLabels],
+  data: {
+    labels: data.map(d => d.lbl),
+    datasets: SRVS.map((s, si, arr) => ({
+      label: s.label,
+      data: data.map(d => Math.round(d.tot * pct[s.key])),
+      backgroundColor: s.color,
+      borderRadius: si === arr.length - 1
+        ? { topLeft: 5, topRight: 5, bottomLeft: 0, bottomRight: 0 } : 0,
+      borderSkipped: false,
+      stack: 's',
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(2,6,23,.96)',
+        titleColor: '#94a3b8',
+        bodyColor: '#fff',
+        titleFont: { size: 11, weight: '700', family: 'Inter' },
+        bodyFont: { size: 11, weight: '600', family: 'Inter' },
+        padding: 10, cornerRadius: 10,
+        callbacks: {
+          title: items => items[0].label,
+          label: item => ' ' + item.dataset.label + ': ' + item.raw.toLocaleString('pt-BR') + ' m³',
+          footer: items => ' Total: ' + data[items[0].dataIndex].tot.toLocaleString('pt-BR') + ' m³',
+        }
+      }
+    },
+    layout: { padding: { top: 24, right: 4 } },
+    scales: {
+      x: {
+        stacked: true,
+        grid: { display: false },
+        border: { display: false },
+        ticks: { color: '#64748b', font: { family: 'Inter', size: 11, weight: '600' }, maxRotation: 0 }
+      },
+      y: {
+        stacked: true,
+        beginAtZero: true,
+        max: 1000000,
+        grid: { color: 'rgba(148,163,184,.15)' },
+        border: { display: false },
+        ticks: {
+          color: '#94a3b8',
+          font: { size: 10, weight: '600' },
+          callback: v => v ? (v/1000).toLocaleString('pt-BR') + 'k m³' : '',
+          maxTicksLimit: 6,
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

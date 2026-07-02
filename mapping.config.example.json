@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "criadoEm": "2026-07-02",
+  "datasets": {
+    "fat_realizado": {
+      "file": "Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_Realizado.xlsx",
+      "sheet": "Banco de Dados - Faturamento",
+      "columns": {
+        "ano": "ANO",
+        "mes": "MÊS",
+        "cliente": "Grupo de Cliente",
+        "servico": "Grupo de Serviço",
+        "produto": "PRODUTO",
+        "grupo": "GRUPO DE PRODUTOS",
+        "ton": "Espaço Faturado (TON)",
+        "m3": "Espaço Faturado  (m³)",
+        "valor": "Faturamento (R$)",
+        "contrato": "GRUPO DE CONTRATOS"
+      }
+    },
+    "fat_orcado": {
+      "file": "Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_orcamento.xlsx",
+      "sheet": "Banco de Dados - Fat.",
+      "columns": {
+        "ano": "ANO",
+        "mes": "MÊS",
+        "cliente": "Grupo de Cliente",
+        "grupo": "GRUPO DE PRODUTOS",
+        "valor": "Faturamento (R$)"
+      }
+    },
+    "mov_terminal": {
+      "file": "Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_Realizado.xlsx",
+      "sheet": "Mov - Realizada",
+      "columns": {
+        "terminal": "TERMINAL",
+        "ano": "ANO",
+        "mes": "MÊS",
+        "produto": "PRODUTO",
+        "grupo": "GRUPO DE PRODUTOS",
+        "ton": "Mov (TON)"
+      }
+    },
+    "mov_cliente": {
+      "file": "Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_Realizado.xlsx",
+      "sheet": "Mov - Realizada(Cliente)",
+      "columns": {
+        "cliente": "Cliente",
+        "produto": "Produto",
+        "grupo": "GRUPO2",
+        "ton": "Quantidade (Tons)",
+        "mesnum": "MêsNum",
+        "ano": "ANO"
+      }
+    },
+    "mov_orcada": {
+      "file": "Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_orcamento.xlsx",
+      "sheet": "Mov - Orçada",
+      "columns": {
+        "ano": "ANO",
+        "mes": "MÊS",
+        "grupo": "GRUPO DE PRODUTOS",
+        "ton": "Movimentação(TON)"
+      }
+    },
+    "previsao_mov": {
+      "file": "Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_orcamento.xlsx",
+      "sheet": "Projeção - Ton  Movimentação",
+      "columns": {
+        "ano": "Ano",
+        "mes": "Atributo",
+        "produto": "Produto",
+        "valor": "Valor"
+      }
+    }
+  }
+}

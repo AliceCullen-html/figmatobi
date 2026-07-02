@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+
+  .slide {
+    width: 1440px; height: 829px;
+    background: #fff;
+    padding: 40px 64px 32px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  .slide-tag   { font-size: 10px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: #8B92A9; margin-bottom: 3px; }
+  .slide-title { font-size: 21px; font-weight: 300; color: #14204A; letter-spacing: -.3px; margin-bottom: 6px; }
+  .gold-rule   { height: 2px; background: #F5C400; margin-bottom: 14px; }
+
+  .headline { margin-bottom: 12px; }
+  .hl-main  { font-size: 15px; font-weight: 400; color: #14204A; line-height: 1.4; margin-bottom: 3px; }
+  .hl-up    { color: #0A8F5C; font-weight: 600; }
+  .hl-down  { color: #C93030; font-weight: 600; }
+  .hl-sub   { font-size: 11px; color: #8B92A9; }
+
+  .kpi-row { display: flex; gap: 0; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #F0F2F8; }
+  .kpi     { flex: 1; padding-right: 24px; border-right: 1px solid #E8EAF2; margin-right: 24px; }
+  .kpi:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+  .kpi-lbl { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #8B92A9; margin-bottom: 3px; }
+  .kpi-val { font-size: 22px; font-weight: 300; color: #14204A; line-height: 1; letter-spacing: -.3px; margin-bottom: 2px; }
+  .kpi-val.up   { color: #0A8F5C; }
+  .kpi-val.down { color: #C93030; }
+  .kpi-val.warn { color: #D08000; }
+  .kpi-sub { font-size: 10px; color: #8B92A9; }
+  .up   { color: #0A8F5C; font-weight: 500; }
+  .down { color: #C93030; font-weight: 500; }
+
+  .body { display: grid; grid-template-columns: 1fr 240px; gap: 36px; flex: 1; min-height: 0; }
+
+  .chart-col { display: flex; flex-direction: column; min-height: 0; }
+  .sec-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #8B92A9; padding-bottom: 6px; border-bottom: 1px solid #F0F2F8; margin-bottom: 8px; }
+  .chart-wrap { flex: 1; position: relative; min-height: 0; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 5px 16px; margin-top: 8px; }
+  .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 500; color: #64748b; }
+  .leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+
+  .right { display: flex; flex-direction: column; gap: 16px; padding-top: 2px; }
+  .callout-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #F5C400; background: #14204A; padding: 3px 10px; display: inline-block; margin-bottom: 8px; border-radius: 2px; }
+  .c-items { display: flex; flex-direction: column; gap: 8px; }
+  .c-item  { display: flex; gap: 8px; align-items: flex-start; }
+  .arr     { font-size: 13px; flex-shrink: 0; line-height: 1.45; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size: 11px; color: #2A3060; line-height: 1.6; }
+  .c-text strong { font-weight: 600; color: #14204A; }
+  .rule { height: 1px; background: #F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="slide-tag">Análise Realizado · Terminal Cattalini · Paranaguá</div>
+  <div class="slide-title">Cattalini — Movimentação por Categoria · Março Histórico</div>
+  <div class="gold-rule"></div>
+
+  <div class="headline">
+    <div class="hl-main">
+      Março/2026: <span class="hl-down">439,9k TON</span> — <span class="hl-down">−11,8% vs mar/2025</span> e <span class="hl-down">−10,8% vs orçado</span> ·
+      Derivados compensa com <span class="hl-up">+21,6% vs orçado</span> em volume
+    </div>
+    <div class="hl-sub">Movimentação de março por ano (2023–2026) · Comparação vs. orçado mar/2026 · TON por categoria de produto</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Mar/2026 Real</div>
+      <div class="kpi-val down">439,9k TON</div>
+      <div class="kpi-sub"><span class="down">▼ 10,8%</span> vs orçado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Orçado Mar/2026</div>
+      <div class="kpi-val">493,1k TON</div>
+      <div class="kpi-sub">Gap: <span class="down">−53,2k TON</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">vs Mar/2025</div>
+      <div class="kpi-val down">−11,8%</div>
+      <div class="kpi-sub">498,9k TON em mar/25</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">vs Mar/2023 (pico)</div>
+      <div class="kpi-val warn">−24,7%</div>
+      <div class="kpi-sub">584,3k TON em mar/23</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Derivados Mar/26</div>
+      <div class="kpi-val up">180,9k TON</div>
+      <div class="kpi-sub"><span class="up">▲ 21,6%</span> vs orçado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Metanol Mar/26</div>
+      <div class="kpi-val down">73,0k TON</div>
+      <div class="kpi-sub"><span class="down">▼ 39,8%</span> vs orçado</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="chart-col">
+      <div class="sec-label">Movimentação de Março por Ano (TON) · 2023 → 2026 · por Categoria de Produto</div>
+      <div class="chart-wrap">
+        <canvas id="rc"></canvas>
+      </div>
+      <div class="legend-row">
+        <div class="leg"><span class="leg-dot" style="background:#00B050"></span>Metanol</div>
+        <div class="leg"><span class="leg-dot" style="background:#14204A"></span>Derivados</div>
+        <div class="leg"><span class="leg-dot" style="background:#8A9BB0"></span>Aquecidos</div>
+        <div class="leg"><span class="leg-dot" style="background:#F5C400"></span>Óleo Vegetal</div>
+        <div class="leg"><span class="leg-dot" style="background:#C8D4DF;border:1px solid #aaa;"></span>Soda Cáustica</div>
+        <div class="leg"><span class="leg-dot" style="background:#5A82B5"></span>Outros</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <div class="callout-tag">Contexto histórico</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>2023 foi o pico</strong> (584,3k TON) — inflado por Óleo Vegetal. 2026 registra o menor março desde 2022</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Queda estrutural de Metanol</strong> — de ~160k TON em 2023 para 73k em 2026. METHANEX e VALENZ retraem</span></div>
+          <div class="c-item"><span class="arr arr-neu">→</span><span class="c-text">Mercado Paranaguá <strong>−11%</strong> em mar/26 vs mar/25 — retração generalizada, não isolada</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Mar/26 vs orçado</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Derivados +21,6%</strong> vs orçado — único grupo acima da meta em volume no mês</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Óleo Vegetal +2,9%</strong> vs orçado — volume estável. LDC e SUL PLATA sustentam</span></div>
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Metanol −39,8%</strong> vs orçado — maior gap absoluto (−48k TON). Ação comercial necessária</span></div>
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Biocombustíveis −68,1%</strong> vs orçado — 8,6k vs 27k TON orçados. Revisão contratual</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// Dados: movimentação de MARÇO por ano (TON)
+// 2026: valores exatos do PBI
+// 2023-2025: extraídos do gráfico histórico
+const anos = [
+  {
+    lbl: 'mar/23', isOrc: false,
+    met: 160000, der: 145000, aq: 30000, ov: 210000, sc: 20000, out: 19348
+    // Total: 584,348
+  },
+  {
+    lbl: 'mar/24', isOrc: false,
+    met: 120000, der: 165000, aq: 25000, ov: 130000, sc: 25000, out: 20208
+    // Total: 485,208
+  },
+  {
+    lbl: 'mar/25', isOrc: false,
+    met: 119700, der: 171200, aq: 27000, ov: 130000, sc: 27000, out: 23987
+    // Total: 498,887
+  },
+  {
+    lbl: 'mar/26', isOrc: false,
+    met:  73009, der: 180912, aq: 23467, ov: 123626, sc: 23588, out: 15359
+    // Total: 439,961
+  },
+  {
+    lbl: 'Orçado\nmar/26', isOrc: true,
+    met: 121200, der: 148700, aq: 34300, ov: 120100, sc: 35800, out: 33011
+    // Total: 493,111
+  },
+];
+
+const totals = anos.map(d => d.met + d.der + d.aq + d.ov + d.sc + d.out);
+
+const SRVS = [
+  { key:'met', label:'Metanol',       color:'#00B050' },
+  { key:'der', label:'Derivados',     color:'#14204A' },
+  { key:'aq',  label:'Aquecidos',     color:'#8A9BB0' },
+  { key:'ov',  label:'Óleo Vegetal',  color:'#F5C400' },
+  { key:'sc',  label:'Soda Cáustica', color:'#C8D4DF' },
+  { key:'out', label:'Outros',        color:'#5A82B5' },
+];
+
+const totalLabels = {
+  id: 'totlbl',
+  afterDatasetsDraw(ch) {
+    const ctx = ch.ctx;
+    anos.forEach((d, i) => {
+      const metas = ch.data.datasets.map((_, di) => ch.getDatasetMeta(di));
+      let topY = 9999, cx = 0;
+      metas.forEach(m => { if (m.data[i] && m.data[i].y < topY) { topY = m.data[i].y; cx = m.data[i].x; } });
+      ctx.save();
+      ctx.textAlign = 'center';
+      if (d.isOrc) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '500 9.5px Inter';
+        ctx.fillText('Orç', cx, topY - 18);
+      }
+      ctx.fillStyle = d.isOrc ? '#64748b' : '#14204A';
+      ctx.font = (d.isOrc ? '500' : '600') + ' 10px Inter';
+      ctx.fillText(totals[i].toLocaleString('pt-BR') + ' Ton', cx, topY - 5);
+      ctx.restore();
+    });
+  }
+};
+
+new Chart(document.getElementById('rc'), {
+  type: 'bar',
+  plugins: [totalLabels],
+  data: {
+    labels: anos.map(d => d.lbl),
+    datasets: SRVS.map((s, si, arr) => ({
+      label: s.label,
+      data: anos.map(d => d[s.key]),
+      backgroundColor: anos.map(d => d.isOrc ? s.color + '55' : s.color),
+      borderColor: anos.map(d => d.isOrc ? s.color : 'transparent'),
+      borderWidth: anos.map(d => d.isOrc ? 1.5 : 0),
+      borderRadius: si === arr.length - 1
+        ? { topLeft: 5, topRight: 5, bottomLeft: 0, bottomRight: 0 } : 0,
+      borderSkipped: false,
+      stack: 's',
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(2,6,23,.96)',
+        titleColor: '#94a3b8',
+        bodyColor: '#fff',
+        titleFont: { size: 11, weight: '700', family: 'Inter' },
+        bodyFont: { size: 11, weight: '600', family: 'Inter' },
+        padding: 10, cornerRadius: 10,
+        callbacks: {
+          title: items => items[0].label,
+          label: item => ' ' + item.dataset.label + ': ' + item.raw.toLocaleString('pt-BR') + ' TON',
+          footer: items => ' Total: ' + totals[items[0].dataIndex].toLocaleString('pt-BR') + ' TON',
+        }
+      }
+    },
+    layout: { padding: { top: 32, right: 4 } },
+    scales: {
+      x: {
+        stacked: true,
+        grid: { display: false },
+        border: { display: false },
+        ticks: {
+          color: ctx => ctx.tick.label.includes('Orç') ? '#94a3b8' : '#64748b',
+          font: { family: 'Inter', size: 12, weight: '600' },
+          maxRotation: 0,
+        }
+      },
+      y: {
+        stacked: true,
+        beginAtZero: true,
+        max: 680000,
+        grid: { color: 'rgba(148,163,184,.15)' },
+        border: { display: false },
+        ticks: {
+          color: '#94a3b8',
+          font: { size: 10, weight: '600' },
+          callback: v => v ? (v/1000).toLocaleString('pt-BR') + 'k Ton' : '',
+          maxTicksLimit: 6,
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

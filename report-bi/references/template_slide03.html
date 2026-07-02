@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<!--
+  SLIDE 03 — CARTEIRA FATURAMENTO CLIENTE  (EXIGE PRINT da aba CLIENTES x FAT)
+  Colunas FIXAS: # | CLIENTE | CLS | GRUPO PRODUTO | barra(navy #14204A) | FAT.REAL | % PART. | VAR. AA
+  NÃO incluir Orçado nem Var. Orç. (não existem no slide original).
+  Rodapé da tabela = linha "Top 10" (soma Fat e %Part, em negrito, border-top navy).
+  KPIs (6): Ativos · Novos · Perdidos · Em Risco · Taxa de Retenção · Fat Top 3.
+  Callouts: Risco Elevado · Maior Risco · Oportunidade · Prioridades de Ação.
+  Trocar valores das linhas pelo print do mês. Barras: largura proporcional ao Fat, cor navy.
+-->
+
+<title>Carteira — Faturamento Cliente · %%MES_ANO%%</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#e8e8e8;display:flex;justify-content:center;padding:20px}
+.slide{width:1440px;height:829px;background:#fff;padding:32px 44px 22px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px}
+.slide-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8B92A9}
+.slide-title{font-size:22px;font-weight:700;color:#14204A;letter-spacing:-.2px;margin-top:5px}
+.gold-rule{height:3px;background:#F5C400;margin-bottom:1px}
+.navy-rule{height:1px;background:#14204A;margin-bottom:20px}
+.headline{font-size:13px;font-weight:700;color:#14204A;margin-bottom:5px}
+.hl-neg{color:#ef4444}.hl-pos{color:#0A8F5C}.hl-warn{color:#F59E0B}
+.subhl{font-size:10px;color:#8B92A9;margin-bottom:15px}
+.kpis{display:flex;gap:0;margin-bottom:11px;padding-bottom:10px;border-bottom:1px solid #E8EAF2}
+.kpi{display:flex;flex-direction:column;gap:1px;flex:1;border-right:1px solid #E8EAF2;padding-right:14px;margin-right:14px}
+.kpi:last-child{border-right:none;margin-right:0;padding-right:0}
+.kpi-lbl{font-size:7.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9}
+.kpi-val{font-size:22px;font-weight:700;color:#14204A;letter-spacing:-.4px;line-height:1.1}
+.kpi-val.pos{color:#0A8F5C}.kpi-val.neg{color:#ef4444}.kpi-val.warn{color:#F59E0B}
+.kpi-sub{font-size:9px;color:#8B92A9;margin-top:0}
+.kpi-sub.pos{color:#0A8F5C}.kpi-sub.neg{color:#ef4444}
+.body-grid{display:grid;grid-template-columns:1fr 288px;gap:0;flex:1;min-height:0}
+.main-col{display:flex;flex-direction:column;padding-right:26px;border-right:1px solid #E8EAF2;min-height:0}
+.side-col{padding-left:22px;display:flex;flex-direction:column;gap:10px}
+.tbl-label{font-size:7.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8B92A9;margin-bottom:5px}
+table{width:100%;border-collapse:collapse}
+thead tr{border-bottom:2px solid #14204A}
+th{font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6B6B6B;padding:0 6px 6px 0;text-align:right;white-space:nowrap}
+th.tl{text-align:left;padding-left:0}
+tbody tr{border-bottom:1px solid #F0EFEB}
+tbody tr:hover{background:#fafaf8}
+tbody tr.total-row{border-top:2px solid #14204A;border-bottom:none}
+tbody tr.total-row:hover{background:transparent}
+td{padding:6px 6px 6px 0;font-size:11.5px;text-align:right;color:#2a2a2a;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.tl{text-align:left;padding-left:0;font-weight:600;font-size:11.5px;color:#14204A}
+td.grp{font-size:10.5px;color:#6B6B6B;font-weight:400}
+td.muted{color:#8B92A9}
+td.up{color:#0A8F5C;font-weight:600}
+td.down{color:#ef4444;font-weight:600}
+td.num{color:#14204A;font-weight:500}
+td.bold{font-weight:700;color:#14204A}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:3px;font-size:8.5px;font-weight:700}
+.ba{background:#D4EDDA;color:#1E7E34}
+.bb{background:#FFF3CD;color:#856404}
+.bc{background:#FDE2E2;color:#C0392B}
+.bar-wrap{width:120px}
+.bar-track{width:100%;height:6px;background:#EEF0F4;border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;background:#14204A}
+.rank{font-size:9px;color:#8B92A9;font-weight:500}
+.ctag{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;display:inline-block;width:fit-content;margin-bottom:4px}
+.ctag-y{background:#F5C400;color:#14204A}
+.ctag-n{background:#14204A;color:#fff}
+.ctag-r{background:#FDE2E2;color:#C0392B}
+.ctag-g{background:#D4EDDA;color:#1E7E34}
+.c-items{display:flex;flex-direction:column;gap:6px}
+.c-item{display:flex;align-items:flex-start;gap:6px}
+.arr{font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.arr-up{color:#0A8F5C}.arr-down{color:#ef4444}.arr-warn{color:#F59E0B}
+.c-text{font-size:10.5px;line-height:1.45;color:#2a2a2a}
+.c-text strong{color:#14204A;font-weight:600}
+.crule{height:1px;background:#E8EAF2;margin:3px 0}
+.prior-list{display:flex;flex-direction:column;gap:5px;margin-top:2px}
+.prior-item{display:flex;align-items:flex-start;gap:7px}
+.prior-num{width:16px;height:16px;border-radius:50%;background:#14204A;color:#fff;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.prior-text{font-size:10px;line-height:1.4;color:#2a2a2a}
+.prior-text strong{color:#14204A}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid #E8EAF2;margin-top:auto}
+.fn,.fd{font-size:8.5px;color:#8B92A9}
+.fd{font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="header">
+    <div>
+      <div class="slide-label">ANÁLISE DE CARTEIRA · TERMINAL CATTALINI · PARANAGUÁ</div>
+      <div class="slide-title">Carteira — Faturamento Cliente</div>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="navy-rule"></div>
+
+  <div class="headline">
+    <span class="hl-neg">8 clientes perdidos</span> representam R$ 3,1 Mi de receita —
+    taxa de retenção <span class="hl-warn">84,0%</span>, abaixo do referencial de 85%
+  </div>
+  <div class="subhl">%%MES_ANO%% · %%CLI_ATIVOS%% clientes ativos · comparação vs. %%MES_ANO_ANT%% · Top 10 por faturamento realizado</div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="kpi-lbl">Clientes Ativos</div>
+      <div class="kpi-val">53</div>
+      <div class="kpi-sub pos">+11 novos no período</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Clientes Novos</div>
+      <div class="kpi-val pos">11</div>
+      <div class="kpi-sub">6 novos reais · 5 retornos</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Clientes Perdidos</div>
+      <div class="kpi-val neg">8</div>
+      <div class="kpi-sub neg">4 churn real · 4 c/ orçado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Em Risco</div>
+      <div class="kpi-val warn">8</div>
+      <div class="kpi-sub">Queda &gt;30% vs. mesmo período AA</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Taxa de Retenção</div>
+      <div class="kpi-val warn">84,0%</div>
+      <div class="kpi-sub">Referência: &gt;85% ideal</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Fat. Top 3</div>
+      <div class="kpi-val">R$ 22,1 Mi</div>
+      <div class="kpi-sub">%%TOP3_PCT%% do total %%MES_ANO%%</div>
+    </div>
+  </div>
+
+  <div class="body-grid">
+    <div class="main-col">
+      <div class="tbl-label">Faturamento por Cliente — %%MES_ANO%% vs. %%MES_ANO_ANT%% · Top 10</div>
+      <table>
+        <thead>
+          <tr>
+            <th class="tl" style="width:22px">#</th>
+            <th class="tl">CLIENTE</th>
+            <th style="width:16px;text-align:center">CLS</th>
+            <th class="tl" style="width:104px">GRUPO PRODUTO</th>
+            <th style="width:128px"></th>
+            <th>FAT. REAL</th>
+            <th>% PART.</th>
+            <th>VAR. AA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rank">1</td><td class="tl">IPIRANGA</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td><td class="grp">Derivados</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></td>
+            <td class="num">R$ 8,70 Mi</td><td class="muted">12,8%</td><td class="up">▲ 101,2%</td>
+          </tr>
+          <tr>
+            <td class="rank">2</td><td class="tl">METHANEX</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td><td class="grp">Metanol</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div></td>
+            <td class="num">R$ 6,96 Mi</td><td class="muted">10,3%</td><td class="down">▼ 8,0%</td>
+          </tr>
+          <tr>
+            <td class="rank">3</td><td class="tl">BLUEWAY</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td><td class="grp">Derivados</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div></td>
+            <td class="num">R$ 6,11 Mi</td><td class="muted">9,0%</td><td class="up">▲ 61,7%</td>
+          </tr>
+          <tr>
+            <td class="rank">4</td><td class="tl">VALENZ</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td><td class="grp">Metanol</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:61%"></div></div></td>
+            <td class="num">R$ 5,33 Mi</td><td class="muted">7,8%</td><td class="down">▼ 14,2%</td>
+          </tr>
+          <tr>
+            <td class="rank">5</td><td class="tl">MITSUBISHI</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td><td class="grp">Metanol</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div></td>
+            <td class="num">R$ 4,33 Mi</td><td class="muted">6,4%</td><td class="down">▼ 8,2%</td>
+          </tr>
+          <tr>
+            <td class="rank">6</td><td class="tl">VIBRA</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td><td class="grp">Derivados</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:38%"></div></div></td>
+            <td class="num">R$ 3,30 Mi</td><td class="muted">4,9%</td><td class="up">▲ 87,7%</td>
+          </tr>
+          <tr>
+            <td class="rank">7</td><td class="tl">FS</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td><td class="grp">Biocombustíveis</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></td>
+            <td class="num">R$ 2,86 Mi</td><td class="muted">4,2%</td><td class="up">▲ 77,5%</td>
+          </tr>
+          <tr>
+            <td class="rank">8</td><td class="tl">SUL PLATA</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td><td class="grp">Derivados</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></td>
+            <td class="num">R$ 2,85 Mi</td><td class="muted">4,2%</td><td class="down">▼ 14,1%</td>
+          </tr>
+          <tr>
+            <td class="rank">9</td><td class="tl">CARGILL</td>
+            <td style="text-align:center"><span class="badge bb">B</span></td><td class="grp">Aquecidos</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:27%"></div></div></td>
+            <td class="num">R$ 2,37 Mi</td><td class="muted">3,5%</td><td class="down">▼ 27,5%</td>
+          </tr>
+          <tr>
+            <td class="rank">10</td><td class="tl">OLIN BLUE CUBE</td>
+            <td style="text-align:center"><span class="badge bb">B</span></td><td class="grp">Soda Cáustica</td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div></td>
+            <td class="num">R$ 2,21 Mi</td><td class="muted">3,3%</td><td class="up">▲ 27,6%</td>
+          </tr>
+          <tr class="total-row">
+            <td></td><td class="tl bold">Top 10</td><td></td><td></td><td></td>
+            <td class="bold">R$ 45,0 Mi</td><td class="bold">66,4%</td><td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="side-col">
+      <div>
+        <div class="ctag ctag-r">Risco Elevado</div>
+        <div class="c-items">
+          <div class="c-item">
+            <span class="arr arr-warn">→</span>
+            <span class="c-text"><strong>3 clientes Cls A</strong> com queda &gt;10% vs mai/25 — exposição de <strong>R$2,1Mi</strong> (3,3% da receita). Parcialmente compensado por 11 novos clientes (<strong>+R$4,1Mi</strong>)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crule"></div>
+
+      <div>
+        <div class="ctag ctag-r">Maior Risco</div>
+        <div class="c-items">
+          <div class="c-item">
+            <span class="arr arr-down">↓</span>
+            <span class="c-text"><strong>CARGILL −27,5%</strong> vs mai/25 — de R$3,1Mi para R$2,1Mi. Causa provável: <strong>perda de volume movimentado</strong></span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-down">↓</span>
+            <span class="c-text"><strong>VALENZ −14,2%</strong> e <strong>SUL PLATA −14,1%</strong> — Cls A em queda no mesmo período</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crule"></div>
+
+      <div>
+        <div class="ctag ctag-g">Oportunidade</div>
+        <div class="c-items">
+          <div class="c-item">
+            <span class="arr arr-up">↑</span>
+            <span class="c-text"><strong>5 clientes Cls A com crescimento &gt;20%</strong> — expandir contratos de longo prazo e aumentar capacidade alocada antes da renovação</span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-up">↑</span>
+            <span class="c-text"><strong>IPIRANGA +101,2%</strong> e <strong>VIBRA +87,7%</strong> — motores do crescimento em Derivados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crule"></div>
+
+      <div>
+        <div class="ctag ctag-n">Prioridades de Ação</div>
+        <div class="prior-list">
+          <div class="prior-item">
+            <div class="prior-num">1</div>
+            <div class="prior-text">Acionar plano de retenção para <strong>CARGILL</strong> — investigar perda de volume e apresentar proposta de renegociação em até 15 dias</div>
+          </div>
+          <div class="prior-item">
+            <div class="prior-num">2</div>
+            <div class="prior-text">Consolidar os <strong>11 novos clientes</strong> (R$4,1Mi) — priorizar contratos de prazo estendido</div>
+          </div>
+          <div class="prior-item">
+            <div class="prior-num">3</div>
+            <div class="prior-text">Expandir nos <strong>5 clientes &gt;20% aa</strong> — propor aditivos contratuais antes do pico de demanda</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fn">Fonte: Power BI Comercial · Análise de Carteira · Dados até %%MES_REF%%</div>
+    <div class="fd">Relatório Mensal · %%MES_ANO%%</div>
+  </div>
+
+</div>
+</body>
+</html>

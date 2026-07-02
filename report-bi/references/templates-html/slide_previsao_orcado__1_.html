@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+
+  .slide {
+    width: 1440px; height: 829px;
+    background: #fff;
+    padding: 40px 64px 32px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  .slide-tag   { font-size: 10px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: #8B92A9; margin-bottom: 3px; }
+  .slide-title { font-size: 21px; font-weight: 300; color: #14204A; letter-spacing: -.3px; margin-bottom: 6px; }
+  .gold-rule   { height: 2px; background: #F5C400; margin-bottom: 14px; }
+
+  .headline { margin-bottom: 12px; }
+  .hl-main  { font-size: 15px; font-weight: 400; color: #14204A; line-height: 1.4; margin-bottom: 3px; }
+  .hl-up    { color: #0A8F5C; font-weight: 600; }
+  .hl-down  { color: #C93030; font-weight: 600; }
+  .hl-warn  { color: #D08000; font-weight: 600; }
+  .hl-sub   { font-size: 11px; color: #8B92A9; }
+
+  .kpi-row { display: flex; gap: 0; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #F0F2F8; }
+  .kpi     { flex: 1; padding-right: 20px; border-right: 1px solid #E8EAF2; margin-right: 20px; }
+  .kpi:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+  .kpi-lbl { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #8B92A9; margin-bottom: 3px; }
+  .kpi-val { font-size: 22px; font-weight: 300; color: #14204A; line-height: 1; letter-spacing: -.3px; margin-bottom: 2px; }
+  .kpi-val.up   { color: #0A8F5C; }
+  .kpi-val.down { color: #C93030; }
+  .kpi-val.warn { color: #D08000; }
+  .kpi-sub { font-size: 10px; color: #8B92A9; }
+  .up   { color: #0A8F5C; font-weight: 500; }
+  .down { color: #C93030; font-weight: 500; }
+
+  .body { display: grid; grid-template-columns: 1fr 240px; gap: 36px; flex: 1; min-height: 0; }
+
+  .chart-col { display: flex; flex-direction: column; min-height: 0; }
+  .sec-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #8B92A9; padding-bottom: 6px; border-bottom: 1px solid #F0F2F8; margin-bottom: 8px; }
+  .chart-wrap { flex: 1; position: relative; min-height: 0; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 5px 20px; margin-top: 8px; align-items: center; }
+  .leg { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 500; color: #64748b; }
+  .leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+  .leg-sep { width: 1px; height: 14px; background: #E4E7F0; margin: 0 4px; }
+
+  .right { display: flex; flex-direction: column; gap: 16px; padding-top: 2px; }
+  .callout-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #F5C400; background: #14204A; padding: 3px 10px; display: inline-block; margin-bottom: 8px; border-radius: 2px; }
+  .c-items { display: flex; flex-direction: column; gap: 8px; }
+  .c-item  { display: flex; gap: 8px; align-items: flex-start; }
+  .arr     { font-size: 13px; flex-shrink: 0; line-height: 1.45; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size: 11px; color: #2A3060; line-height: 1.6; }
+  .c-text strong { font-weight: 600; color: #14204A; }
+  .rule { height: 1px; background: #F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="slide-tag">Análise Comercial · Terminal Cattalini · Paranaguá</div>
+  <div class="slide-title">Movimentação Março 2026</div>
+  <div class="gold-rule"></div>
+
+  <div class="headline">
+    <div class="hl-main">
+      Previsão <span class="hl-down">380k TON</span> — <span class="hl-down">−22,9% abaixo do orçado</span> (493k) ·
+      Apenas <span class="hl-up">Óleo Vegetal</span> supera a meta na previsão
+    </div>
+    <div class="hl-sub">Previsão vs. Orçado · Março 2026 · Movimentação por categoria de produto (TON) · Gap total: −112,7k TON</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Previsão Mar/26</div>
+      <div class="kpi-val down">380,4k TON</div>
+      <div class="kpi-sub"><span class="down">▼ 22,9%</span> vs orçado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Orçado Mar/26</div>
+      <div class="kpi-val">493,1k TON</div>
+      <div class="kpi-sub">Meta definida para o período</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Gap Previsão vs Orç.</div>
+      <div class="kpi-val down">−112,7k TON</div>
+      <div class="kpi-sub">Déficit projetado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Metanol — maior gap</div>
+      <div class="kpi-val down">−50,3k TON</div>
+      <div class="kpi-sub">70,9k previsto vs 121,2k orç.</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Óleo Vegetal</div>
+      <div class="kpi-val up">+8,9k TON</div>
+      <div class="kpi-sub">Único acima do orçado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Realizado Mar/26</div>
+      <div class="kpi-val warn">439,9k TON</div>
+      <div class="kpi-sub"><span class="up">▲ 15,8%</span> acima da previsão</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="chart-col">
+      <div class="sec-label">Previsão vs. Orçado vs. Realizado — Março 2026 (TON) · por Categoria de Produto</div>
+      <div class="chart-wrap">
+        <canvas id="rc"></canvas>
+      </div>
+      <div class="legend-row">
+        <div class="leg"><span class="leg-dot" style="background:#00B050"></span>Metanol</div>
+        <div class="leg"><span class="leg-dot" style="background:#14204A"></span>Derivados</div>
+        <div class="leg"><span class="leg-dot" style="background:#8A9BB0"></span>Aquecidos</div>
+        <div class="leg"><span class="leg-dot" style="background:#F5C400"></span>Óleo Vegetal</div>
+        <div class="leg"><span class="leg-dot" style="background:#C8D4DF;border:1px solid #aaa;"></span>Soda Cáustica</div>
+        <div class="leg"><span class="leg-dot" style="background:#F0A33A"></span>Biocombustível</div>
+        <div class="leg"><span class="leg-dot" style="background:#5A82B5"></span>Outros</div>
+        <div class="leg-sep"></div>
+        <div class="leg"><span class="leg-dot" style="background:#3D6FCC;border-radius:50%;"></span>Previsão</div>
+        <div class="leg"><span class="leg-dot" style="background:#14204A;border-radius:50%;"></span>Realizado</div>
+        <div class="leg"><span class="leg-dot" style="background:#E4E7F0;border:1.5px solid #64748b;border-radius:50%;"></span>Orçado</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <div class="callout-tag">Previsão vs Orçado</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Metanol −50,3k TON</strong> — maior gap. 70,9k previsto vs 121,2k orçados (−41,5%)</span></div>
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Derivados −30,4k TON</strong> — 118,3k vs 148,7k (−20,4%). Segundo maior detrator</span></div>
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Biocombustível −18,5k TON</strong> — 8,5k vs 27,0k (−68,5%). Queda severa</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Óleo Vegetal +9,0k TON</strong> — único acima do orçado. 129,1k vs 120,1k (+7,5%)</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Realizado superou previsão</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text">Realizado <strong>439,9k TON</strong> ficou <strong>+59,5k acima</strong> da previsão de 380k — desempenho melhor que o esperado</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text">Ainda assim <strong>−53k abaixo do orçado</strong> — gap de 10,8% que exige atenção nos próximos meses</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Ação necessária</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Metanol</strong> é o principal risco — METHANEX e VALENZ retraindo. Plano de retenção urgente</span></div>
+          <div class="c-item"><span class="arr arr-neu">→</span><span class="c-text">Expandir <strong>Óleo Vegetal</strong> — único grupo com folga positiva vs orçado. Priorizar prospecção</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const cenarios = [
+  {
+    lbl: 'Previsão',
+    isOrc: false,
+    isPrev: true,
+    met: 70888, der: 118300, aq: 25503, ov: 129100, sc: 23593, bio: 8500,  out: 4478
+  },
+  {
+    lbl: 'Realizado',
+    isOrc: false,
+    isPrev: false,
+    met: 73009, der: 180912, aq: 23467, ov: 123626, sc: 23588, bio: 8600,  out: 6759
+  },
+  {
+    lbl: 'Orçado',
+    isOrc: true,
+    isPrev: false,
+    met: 121233, der: 148698, aq: 34324, ov: 120118, sc: 35753, bio: 26962, out: 6023
+  },
+];
+
+const totals = cenarios.map(d => d.met+d.der+d.aq+d.ov+d.sc+d.bio+d.out);
+
+const SRVS = [
+  { key:'met', label:'Metanol',        color:'#00B050' },
+  { key:'der', label:'Derivados',      color:'#14204A' },
+  { key:'aq',  label:'Aquecidos',      color:'#8A9BB0' },
+  { key:'ov',  label:'Óleo Vegetal',   color:'#F5C400' },
+  { key:'sc',  label:'Soda Cáustica',  color:'#C8D4DF' },
+  { key:'bio', label:'Biocombustível', color:'#F0A33A' },
+  { key:'out', label:'Outros',         color:'#5A82B5' },
+];
+
+const totalLabels = {
+  id: 'totlbl',
+  afterDatasetsDraw(ch) {
+    const ctx = ch.ctx;
+    cenarios.forEach((d, i) => {
+      const metas = ch.data.datasets.map((_, di) => ch.getDatasetMeta(di));
+      let topY = 9999, cx = 0;
+      metas.forEach(m => { if (m.data[i] && m.data[i].y < topY) { topY = m.data[i].y; cx = m.data[i].x; } });
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = d.isOrc ? '#64748b' : d.isPrev ? '#3D6FCC' : '#14204A';
+      ctx.font = '600 11px Inter';
+      ctx.fillText(totals[i].toLocaleString('pt-BR') + ' Ton', cx, topY - 6);
+      ctx.restore();
+    });
+  }
+};
+
+new Chart(document.getElementById('rc'), {
+  type: 'bar',
+  plugins: [totalLabels],
+  data: {
+    labels: cenarios.map(d => d.lbl),
+    datasets: SRVS.map((s, si, arr) => ({
+      label: s.label,
+      data: cenarios.map(d => d[s.key]),
+      backgroundColor: cenarios.map(d =>
+        d.isOrc ? s.color + '50' : d.isPrev ? s.color + 'BB' : s.color
+      ),
+      borderColor: cenarios.map(d =>
+        d.isOrc ? s.color : d.isPrev ? s.color + '99' : 'transparent'
+      ),
+      borderWidth: cenarios.map(d => d.isOrc ? 1.5 : d.isPrev ? 1 : 0),
+      borderDash: cenarios.map(d => d.isOrc ? [4, 2] : []),
+      borderRadius: si === arr.length - 1
+        ? { topLeft: 6, topRight: 6, bottomLeft: 0, bottomRight: 0 } : 0,
+      borderSkipped: false,
+      stack: 's',
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(2,6,23,.96)',
+        titleColor: '#94a3b8',
+        bodyColor: '#fff',
+        titleFont: { size: 11, weight: '700', family: 'Inter' },
+        bodyFont: { size: 11, weight: '600', family: 'Inter' },
+        padding: 12, cornerRadius: 10,
+        callbacks: {
+          title: items => items[0].label,
+          label: item => ' ' + item.dataset.label + ': ' + item.raw.toLocaleString('pt-BR') + ' TON',
+          footer: items => {
+            const i = items[0].dataIndex;
+            const gap = i === 0 ? totals[0] - totals[2] : i === 1 ? totals[1] - totals[2] : 0;
+            return gap !== 0 ? ' vs Orçado: ' + (gap > 0 ? '+' : '') + gap.toLocaleString('pt-BR') + ' TON' : '';
+          }
+        }
+      }
+    },
+    layout: { padding: { top: 32, right: 60, left: 60 } },
+    scales: {
+      x: {
+        stacked: true,
+        grid: { display: false },
+        border: { display: false },
+        ticks: {
+          color: ctx => ctx.tick.label === 'Orçado' ? '#94a3b8' : ctx.tick.label === 'Previsão' ? '#3D6FCC' : '#14204A',
+          font: { family: 'Inter', size: 13, weight: '700' },
+          maxRotation: 0,
+        }
+      },
+      y: {
+        stacked: true,
+        beginAtZero: true,
+        max: 560000,
+        grid: { color: 'rgba(148,163,184,.15)' },
+        border: { display: false },
+        ticks: {
+          color: '#94a3b8',
+          font: { size: 10, weight: '600' },
+          callback: v => v ? (v/1000).toLocaleString('pt-BR') + 'k Ton' : '',
+          maxTicksLimit: 6,
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

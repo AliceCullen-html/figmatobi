@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+  .slide { width:1440px; height:829px; background:#fff; padding:40px 64px 32px; display:flex; flex-direction:column; overflow:hidden; }
+  .slide-tag   { font-size:10px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:#8B92A9; margin-bottom:3px; }
+  .slide-title { font-size:21px; font-weight:300; color:#14204A; letter-spacing:-.3px; margin-bottom:6px; }
+  .gold-rule   { height:2px; background:#F5C400; margin-bottom:14px; }
+  .headline { margin-bottom:12px; }
+  .hl-main  { font-size:15px; font-weight:400; color:#14204A; line-height:1.4; margin-bottom:3px; }
+  .hl-up   { color:#0A8F5C; font-weight:600; }
+  .hl-down { color:#C93030; font-weight:600; }
+  .hl-sub  { font-size:11px; color:#8B92A9; }
+  .kpi-row { display:flex; gap:0; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid #F0F2F8; }
+  .kpi     { flex:1; padding-right:22px; border-right:1px solid #E8EAF2; margin-right:22px; }
+  .kpi:last-child { border-right:none; margin-right:0; padding-right:0; }
+  .kpi-bar { height:3px; border-radius:2px; margin-bottom:6px; }
+  .kpi-lbl { font-size:8.5px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:#8B92A9; margin-bottom:3px; }
+  .kpi-val { font-size:26px; font-weight:400; line-height:1; letter-spacing:-.3px; margin-bottom:2px; }
+  .kpi-sub { font-size:10px; color:#8B92A9; }
+  .up   { color:#0A8F5C; font-weight:500; }
+  .down { color:#C93030; font-weight:500; }
+  .body { display:grid; grid-template-columns:1fr 240px; gap:36px; flex:1; min-height:0; }
+  .chart-col { display:flex; flex-direction:column; min-height:0; }
+  .sec-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#8B92A9; padding-bottom:6px; border-bottom:1px solid #F0F2F8; margin-bottom:8px; }
+  .chart-wrap { flex:1; position:relative; min-height:0; }
+  .legend-row { display:flex; gap:24px; margin-top:10px; align-items:center; }
+  .leg { display:flex; align-items:center; gap:7px; font-size:11px; font-weight:600; }
+  .leg-sq { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+  .right { display:flex; flex-direction:column; gap:16px; padding-top:2px; }
+  .callout-tag { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:#F5C400; background:#14204A; padding:3px 10px; display:inline-block; margin-bottom:8px; border-radius:2px; }
+  .c-items { display:flex; flex-direction:column; gap:8px; }
+  .c-item  { display:flex; gap:8px; align-items:flex-start; }
+  .arr     { font-size:13px; flex-shrink:0; line-height:1.45; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size:11px; color:#2A3060; line-height:1.6; }
+  .c-text strong { font-weight:600; color:#14204A; }
+  .rule { height:1px; background:#F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="slide-tag">Market Share · Derivados · Paranaguá · %/t</div>
+  <div class="slide-title">Market Share — Derivados</div>
+  <div class="gold-rule"></div>
+  <div class="headline">
+    <div class="hl-main">Cattalini encerra março em <span class="hl-up">65%</span> dos Derivados — <span class="hl-up">+12 p.p. vs mar/25</span> · CBL perde <span class="hl-down">−5 p.p.</span> e Terin <span class="hl-down">−6 p.p.</span> em 12 meses</div>
+    <div class="hl-sub">Mar/2025 → Mar/2026 · Market share por terminal · Derivados · Paranaguá (%/t) · Volume total do mercado por mês (excl. Transpetro)</div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#10253F"></div>
+      <div class="kpi-lbl">Cattalini — mar/26</div>
+      <div class="kpi-val" style="color:#10253F;font-weight:600;">65%</div>
+      <div class="kpi-sub"><span class="up">▲ 12 p.p.</span> vs mar/25 (53%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#10253F;opacity:.3"></div>
+      <div class="kpi-lbl">Cattalini — mín./máx.</div>
+      <div class="kpi-val" style="color:#D08000;">36% → 69%</div>
+      <div class="kpi-sub">jul/25 → fev/26</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#FFC000"></div>
+      <div class="kpi-lbl">CBL — mar/26</div>
+      <div class="kpi-val" style="color:#C09000;">27%</div>
+      <div class="kpi-sub"><span class="down">▼ 5 p.p.</span> vs mar/25 (32%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#9BBB59"></div>
+      <div class="kpi-lbl">Terin — mar/26</div>
+      <div class="kpi-val" style="color:#6A8A30;">8%</div>
+      <div class="kpi-sub"><span class="down">▼ 6 p.p.</span> vs mar/25 (14%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#F5C400"></div>
+      <div class="kpi-lbl">Vol. mercado — mar/26</div>
+      <div class="kpi-val" style="color:#0A8F5C;">270 K TON</div>
+      <div class="kpi-sub">Excl. Transpetro</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-bar" style="background:#10253F;opacity:.5"></div>
+      <div class="kpi-lbl">Cattalini — média 12M</div>
+      <div class="kpi-val" style="color:#0A8F5C;">55%</div>
+      <div class="kpi-sub">mar/25 → mar/26</div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="chart-col">
+      <div class="sec-label">Market Share Derivados por Terminal (%/t) · Mar/25 → Mar/26 · Volume total por mês (K TON · excl. Transpetro)</div>
+      <div class="chart-wrap"><canvas id="rc"></canvas></div>
+      <div class="legend-row">
+        <div class="leg"><span class="leg-sq" style="background:#10253F"></span><span style="color:#10253F;">Cattalini</span></div>
+        <div class="leg"><span class="leg-sq" style="background:#FFC000"></span><span style="color:#C09000;">CBL</span></div>
+        <div class="leg"><span class="leg-sq" style="background:#9BBB59"></span><span style="color:#6A8A30;">Terin</span></div>
+      </div>
+    </div>
+    <div class="right">
+      <div>
+        <div class="callout-tag">Cattalini</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>65% em mar/26</strong> — +12 p.p. vs mar/25. Liderança consolidada no segmento de Derivados</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text">Pico histórico em <strong>fev/26 (69%)</strong> — mínima em jul/25 (36%). Recuperação consistente</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text">IPIRANGA e SUL PLATA como principais motores de crescimento no mês</span></div>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <div class="callout-tag">Competidores</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>CBL perde −5 p.p.</strong> em 12M — era 32% em mar/25, hoje 27%. Janela ativa de captura</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Terin perde −6 p.p.</strong> em 12M — era 14% em mar/25, hoje 8%. Clientes migrando</span></div>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <div class="callout-tag">Oportunidade</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text">CBL + Terin perderam juntos <strong>−11 p.p.</strong> em 12 meses — priorizar prospecção dos clientes migrando desses terminais em Derivados</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// índices: 0=mar/25 1=abr/25 2=mai/25 3=jun/25 4=jul/25 5=ago/25 6=set/25 7=out/25 8=nov/25 9=dez/25 10=jan/26 11=fev/26 12=mar/26
+const labels  = ['mar/25','abr/25','mai/25','jun/25','jul/25','ago/25','set/25','out/25','nov/25','dez/25','jan/26','fev/26','mar/26'];
+const volumes = [   312,    338,    247,    281,    205,    230,    305,    209,    277,    175,    226,    274,    270];
+
+const series = [
+  // Terin
+  { label:'Terin',     color:'#9BBB59', textColor:'#3a5a10',
+    data:[14,  7, 25, 27, 21, 17, 38, 11, 14, 27,  7,  0,  8] },
+  // CBL
+  { label:'CBL',       color:'#FFC000', textColor:'#7a5500',
+    data:[32, 48, 12, 31, 43, 20, 15, 25, 33, 10, 31, 31, 27] },
+  // Cattalini — topo
+  { label:'Cattalini', color:'#10253F', textColor:'#fff',
+    data:[53, 46, 63, 41, 36, 64, 47, 64, 53, 63, 62, 69, 65] },
+];
+// Verificação: todos somam 100
+// mar/25:53+32+14=99  abr:46+48+7=101  mai:63+12+25=100  jun:41+31+27=99
+// jul:36+43+21=100  ago:64+20+17=101  set:47+15+38=100  out:64+25+11=100
+// nov:53+33+14=100  dez:63+10+27=100  jan:62+31+7=100   fev:69+31+0=100  mar:65+27+8=100
+
+const allLabels = {
+  id:'allLbls',
+  afterDatasetsDraw(ch) {
+    const ctx = ch.ctx;
+    series.forEach((s,si) => {
+      ch.getDatasetMeta(si).data.forEach((bar,i) => {
+        const v = s.data[i];
+        if (!v) return;
+        const segH = Math.abs(bar.base - bar.y);
+        if (segH < 14) return;
+        ctx.save();
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillStyle = s.textColor;
+        ctx.font = `${si===2?'700':'600'} ${si===2?11:10}px Inter`;
+        ctx.fillText(v+'%', bar.x, bar.y + segH/2);
+        ctx.restore();
+      });
+    });
+    // Volume no topo de cada barra
+    ch.getDatasetMeta(2).data.forEach((bar,i) => {
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#14204A';
+      ctx.font = '600 10px Inter';
+      ctx.fillText(volumes[i]+' K', bar.x, bar.y - 8);
+      ctx.restore();
+    });
+  }
+};
+
+new Chart(document.getElementById('rc'), {
+  type:'bar', plugins:[allLabels],
+  data:{
+    labels,
+    datasets: series.map((s,si,arr) => ({
+      label: s.label,
+      data: s.data,
+      backgroundColor: s.color,
+      borderRadius: si===arr.length-1 ? {topLeft:4,topRight:4,bottomLeft:0,bottomRight:0} : 0,
+      borderSkipped: false,
+      stack: 's',
+    }))
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'rgba(2,6,23,.96)', titleColor:'#94a3b8', bodyColor:'#fff',
+        titleFont:{size:11,weight:'700',family:'Inter'}, bodyFont:{size:11,weight:'600',family:'Inter'},
+        padding:12, cornerRadius:10,
+        callbacks:{
+          title: items => items[0].label + ' — ' + volumes[items[0].dataIndex] + 'K TON',
+          label: item => item.raw ? ' ' + item.dataset.label + ': ' + item.raw + '%' : null,
+        }
+      }
+    },
+    layout:{ padding:{ top:28, right:8 } },
+    scales:{
+      x:{
+        stacked:true, grid:{display:false}, border:{display:false},
+        ticks:{
+          color: ctx => ['jan/26','fev/26','mar/26'].includes(ctx.tick.label) ? '#14204A' : '#8B92A9',
+          font:  ctx => ({ family:'Inter', size:11, weight: ['jan/26','fev/26','mar/26'].includes(ctx.tick.label)?'700':'500' }),
+          maxRotation:0
+        }
+      },
+      y:{
+        stacked:true, min:0, max:100,
+        grid:{color:'rgba(148,163,184,.15)'}, border:{display:false},
+        ticks:{ color:'#94a3b8', font:{size:10,weight:'600'}, callback:v=>v+'%', maxTicksLimit:6 }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

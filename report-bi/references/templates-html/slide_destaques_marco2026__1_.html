@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+
+  .slide {
+    width: 1440px; height: 829px;
+    background: #fff;
+    padding: 36px 56px 36px 56px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .slide-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #14204A;
+    letter-spacing: -.2px;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #14204A;
+    letter-spacing: -.5px;
+  }
+  .logo-dot {
+    width: 10px; height: 10px;
+    background: #F5C400;
+    border-radius: 50%;
+  }
+
+  .gold-rule { height: 2px; background: #F5C400; margin-bottom: 0; }
+  .navy-rule { height: 1px; background: #14204A; margin-bottom: 20px; }
+
+  /* BODY */
+  .body {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+  }
+
+  /* CAIXA ESQUERDA */
+  .left-box {
+    background: #14204A;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .left-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: #F5C400;
+  }
+  .left-box-label {
+    font-size: 20px;
+    font-weight: 300;
+    color: #fff;
+    text-align: center;
+    line-height: 1.45;
+    letter-spacing: -.2px;
+  }
+  .left-box-label strong {
+    font-weight: 600;
+    display: block;
+    font-size: 13px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #F5C400;
+    margin-bottom: 10px;
+  }
+  .left-month {
+    font-size: 32px;
+    font-weight: 700;
+    color: #F5C400;
+    margin-top: 12px;
+    letter-spacing: -.5px;
+  }
+
+  /* BULLETS */
+  .right-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    padding-top: 4px;
+  }
+
+  .bullet-group { margin-bottom: 16px; }
+  .bullet-group:last-child { margin-bottom: 0; }
+
+  .b-main {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+  .b-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #14204A;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .b-text {
+    font-size: 13px;
+    color: #1C2340;
+    line-height: 1.55;
+  }
+  .b-text strong { font-weight: 600; color: #14204A; }
+  .b-text .hi    { font-weight: 600; color: #0A8F5C; }
+  .b-text .warn  { font-weight: 600; color: #C93030; }
+  .b-text .gold  { font-weight: 600; color: #D08000; }
+
+  /* Sub-bullets */
+  .sub-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 18px;
+  }
+  .sub-b {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .sub-dash {
+    font-size: 12px;
+    color: #8B92A9;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .sub-text {
+    font-size: 12px;
+    color: #3A4270;
+    line-height: 1.55;
+  }
+  .sub-text strong { font-weight: 600; color: #14204A; }
+  .sub-text .hi   { font-weight: 600; color: #0A8F5C; }
+  .sub-text .warn { font-weight: 600; color: #C93030; }
+
+  .divider { height: 1px; background: #F0F2F8; margin: 12px 0 12px 18px; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="header">
+    <div class="slide-title">Destaques Comerciais — Março 2026</div>
+    <div class="logo-area">
+      <div class="logo-dot"></div>
+      <div class="logo-text">cattalini</div>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="navy-rule"></div>
+
+  <div class="body">
+
+    <!-- CAIXA ESQUERDA -->
+    <div class="left-box">
+      <div class="left-box-label">
+        <strong>Terminal · Paranaguá</strong>
+        Principais<br>destaques<br>do mês
+      </div>
+      <div class="left-month">mar/26</div>
+    </div>
+
+    <!-- BULLETS -->
+    <div class="right-col">
+
+      <div class="bullet-group">
+        <div class="b-main">
+          <span class="b-dot"></span>
+          <span class="b-text"><strong>Faturamento acima da meta pelo 3º mês consecutivo</strong> — R$ 60,8 Mi (<span class="hi">+0,6% vs orçado</span>) em mercado com retração de <span class="warn">−11%</span> em Paranaguá. Ticket médio em alta: <span class="hi">R$ 138,28/TON (+10,7% aa)</span></span>
+        </div>
+        <div class="sub-bullets">
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Volume <strong>440k TON</strong>, <span class="warn">−10,8% vs orçado</span> — retração estrutural do mercado, não desvio isolado da Cattalini</span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Espaço faturado M³ em expansão: <strong>840.928 m³ YTD</strong> <span class="hi">(+6,5% aa)</span> — base contratual crescendo</span></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="bullet-group">
+        <div class="b-main">
+          <span class="b-dot"></span>
+          <span class="b-text"><strong>Market share consolidado em <span class="hi">59,8%</span> no YTD Jan–Mar/26</strong> (<span class="hi">+5,8 p.p. vs 2025</span>) — Cattalini cresce acima do mercado. Em março, share de 58,3% (−0,7 p.p.) com mercado contraído</span>
+        </div>
+        <div class="sub-bullets">
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Terin perde <span class="warn">−6,7 p.p.</span> de share no YTD — janela de captura ativa de clientes desse terminal</span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text"><strong>16 novos clientes</strong> e 13 com crescimento &gt;30% compensam parcialmente 14 perdidos no período</span></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="bullet-group">
+        <div class="b-main">
+          <span class="b-dot"></span>
+          <span class="b-text"><strong>Derivados e Óleo Vegetal sustentam o resultado</strong> — <span class="hi">Derivados +20,2% vs orçado</span> em faturamento e <span class="hi">+21,6% em volume</span>. SUL PLATA +80,9% e INTER-CONTINENTAL +172,1% lideram a expansão de carteira</span>
+        </div>
+        <div class="sub-bullets">
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Aquecidos com crescimento robusto: <strong>+30,4% aa</strong> e +19,1% vs orçado — ticket mais alto do mês: <strong>R$ 369,57/TON</strong></span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Take or Pay = <strong>70% da receita</strong> e contratos &gt;12M = <strong>69%</strong> — base contratual estável sustenta o faturamento</span></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="bullet-group">
+        <div class="b-main">
+          <span class="b-dot"></span>
+          <span class="b-text"><strong>Ação comercial necessária em Metanol e Biocombustíveis</strong> — grupos pressionam resultado e exigem intervenção imediata</span>
+        </div>
+        <div class="sub-bullets">
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Metanol: volume <span class="warn">−39,8% vs orçado</span> — METHANEX <span class="warn">−15,9%</span> em março. VALENZ e MITSUBISHI recuam simultaneamente</span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Biocombustíveis: faturamento <span class="warn">−72,8% vs orçado</span> (R$ 1,0Mi vs R$ 3,6Mi orçados) — revisão contratual urgente</span></div>
+          <div class="sub-b"><span class="sub-dash">–</span><span class="sub-text">Taxa de retenção <span class="warn">78,9%</span> — abaixo do referencial de 85%. Necessário plano de retenção de Cls A</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

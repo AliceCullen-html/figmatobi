@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+
+  .slide {
+    width: 1440px; height: 829px;
+    background: #fff;
+    padding: 40px 64px 32px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  .slide-tag   { font-size: 10px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: #8B92A9; margin-bottom: 3px; }
+  .slide-title { font-size: 21px; font-weight: 300; color: #14204A; letter-spacing: -.3px; margin-bottom: 6px; }
+  .gold-rule   { height: 2px; background: #F5C400; margin-bottom: 14px; }
+
+  .headline { margin-bottom: 12px; }
+  .hl-main  { font-size: 15px; font-weight: 400; color: #14204A; line-height: 1.4; margin-bottom: 3px; }
+  .hl-up    { color: #0A8F5C; font-weight: 600; }
+  .hl-down  { color: #C93030; font-weight: 600; }
+  .hl-sub   { font-size: 11px; color: #8B92A9; }
+
+  .kpi-row { display: flex; gap: 0; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #F0F2F8; }
+  .kpi     { flex: 1; padding-right: 24px; border-right: 1px solid #E8EAF2; margin-right: 24px; }
+  .kpi:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+  .kpi-lbl { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #8B92A9; margin-bottom: 3px; }
+  .kpi-val { font-size: 22px; font-weight: 300; color: #14204A; line-height: 1; letter-spacing: -.3px; margin-bottom: 2px; }
+  .kpi-val.up   { color: #0A8F5C; }
+  .kpi-val.warn { color: #D08000; }
+  .kpi-val.down { color: #C93030; }
+  .kpi-sub { font-size: 10px; color: #8B92A9; }
+  .up   { color: #0A8F5C; font-weight: 500; }
+  .down { color: #C93030; font-weight: 500; }
+
+  .body { display: grid; grid-template-columns: 1fr 240px; gap: 36px; flex: 1; min-height: 0; }
+
+  .chart-col { display: flex; flex-direction: column; min-height: 0; }
+  .sec-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #8B92A9; padding-bottom: 6px; border-bottom: 1px solid #F0F2F8; margin-bottom: 8px; }
+  .chart-wrap { flex: 1; position: relative; min-height: 0; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 5px 16px; margin-top: 8px; }
+  .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 500; color: #64748b; }
+  .leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+
+  .right { display: flex; flex-direction: column; gap: 16px; padding-top: 2px; }
+  .callout-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #F5C400; background: #14204A; padding: 3px 10px; display: inline-block; margin-bottom: 8px; border-radius: 2px; }
+  .c-items { display: flex; flex-direction: column; gap: 8px; }
+  .c-item  { display: flex; gap: 8px; align-items: flex-start; }
+  .arr     { font-size: 13px; flex-shrink: 0; line-height: 1.45; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size: 11px; color: #2A3060; line-height: 1.6; }
+  .c-text strong { font-weight: 600; color: #14204A; }
+  .rule { height: 1px; background: #F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="slide-tag">Análise Realizado · Terminal Cattalini · Paranaguá</div>
+  <div class="slide-title">Cattalini — Movimentação por Categoria de Produto · Acumulado Jan–Mar</div>
+  <div class="gold-rule"></div>
+
+  <div class="headline">
+    <div class="hl-main">
+      2026 acumula <span class="hl-up">1.328,1 kTON</span> em Jan–Mar — <span class="hl-up">+19,7% vs 2025</span> e <span class="hl-down">−3,1% vs orçado</span> ·
+      Derivados e Óleo Vegetal dominam 68% do volume
+    </div>
+    <div class="hl-sub">Acumulado Jan–Mar · 2023 → 2026 · Comparação vs. orçado Jan–Mar/26 · Movimentação em TON por grupo de produto</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">MOV. YTD 2026</div>
+      <div class="kpi-val up">1.328,1 kTON</div>
+      <div class="kpi-sub"><span class="up">▲ 19,7%</span> vs jan–mar/2025</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Orçado Jan–Mar/26</div>
+      <div class="kpi-val">1.370,9 kTON</div>
+      <div class="kpi-sub"><span class="down">▼ 3,1%</span> vs realizado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Gap vs Orçado</div>
+      <div class="kpi-val down">−42,8 kTON</div>
+      <div class="kpi-sub">Atingimento: 96,9%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Derivados + Óleo Veg.</div>
+      <div class="kpi-val up">68%</div>
+      <div class="kpi-sub">do volume total realizado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">vs Jan–Mar/2025</div>
+      <div class="kpi-val">1.109,2 kTON</div>
+      <div class="kpi-sub">Mesmo período anterior</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Maior volume</div>
+      <div class="kpi-val">IPIRANGA</div>
+      <div class="kpi-sub">274,0k TON · 20,6% do total</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="chart-col">
+      <div class="sec-label">Movimentação Acumulada Jan–Mar (TON) · 2023 → 2026 · por Categoria de Produto</div>
+      <div class="chart-wrap">
+        <canvas id="rc"></canvas>
+      </div>
+      <div class="legend-row">
+        <div class="leg"><span class="leg-dot" style="background:#00B050"></span>Metanol</div>
+        <div class="leg"><span class="leg-dot" style="background:#14204A"></span>Derivados</div>
+        <div class="leg"><span class="leg-dot" style="background:#8A9BB0"></span>Aquecidos</div>
+        <div class="leg"><span class="leg-dot" style="background:#F5C400"></span>Óleo Vegetal</div>
+        <div class="leg"><span class="leg-dot" style="background:#C8D4DF;border:1px solid #aaa;"></span>Soda Cáustica</div>
+        <div class="leg"><span class="leg-dot" style="background:#5A82B5"></span>Outros</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <div class="callout-tag">Crescimento 2026</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>+19,7% vs 2025</strong> no acumulado Jan–Mar — maior volume dos últimos 3 anos para o mesmo período</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Derivados lidera</strong>: 509,5k TON (+67,9% vs 2025) — IPIRANGA e SUL PLATA como motores de crescimento</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Óleo Vegetal +33,9%</strong> vs 2025 — 393,1k TON. LDC, COAMO e BREJEIRO expandindo carteira</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Vs orçado — atenção</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Metanol −35,3% vs orçado</strong> — 224,4k vs 346,7k TON orçados. Principal gap do período</span></div>
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Aquecidos −34,5% vs orçado</strong> — 67,5k vs 103,0k TON. Queda de demanda industrial</span></div>
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Biocombustíveis −59,9%</strong> vs orçado — 32,5k vs 80,9k TON. Revisão contratual urgente</span></div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div>
+        <div class="callout-tag">Contexto histórico</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>2023 foi o pico</strong> (1.517k TON) — inflado pelo Óleo Vegetal. 2026 recupera trajetória de crescimento sólido</span></div>
+          <div class="c-item"><span class="arr arr-neu">→</span><span class="c-text">Orçado Jan–Mar/26: <strong>1.370,9k TON</strong> — gap de −42,8k é recuperável se Metanol retomar nos próximos meses</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// Dados Jan-Mar acumulado por ano + orçado
+// Breakdown por grupo de produto (TON)
+const anos = [
+  {
+    lbl: '2023',
+    isOrc: false,
+    met: 350000, der: 380000, aq: 80000, ov: 550000, sc: 90000, out: 67445
+    // Total: ~1,517,445
+  },
+  {
+    lbl: '2024',
+    isOrc: false,
+    met: 280000, der: 370000, aq: 60000, ov: 330000, sc: 90000, out: 51284
+    // Total: ~1,181,284
+  },
+  {
+    lbl: '2025',
+    isOrc: false,
+    met: 299500, der: 303500, aq: 52600, ov: 293500, sc: 105800, out: 54306
+    // Total: 1,109,206
+  },
+  {
+    lbl: '2026',
+    isOrc: false,
+    met: 224400, der: 509500, aq: 67500, ov: 393100, sc: 84300, out: 49335
+    // Total: 1,328,135
+  },
+  {
+    lbl: 'Orçado\nJan-mar/26',
+    isOrc: true,
+    met: 346700, der: 446100, aq: 103000, ov: 264200, sc: 112000, out: 98923
+    // Total: 1,370,923
+  },
+];
+
+const totals = anos.map(d => d.met + d.der + d.aq + d.ov + d.sc + d.out);
+
+const SRVS = [
+  { key:'met', label:'Metanol',      color:'#00B050' },
+  { key:'der', label:'Derivados',    color:'#14204A' },
+  { key:'aq',  label:'Aquecidos',    color:'#8A9BB0' },
+  { key:'ov',  label:'Óleo Vegetal', color:'#F5C400' },
+  { key:'sc',  label:'Soda Cáustica',color:'#C8D4DF' },
+  { key:'out', label:'Outros',       color:'#5A82B5' },
+];
+
+const fmtTon = v => (v/1000).toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0}) + 'k';
+
+const totalLabels = {
+  id: 'totlbl',
+  afterDatasetsDraw(ch) {
+    const ctx = ch.ctx;
+    anos.forEach((d, i) => {
+      const metas = ch.data.datasets.map((_, di) => ch.getDatasetMeta(di));
+      let topY = 9999, cx = 0;
+      metas.forEach(m => { if (m.data[i] && m.data[i].y < topY) { topY = m.data[i].y; cx = m.data[i].x; } });
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = d.isOrc ? '#64748b' : '#14204A';
+      ctx.font = (d.isOrc ? '500' : '600') + ' 10px Inter, sans-serif';
+      ctx.fillText(totals[i].toLocaleString('pt-BR') + ' Ton', cx, topY - 6);
+      if (d.isOrc) {
+        ctx.font = '500 9px Inter';
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText('Orçado', cx, topY - 18);
+      }
+      ctx.restore();
+    });
+  }
+};
+
+new Chart(document.getElementById('rc'), {
+  type: 'bar',
+  plugins: [totalLabels],
+  data: {
+    labels: anos.map(d => d.lbl),
+    datasets: SRVS.map((s, si, arr) => ({
+      label: s.label,
+      data: anos.map(d => d[s.key]),
+      backgroundColor: anos.map(d => d.isOrc ? s.color + '55' : s.color),
+      borderColor: anos.map(d => d.isOrc ? s.color : 'transparent'),
+      borderWidth: anos.map(d => d.isOrc ? 1.5 : 0),
+      borderRadius: si === arr.length - 1
+        ? { topLeft: 5, topRight: 5, bottomLeft: 0, bottomRight: 0 } : 0,
+      borderSkipped: false,
+      stack: 's',
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(2,6,23,.96)',
+        titleColor: '#94a3b8',
+        bodyColor: '#fff',
+        titleFont: { size: 11, weight: '700', family: 'Inter' },
+        bodyFont: { size: 11, weight: '600', family: 'Inter' },
+        padding: 10, cornerRadius: 10,
+        callbacks: {
+          title: items => items[0].label,
+          label: item => ' ' + item.dataset.label + ': ' + item.raw.toLocaleString('pt-BR') + ' TON',
+          footer: items => ' Total: ' + totals[items[0].dataIndex].toLocaleString('pt-BR') + ' TON',
+        }
+      }
+    },
+    layout: { padding: { top: 32, right: 4 } },
+    scales: {
+      x: {
+        stacked: true,
+        grid: { display: false },
+        border: { display: false },
+        ticks: {
+          color: ctx => ctx.tick.label === 'Orçado\nJan-mar/26' ? '#94a3b8' : '#64748b',
+          font: { family: 'Inter', size: 11, weight: '600' },
+          maxRotation: 0,
+        }
+      },
+      y: {
+        stacked: true,
+        beginAtZero: true,
+        max: 1700000,
+        grid: { color: 'rgba(148,163,184,.15)' },
+        border: { display: false },
+        ticks: {
+          color: '#94a3b8',
+          font: { size: 10, weight: '600' },
+          callback: v => v ? (v/1000).toLocaleString('pt-BR') + 'k Ton' : '',
+          maxTicksLimit: 6,
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

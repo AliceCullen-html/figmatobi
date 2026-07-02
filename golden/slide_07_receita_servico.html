@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Receita Bruta por Serviço · Mai 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#e8e8e8;display:flex;justify-content:center;padding:20px}
+.slide{width:1440px;height:829px;background:#fff;padding:32px 44px 22px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px}
+.slide-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8B92A9}
+.slide-title{font-size:22px;font-weight:700;color:#14204A;letter-spacing:-.2px;margin-top:5px}
+.gold-rule{height:3px;background:#F5C400;margin-bottom:1px}
+.navy-rule{height:1px;background:#14204A;margin-bottom:16px}
+.headline{font-size:14px;font-weight:700;color:#14204A;margin-bottom:5px;line-height:1.3}
+.hl-pos{color:#0A8F5C}.hl-neg{color:#ef4444}
+.subhl{font-size:10px;color:#8B92A9;margin-bottom:14px}
+.kpis{display:flex;gap:0;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #E8EAF2}
+.kpi{display:flex;flex-direction:column;gap:1px;flex:1;border-right:1px solid #E8EAF2;padding-right:16px;margin-right:16px}
+.kpi:last-child{border-right:none;margin-right:0;padding-right:0}
+.kpi-lbl{font-size:7.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9}
+.kpi-val{font-size:21px;font-weight:700;color:#14204A;letter-spacing:-.4px;line-height:1.1}
+.kpi-val.pos{color:#0A8F5C}.kpi-val.pend{color:#C8CDD8}
+.kpi-sub{font-size:9px;color:#8B92A9;margin-top:1px}
+.kpi-sub.pos{color:#0A8F5C}.kpi-sub.neg{color:#ef4444}.kpi-sub.pend{color:#F59E0B}
+.body-grid{display:grid;grid-template-columns:1fr 264px;gap:0;flex:1;min-height:0}
+.main-col{display:flex;flex-direction:column;padding-right:26px;border-right:1px solid #E8EAF2;min-height:0}
+.side-col{padding-left:22px;display:flex;flex-direction:column;gap:0}
+.chart-lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9;margin-bottom:8px}
+.chart-wrap{flex:1;display:flex;flex-direction:column;min-height:0}
+.plot{flex:1;display:flex;min-height:0}
+.yaxis{width:34px;position:relative;flex-shrink:0}
+.ytick{position:absolute;right:5px;transform:translateY(-50%);font-size:8px;color:#A8AEBC;font-weight:500;white-space:nowrap}
+.gridarea{flex:1;position:relative;border-bottom:1px solid #C8CDD8}
+.gl{position:absolute;left:0;right:0;border-top:1px dashed #EEF1F6}
+.bars{position:absolute;inset:0;display:flex;align-items:flex-end;gap:9px}
+.bcol{flex:1;height:100%;display:flex;align-items:flex-end;justify-content:center}
+.bar{width:74%;max-width:50px;position:relative}
+.bval{position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:8.5px;font-weight:600;color:#14204A;white-space:nowrap}
+.segs{position:absolute;inset:0;display:flex;flex-direction:column-reverse;border-radius:2px 2px 0 0;overflow:hidden}
+.seg{width:100%}
+.xaxis{display:flex;padding-left:34px;margin-top:7px}
+.bmonth{flex:1;text-align:center;font-size:8.5px;color:#8B92A9;font-weight:500}
+.lg{display:flex;flex-wrap:wrap;gap:14px;padding-left:34px;margin-top:9px}
+.lg-item{display:flex;align-items:center;gap:5px;font-size:9px;color:#6B6B6B}
+.lg-dot{width:9px;height:9px;border-radius:2px}
+.chart-foot{font-size:7.5px;color:#A8AEBC;font-style:italic;margin-top:6px;padding-left:34px}
+.ctag{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;display:inline-block;width:fit-content;margin-bottom:6px}
+.ctag-n{background:#14204A;color:#F5C400}.ctag-y{background:#F5C400;color:#14204A}
+.c-items{display:flex;flex-direction:column;gap:7px}
+.c-item{display:flex;align-items:flex-start;gap:7px}
+.arr{font-size:12px;font-weight:700;flex-shrink:0;line-height:1.3}
+.arr-up{color:#0A8F5C}.arr-down{color:#ef4444}.arr-warn{color:#F59E0B}
+.c-text{font-size:10px;line-height:1.45;color:#2a2a2a}
+.c-text strong{color:#14204A;font-weight:600}
+.crule{height:1px;background:#E8EAF2;margin:13px 0}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:9px;border-top:1px solid #E8EAF2;margin-top:12px}
+.fn,.fd{font-size:8.5px;color:#8B92A9}.fd{font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="header">
+    <div>
+      <div class="slide-label">ANÁLISE REALIZADO · TERMINAL CATTALINI · PARANAGUÁ</div>
+      <div class="slide-title">Receita Bruta por Serviço (R$ x 1.000)</div>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="navy-rule"></div>
+
+  <div class="headline">
+    Take or Pay domina <span class="hl-pos">69%</span> da receita — base contratual de <span class="hl-pos">66%</span> em contratos &gt;12 meses · Espaço faturado M³ <span class="hl-pos">+6,8% aa</span>
+  </div>
+  <div class="subhl">mai/2026 · Receita bruta YTD R$306,1Mi · 12 meses rolling (jun/25 – mai/26) · valores em R$ x 1.000</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-lbl">Fat. YTD Jan–Mai</div><div class="kpi-val">R$ 306,08 Mi</div><div class="kpi-sub pos">▲ 4,2% vs jan–mai/25</div></div>
+    <div class="kpi"><div class="kpi-lbl">Ticket / TON</div><div class="kpi-val">R$ 134,67</div><div class="kpi-sub neg">▼ 6,0% vs jan–mai/25</div></div>
+    <div class="kpi"><div class="kpi-lbl">Ticket / M³</div><div class="kpi-val">R$ 64,25</div><div class="kpi-sub">Receita por metro cúbico</div></div>
+    <div class="kpi"><div class="kpi-lbl">Contratos &gt;12M</div><div class="kpi-val pos">66%</div><div class="kpi-sub">Base estável</div></div>
+    <div class="kpi"><div class="kpi-lbl">Take or Pay</div><div class="kpi-val pos">69%</div><div class="kpi-sub">Predominante</div></div>
+    <div class="kpi"><div class="kpi-lbl">Espaço M³ YTD</div><div class="kpi-val">837.353 m³</div><div class="kpi-sub pos">▲ 6,8% vs AA</div></div>
+  </div>
+
+  <div class="body-grid">
+    <div class="main-col">
+      <div class="chart-lbl">Receita Bruta por Serviço — 12M Rolling (R$ x 1.000) · jun/25 → mai/26</div>
+      <div class="chart-wrap">
+        <div class="plot">
+          <div class="yaxis"><span class="ytick" style="top:0.00%">75Mi</span><span class="ytick" style="top:20.00%">60Mi</span><span class="ytick" style="top:46.67%">40Mi</span><span class="ytick" style="top:73.33%">20Mi</span></div>
+          <div class="gridarea">
+            <div class="gl" style="top:0.00%"></div><div class="gl" style="top:20.00%"></div><div class="gl" style="top:46.67%"></div><div class="gl" style="top:73.33%"></div>
+            <div class="bars">
+        <div class="bcol"><div class="bar" style="height:80.2%"><div class="bval">60.161</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:83.0%"><div class="bval">62.255</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:78.7%"><div class="bval">59.016</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:72.8%"><div class="bval">54.610</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:70.7%"><div class="bval">52.998</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:69.7%"><div class="bval">52.296</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:73.6%"><div class="bval">55.194</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:76.8%"><div class="bval">57.586</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:80.4%"><div class="bval">60.301</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:81.1%"><div class="bval">60.838</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:79.3%"><div class="bval">59.479</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+        <div class="bcol"><div class="bar" style="height:90.5%"><div class="bval">67.879</div><div class="segs"><div class="seg" style="height:73%;background:#14204A"></div><div class="seg" style="height:6%;background:#3D6FCC"></div><div class="seg" style="height:9%;background:#F5C400"></div><div class="seg" style="height:4%;background:#F0A33A"></div><div class="seg" style="height:8%;background:#C8D4DF"></div></div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="xaxis"><div class="bmonth">jun/25</div><div class="bmonth">jul/25</div><div class="bmonth">ago/25</div><div class="bmonth">set/25</div><div class="bmonth">out/25</div><div class="bmonth">nov/25</div><div class="bmonth">dez/25</div><div class="bmonth">jan/26</div><div class="bmonth">fev/26</div><div class="bmonth">mar/26</div><div class="bmonth">abr/26</div><div class="bmonth">mai/26</div></div>
+        <div class="lg"><div class="lg-item"><span class="lg-dot" style="background:#14204A"></span>Take or Pay</div><div class="lg-item"><span class="lg-dot" style="background:#3D6FCC"></span>Des/Embarque</div><div class="lg-item"><span class="lg-dot" style="background:#F5C400"></span>SOP</div><div class="lg-item"><span class="lg-dot" style="background:#F0A33A"></span>Outros Serviços</div><div class="lg-item"><span class="lg-dot" style="background:#C8D4DF"></span>Excedente/2ºGiro</div></div>
+        <div class="chart-foot">Totais mensais reais. Split por serviço = composição 12M — BI não exporta o split mensal.</div>
+      </div>
+    </div>
+
+    <div class="side-col">
+      <div class="ctag">Base Contratual</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Take or Pay = 69%</strong> da receita — recorrente e previsível. Base sólida mensal</span></div>
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>66% em contratos &gt;12M</strong> — baixa exposição a contratos spot. Estabilidade de carteira</span></div>
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Espaço M³ 837k +6,8% aa</strong> — espaço médio faturado em expansão. Tendência positiva</span></div>
+      </div>
+      <div class="crule"></div>
+      <div class="ctag">Atenção</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Ticket/TON −6,0% aa</strong> — mix menos valorizado pressionando receita por tonelada</span></div>
+        <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Excedente = 8% da receita</strong> — abaixo do potencial. Oportunidade de ampliar serviços complementares</span></div>
+        <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Take or Pay −4,2% vs 12M ant.</strong> — leve recuo na fatia recorrente</span></div>
+      </div>
+      <div class="crule"></div>
+      <div class="ctag">Top Cliente</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>METHANEX</strong> — maior faturador YTD (R$40,57Mi). Concentra a maior parte do Take or Pay do terminal</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fn">Fonte: Power BI Comercial · Receita Bruta por Serviço · 12 meses móveis até mai/2026</div>
+    <div class="fd">Relatório Mensal · Maio 2026</div>
+  </div>
+
+</div>
+</body>
+</html>

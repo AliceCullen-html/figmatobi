@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#fff;width:1440px}
+.slide{width:1440px;height:829px;background:#fff;padding:40px 64px 32px;display:flex;flex-direction:column;overflow:hidden}
+.slide-tag{font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#8B92A9;margin-bottom:3px}
+.slide-title{font-size:21px;font-weight:300;color:#14204A;letter-spacing:-.3px;margin-bottom:6px}
+.gold-rule{height:2px;background:#F5C400;margin-bottom:14px}
+.headline{margin-bottom:12px}
+.hl-main{font-size:15px;font-weight:400;color:#14204A;line-height:1.4;margin-bottom:3px}
+.hl-up{color:#0A8F5C;font-weight:600}.hl-sub{font-size:11px;color:#8B92A9}
+.kpi-row{display:flex;gap:0;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #F0F2F8}
+.kpi{flex:1;padding-right:22px;border-right:1px solid #E8EAF2;margin-right:22px}
+.kpi:last-child{border-right:none;margin-right:0;padding-right:0}
+.kpi-bar{height:3px;border-radius:2px;margin-bottom:6px}
+.kpi-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#8B92A9;margin-bottom:3px}
+.kpi-val{font-size:26px;font-weight:400;line-height:1;letter-spacing:-.3px;margin-bottom:2px}
+.kpi-sub{font-size:10px;color:#8B92A9}
+.body{display:grid;grid-template-columns:1fr 240px;gap:36px;flex:1;min-height:0}
+.chart-col{display:flex;flex-direction:column;min-height:0}
+.sec-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8B92A9;padding-bottom:6px;border-bottom:1px solid #F0F2F8;margin-bottom:8px}
+.chart-wrap{flex:1;position:relative;min-height:0}
+.legend-row{display:flex;gap:16px;margin-top:10px;align-items:center}
+.leg{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600}
+.leg-sq{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.right{display:flex;flex-direction:column;gap:16px;padding-top:2px}
+.callout-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#F5C400;background:#14204A;padding:3px 10px;display:inline-block;margin-bottom:8px;border-radius:2px}
+.c-items{display:flex;flex-direction:column;gap:8px}.c-item{display:flex;gap:8px;align-items:flex-start}
+.arr{font-size:13px;flex-shrink:0;line-height:1.45}.arr-up{color:#0A8F5C}.arr-down{color:#C93030}.arr-warn{color:#D08000}
+.c-text{font-size:11px;color:#2A3060;line-height:1.6}.c-text strong{font-weight:600;color:#14204A}
+.rule{height:1px;background:#F0F2F8}
+</style></head><body><div class="slide">
+<div class="slide-tag">Market Share · Soda Cáustica · Paranaguá · %/t</div>
+<div class="slide-title">Market Share — Soda Cáustica</div>
+<div class="gold-rule"></div>
+<div class="headline">
+  <div class="hl-main">Cattalini detém <span class="hl-up">100% do mercado</span> de Soda Cáustica em Paranaguá — posição de monopólio mantida em <span class="hl-up">todos os __CONS__ meses</span> consecutivos</div>
+  <div class="hl-sub">__JANELA__ · Market share e volume por mês · Soda Cáustica · Paranaguá (%/t)</div>
+</div>
+<div class="kpi-row">
+  <div class="kpi"><div class="kpi-bar" style="background:#10253F"></div><div class="kpi-lbl">Market Share — __REF__</div><div class="kpi-val" style="color:#0A8F5C;font-weight:700;">100%</div><div class="kpi-sub">Monopólio absoluto Paranaguá</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#10253F;opacity:.4"></div><div class="kpi-lbl">Volume — __REF__</div><div class="kpi-val" style="color:#14204A;">__VOLMAI__</div><div class="kpi-sub">100% Cattalini</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#F5C400"></div><div class="kpi-lbl">YTD Jan–__REF__</div><div class="kpi-val" style="color:#14204A;">__YTD__</div><div class="kpi-sub">Acumulado 2026</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#10253F;opacity:.3"></div><div class="kpi-lbl">Mínima do período</div><div class="kpi-val" style="color:#D08000;">__MINK__</div><div class="kpi-sub">__MINMES__ — ainda 100% share</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#10253F;opacity:.3"></div><div class="kpi-lbl">Máxima do período</div><div class="kpi-val" style="color:#14204A;">__MAXK__</div><div class="kpi-sub">__MAXMES__</div></div>
+  <div class="kpi"><div class="kpi-bar" style="background:#0A8F5C"></div><div class="kpi-lbl">Meses consecutivos 100%</div><div class="kpi-val" style="color:#0A8F5C;font-weight:600;">__CONS__</div><div class="kpi-sub">__SECLBL__</div></div>
+</div>
+<div class="body">
+  <div class="chart-col">
+    <div class="sec-label">Market Share Soda Cáustica — Cattalini (%/t) · __SECLBL__ · Volume por mês (K TON)</div>
+    <div class="chart-wrap"><canvas id="rc"></canvas></div>
+    <div class="legend-row"><div class="leg"><span class="leg-sq" style="background:#10253F"></span><span style="color:#10253F;">Cattalini — 100%</span></div><span style="font-size:10px;color:#8B92A9;margin-left:8px;">Nenhum outro terminal opera Soda Cáustica em Paranaguá</span></div>
+  </div>
+  <div class="right">
+    <div><div class="callout-tag">Posição estratégica</div><div class="c-items">
+      <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Monopólio absoluto</strong> — Cattalini é o único terminal a operar Soda Cáustica em Paranaguá</span></div>
+      <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>100% de retenção</strong> de market share — sem risco competitivo imediato</span></div>
+      <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text">Alta barreira de entrada — <strong>infraestrutura especializada</strong> como diferencial</span></div>
+    </div></div>
+    <div class="rule"></div>
+    <div><div class="callout-tag">Volume — atenção</div><div class="c-items">
+      <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>__DIREC__</strong></span></div>
+      <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Sazonalidade alta</strong> — varia de __MINK__ (__MINMES__) a __MAXK__ (__MAXMES__). Planejar capacidade</span></div>
+      <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text">Apesar do monopólio, o volume segue só a <strong>demanda do produto</strong> — sem upside competitivo</span></div>
+    </div></div>
+  </div>
+</div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const labels=__LABELS__;const volumes=__VOLS__;const nav2026=__NAV__;
+const volLabels={id:'volLbls',afterDatasetsDraw(ch){const ctx=ch.ctx;ch.getDatasetMeta(0).data.forEach((bar,i)=>{ctx.save();ctx.textAlign='center';ctx.fillStyle='#14204A';ctx.font='600 10px Inter';ctx.fillText(volumes[i]+' K',bar.x,bar.y-8);const segH=Math.abs(bar.base-bar.y);ctx.fillStyle='#fff';ctx.font='700 12px Inter';ctx.textBaseline='middle';ctx.fillText('100',bar.x,bar.y+segH/2);ctx.restore();});}};
+new Chart(document.getElementById('rc'),{type:'bar',plugins:[volLabels],data:{labels,datasets:[{data:new Array(labels.length).fill(100),backgroundColor:labels.map(l=>nav2026.includes(l)?'#10253F':'#10253F99'),borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0},borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(2,6,23,.96)',titleColor:'#94a3b8',bodyColor:'#fff',padding:10,cornerRadius:10,callbacks:{title:items=>items[0].label,label:item=>' Cattalini: 100% — '+volumes[item.dataIndex]+'K TON'}}},layout:{padding:{top:26,right:8}},scales:{x:{grid:{display:false},border:{display:false},ticks:{color:ctx=>nav2026.includes(ctx.tick.label)?'#14204A':'#8B92A9',font:ctx=>({family:'Inter',size:11,weight:nav2026.includes(ctx.tick.label)?'700':'500'}),maxRotation:0}},y:{min:0,max:110,grid:{color:'rgba(148,163,184,.1)'},border:{display:false},ticks:{color:'#94a3b8',font:{size:10,weight:'600'},callback:v=>v+'%',maxTicksLimit:5}}}}});
+</script></body></html>

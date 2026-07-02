@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Previsão x Realizado x Orçado · Maio 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#e8e8e8;display:flex;justify-content:center;padding:20px}
+.slide{width:1440px;height:829px;background:#fff;padding:32px 44px 22px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px}
+.slide-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8B92A9}
+.slide-title{font-size:22px;font-weight:700;color:#14204A;letter-spacing:-.2px;margin-top:5px}
+.gold-rule{height:3px;background:#F5C400;margin-bottom:1px}
+.navy-rule{height:1px;background:#14204A;margin-bottom:16px}
+.headline{font-size:14px;font-weight:700;color:#14204A;margin-bottom:5px;line-height:1.3}
+.hl-pos{color:#0A8F5C}.hl-neg{color:#ef4444}
+.subhl{font-size:10px;color:#8B92A9;margin-bottom:14px}
+.kpis{display:flex;gap:0;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #E8EAF2}
+.kpi{display:flex;flex-direction:column;gap:1px;flex:1;border-right:1px solid #E8EAF2;padding-right:14px;margin-right:14px}
+.kpi:last-child{border-right:none;margin-right:0;padding-right:0}
+.kpi-lbl{font-size:7.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9}
+.kpi-val{font-size:19px;font-weight:700;color:#14204A;letter-spacing:-.4px;line-height:1.1}
+.kpi-val.pos{color:#0A8F5C}.kpi-val.neg{color:#ef4444}
+.kpi-sub{font-size:9px;color:#8B92A9;margin-top:1px}
+.kpi-sub.pos{color:#0A8F5C}.kpi-sub.neg{color:#ef4444}
+.body-grid{display:grid;grid-template-columns:1fr 260px;gap:0;flex:1;min-height:0}
+.main-col{display:flex;flex-direction:column;padding-right:24px;border-right:1px solid #E8EAF2;min-height:0}
+.side-col{padding-left:20px;display:flex;flex-direction:column;gap:0}
+.chart-lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9;margin-bottom:8px}
+.chart-wrap{flex:1;position:relative;min-height:0}
+.legend-row{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:9px}
+.leg{display:flex;align-items:center;gap:5px;font-size:9px;color:#6B6B6B}
+.leg-dot{width:9px;height:9px;border-radius:2px}
+.chart-foot{font-size:7.5px;color:#A8AEBC;font-style:italic;margin-top:6px}
+.ctag{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;display:inline-block;width:fit-content;margin-bottom:5px}
+.ctag-n{background:#14204A;color:#F5C400}.ctag-y{background:#F5C400;color:#14204A}
+.c-items{display:flex;flex-direction:column;gap:6px}
+.c-item{display:flex;align-items:flex-start;gap:6px}
+.arr{font-size:11px;font-weight:700;flex-shrink:0;line-height:1.3}
+.arr-up{color:#0A8F5C}.arr-down{color:#ef4444}.arr-warn{color:#F59E0B}
+.c-text{font-size:9.5px;line-height:1.4;color:#2a2a2a}
+.c-text strong{color:#14204A;font-weight:600}
+.crule{height:1px;background:#E8EAF2;margin:10px 0}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid #E8EAF2;margin-top:10px}
+.fn,.fd{font-size:8.5px;color:#8B92A9}.fd{font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="header">
+    <div>
+      <div class="slide-label">PREVISÃO · REALIZADO · ORÇADO · TERMINAL CATTALINI · PARANAGUÁ</div>
+      <div class="slide-title">Movimentação Maio 2026 · Previsão x Realizado x Orçado</div>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="navy-rule"></div>
+
+  <div class="headline">
+    Realizado de maio (<span class="hl-pos">473,3 kTON</span>) supera a previsão em <span class="hl-pos">+8,8%</span>, mas fica <span class="hl-neg">−14,0% abaixo do orçado</span> · Óleo Vegetal o único acima da meta
+  </div>
+  <div class="subhl">Previsão vs. Realizado vs. Orçado · Maio 2026 · Movimentação por categoria de produto (TON)</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-lbl">Previsão Mai/26</div><div class="kpi-val">435,0 kTON</div><div class="kpi-sub neg">▼ 20,9% vs orçado</div></div>
+    <div class="kpi"><div class="kpi-lbl">Realizado Mai/26</div><div class="kpi-val pos">473,3 kTON</div><div class="kpi-sub pos">▲ 8,8% vs previsão</div></div>
+    <div class="kpi"><div class="kpi-lbl">Orçado Mai/26</div><div class="kpi-val">549,8 kTON</div><div class="kpi-sub">meta do mês</div></div>
+    <div class="kpi"><div class="kpi-lbl">Gap Real. vs Orç.</div><div class="kpi-val neg">−76,5 kTON</div><div class="kpi-sub neg">−14,0% · ating. 86,1%</div></div>
+    <div class="kpi"><div class="kpi-lbl">Real. vs Previsão</div><div class="kpi-val pos">+38,3 kTON</div><div class="kpi-sub pos">▲ 8,8% acima do previsto</div></div>
+    <div class="kpi"><div class="kpi-lbl">Óleo Vegetal</div><div class="kpi-val pos">+49 kTON</div><div class="kpi-sub">único acima do orçado</div></div>
+  </div>
+
+  <div class="body-grid">
+    <div class="main-col">
+      <div class="chart-lbl">Previsão x Realizado x Orçado · Maio 2026 · por Categoria de Produto (TON)</div>
+      <div class="chart-wrap"><canvas id="rc"></canvas></div>
+      <div class="legend-row">
+        <div class="leg"><span class="leg-dot" style="background:#00B050;"></span>Metanol</div>
+        <div class="leg"><span class="leg-dot" style="background:#14204A;"></span>Derivados</div>
+        <div class="leg"><span class="leg-dot" style="background:#8A9BB0;"></span>Aquecidos</div>
+        <div class="leg"><span class="leg-dot" style="background:#F5C400;"></span>Óleo Vegetal</div>
+        <div class="leg"><span class="leg-dot" style="background:#C8D4DF;border:1px solid #aaa;"></span>Soda Cáustica</div>
+        <div class="leg"><span class="leg-dot" style="background:#F0A33A;"></span>Biocombustível</div>
+        <div class="leg"><span class="leg-dot" style="background:#5A82B5;"></span>Outros</div>
+      </div>
+      <div class="chart-foot">Totais: Previsão 435k (informado) · Realizado 473,3k e Orçado 549,8k reais (BI). Split por grupo proporcional. Realizado sólido; Previsão e Orçado em tons transparentes.</div>
+    </div>
+
+    <div class="side-col">
+      <div class="ctag ctag-n">Realizado superou previsão</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>+8,8% vs previsão</strong> (435k) — operação entregou acima do previsto no mês</span></div>
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Óleo Vegetal +49k</strong> vs orçado — único grupo acima da meta</span></div>
+      </div>
+      <div class="crule"></div>
+      <div class="ctag ctag-y">Vs Orçado — atenção</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>−14,0% vs orçado</strong> — atingimento de 86,1%; Metanol e Soda os detratores</span></div>
+        <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Soda −27k</strong> e <strong>Metanol −1k</strong> vs orçado puxam o gap</span></div>
+      </div>
+      <div class="crule"></div>
+      <div class="ctag ctag-n">Ação necessária</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text">Calibrar previsão e orçado — gap entre os dois (114k) sinaliza meta agressiva</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fn">Fonte: Power BI Comercial · Previsão x Realizado x Orçado · Maio 2026</div>
+    <div class="fd">Relatório Mensal · Maio 2026</div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const bars = [
+  { lbl:'Previsão', kind:'prev', met:122000, der:113000, aq:13000, ov:130000, sc:17000, bio:13000, out:27000 },
+  { lbl:'Realizado', kind:'real', met:142000, der:123000, aq:14000, ov:142000, sc:19000, bio:14000, out:19320 },
+  { lbl:'Orçado', kind:'orc', met:143000, der:159000, aq:27000, ov:93000, sc:44000, bio:15000, out:68848 },
+];
+const totals = bars.map(d => d.met+d.der+d.aq+d.ov+d.sc+d.bio+d.out);
+const SRVS = [
+  { key:'met', label:'Metanol', color:'#00B050' },
+  { key:'der', label:'Derivados', color:'#14204A' },
+  { key:'aq', label:'Aquecidos', color:'#8A9BB0' },
+  { key:'ov', label:'Óleo Vegetal', color:'#F5C400' },
+  { key:'sc', label:'Soda Cáustica', color:'#C8D4DF' },
+  { key:'bio', label:'Biocombustível', color:'#F0A33A' },
+  { key:'out', label:'Outros', color:'#5A82B5' }
+];
+// Realizado SÓLIDO; Previsão ~70%; Orçado ~33% + borda
+const alphaFor = k => k==='real' ? '' : (k==='prev' ? 'B3' : '55');
+const totalLabels = {
+  id:'totlbl',
+  afterDatasetsDraw(ch){
+    const ctx=ch.ctx;
+    bars.forEach((d,i)=>{
+      const metas=ch.data.datasets.map((_,di)=>ch.getDatasetMeta(di));
+      let topY=9999,cx=0;
+      metas.forEach(m=>{ if(m.data[i] && m.data[i].y<topY){ topY=m.data[i].y; cx=m.data[i].x; } });
+      ctx.save(); ctx.textAlign='center';
+      ctx.fillStyle = d.kind==='real' ? '#14204A' : (d.kind==='prev' ? '#3D6FCC' : '#64748b');
+      ctx.font=(d.kind==='real'?'700':'600')+' 12px Inter, sans-serif';
+      ctx.fillText((totals[i]/1000).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0})+' kTON', cx, topY-8);
+      ctx.restore();
+    });
+  }
+};
+new Chart(document.getElementById('rc'), {
+  type:'bar',
+  plugins:[totalLabels],
+  data:{
+    labels:bars.map(d=>d.lbl),
+    datasets:SRVS.map((s,si,arr)=>({
+      label:s.label,
+      data:bars.map(d=>d[s.key]),
+      backgroundColor:bars.map(d=>s.color + alphaFor(d.kind)),
+      borderColor:bars.map(d=>d.kind==='orc'? s.color : 'transparent'),
+      borderWidth:bars.map(d=>d.kind==='orc'? 1.5 : 0),
+      borderRadius: si===arr.length-1 ? {topLeft:5,topRight:5,bottomLeft:0,bottomRight:0} : 0,
+      borderSkipped:false, stack:'s',
+    }))
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    categoryPercentage:0.6, barPercentage:0.85,
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'rgba(2,6,23,.96)', titleColor:'#94a3b8', bodyColor:'#fff',
+        titleFont:{size:11,weight:'700',family:'Inter'}, bodyFont:{size:11,weight:'600',family:'Inter'},
+        padding:10, cornerRadius:10,
+        callbacks:{
+          label:item=>' '+item.dataset.label+': '+item.raw.toLocaleString('pt-BR')+' TON',
+          footer:items=>' Total: '+totals[items[0].dataIndex].toLocaleString('pt-BR')+' TON',
+        }
+      }
+    },
+    layout:{padding:{top:34,right:4}},
+    scales:{
+      x:{ stacked:true, grid:{display:false}, border:{display:false},
+        ticks:{ color:ctx=>{const l=ctx.tick.label; return l==='Realizado'?'#14204A':(l==='Previsão'?'#3D6FCC':'#94a3b8');},
+          font:{family:'Inter',size:13,weight:'700'}, maxRotation:0 } },
+      y:{ stacked:true, beginAtZero:true, max:600000,
+        grid:{color:'rgba(148,163,184,.15)'}, border:{display:false},
+        ticks:{ color:'#94a3b8', font:{size:10,weight:'600'},
+          callback:v=>v?(v/1000).toLocaleString('pt-BR')+'k Ton':'', stepSize:100000 } }
+    }
+  }
+});
+</script>
+</body>
+</html>

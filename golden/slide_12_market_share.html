@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Market Share por Terminal · Mai 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#e8e8e8;display:flex;justify-content:center;padding:20px}
+.slide{width:1440px;height:829px;background:#fff;padding:32px 44px 22px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px}
+.slide-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8B92A9}
+.slide-title{font-size:22px;font-weight:700;color:#14204A;letter-spacing:-.2px;margin-top:5px}
+.gold-rule{height:3px;background:#F5C400;margin-bottom:1px}
+.navy-rule{height:1px;background:#14204A;margin-bottom:16px}
+.headline{font-size:14px;font-weight:700;color:#14204A;margin-bottom:5px;line-height:1.3}
+.hl-pos{color:#0A8F5C}.hl-neg{color:#ef4444}.hl-warn{color:#D08000}
+.subhl{font-size:10px;color:#8B92A9;margin-bottom:14px}
+.kpis{display:flex;gap:0;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #E8EAF2}
+.kpi{display:flex;flex-direction:column;gap:2px;flex:1;border-right:1px solid #E8EAF2;padding-right:16px;margin-right:16px}
+.kpi:last-child{border-right:none;margin-right:0;padding-right:0}
+.kpi-bar{height:3px;width:26px;border-radius:2px;margin-bottom:4px}
+.kpi-lbl{font-size:7.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9}
+.kpi-val{font-size:21px;font-weight:700;letter-spacing:-.4px;line-height:1.1}
+.kpi-sub{font-size:9px;color:#8B92A9;margin-top:1px}
+.body-grid{display:grid;grid-template-columns:1fr 248px;gap:0;flex:1;min-height:0}
+.main-col{display:flex;flex-direction:column;padding-right:24px;border-right:1px solid #E8EAF2;min-height:0}
+.side-col{padding-left:20px;display:flex;flex-direction:column;gap:0}
+.chart-lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9;margin-bottom:8px}
+.chart-wrap{flex:1;position:relative;min-height:0}
+.legend-row{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:9px;align-items:center}
+.leg{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:600}
+.leg-line{width:14px;height:9px;border-radius:2px;display:inline-block}
+.ctag{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;display:inline-block;width:fit-content;margin-bottom:5px;background:#14204A;color:#F5C400}
+.c-items{display:flex;flex-direction:column;gap:6px}
+.c-item{display:flex;align-items:flex-start;gap:6px}
+.arr{font-size:11px;font-weight:700;flex-shrink:0;line-height:1.3}
+.arr-up{color:#0A8F5C}.arr-down{color:#ef4444}.arr-warn{color:#F59E0B}.arr-neu{color:#8B92A9}
+.c-text{font-size:9.5px;line-height:1.45;color:#2a2a2a}
+.c-text strong{color:#14204A;font-weight:600}
+.crule{height:1px;background:#E8EAF2;margin:10px 0}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid #E8EAF2;margin-top:10px}
+.fn,.fd{font-size:8.5px;color:#8B92A9}.fd{font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="header">
+    <div>
+      <div class="slide-label">MARKET SHARE · GRANÉIS LÍQUIDOS · PARANAGUÁ · %/T</div>
+      <div class="slide-title">Market Share por Terminal</div>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="navy-rule"></div>
+
+  <div class="headline">
+    Cattalini encerra maio em <span class="hl-warn">59%</span> — <span class="hl-pos">+5 p.p. vs abr</span> e <span class="hl-pos">+21 p.p. vs o piso de set/25</span> (38%) · Transpetro recua para 20%
+  </div>
+  <div class="subhl">Mai/2025 → Mai/2026 · Market share mensal por terminal · Granéis Líquidos Paranaguá (%/t)</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-bar" style="background:#10253F"></div><div class="kpi-lbl">Cattalini — mai/26</div><div class="kpi-val" style="color:#10253F">59%</div><div class="kpi-sub">+5 p.p. vs abr</div></div>
+    <div class="kpi"><div class="kpi-bar" style="background:#10253F;opacity:.35"></div><div class="kpi-lbl">Cattalini — mín / máx</div><div class="kpi-val" style="color:#10253F">38% / 63%</div><div class="kpi-sub">set/25 · fev/26</div></div>
+    <div class="kpi"><div class="kpi-bar" style="background:#6C809A"></div><div class="kpi-lbl">Transpetro — mai/26</div><div class="kpi-val" style="color:#6C809A">20%</div><div class="kpi-sub">de 31% em abr</div></div>
+    <div class="kpi"><div class="kpi-bar" style="background:#FFC000"></div><div class="kpi-lbl">CBL — mai/26</div><div class="kpi-val" style="color:#C09000">12%</div><div class="kpi-sub">estável</div></div>
+    <div class="kpi"><div class="kpi-bar" style="background:#9BBB59"></div><div class="kpi-lbl">Terin — mai/26</div><div class="kpi-val" style="color:#6A8A30">9%</div><div class="kpi-sub">de 3% em abr</div></div>
+    <div class="kpi"><div class="kpi-bar" style="background:#10253F"></div><div class="kpi-lbl">Cattalini — YTD Jan–Mai/26</div><div class="kpi-val" style="color:#10253F">58,3%</div><div class="kpi-sub">média do ano</div></div>
+  </div>
+
+  <div class="body-grid">
+    <div class="main-col">
+      <div class="chart-lbl">Market Share por Terminal (%/t) · Mai/25 → Mai/26</div>
+      <div class="chart-wrap"><canvas id="rc"></canvas></div>
+      <div class="legend-row">
+        <div class="leg"><span class="leg-line" style="background:#10253F"></span><span style="color:#10253F">Cattalini</span></div>
+        <div class="leg"><span class="leg-line" style="background:#6C809A"></span><span style="color:#6C809A">Transpetro</span></div>
+        <div class="leg"><span class="leg-line" style="background:#FFC000"></span><span style="color:#C09000">CBL</span></div>
+        <div class="leg"><span class="leg-line" style="background:#9BBB59"></span><span style="color:#6A8A30">Terin</span></div>
+      </div>
+    </div>
+
+    <div class="side-col">
+      <div class="ctag">Cattalini</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>59% em mai/26</strong> — +5 p.p. vs abril e bem acima da média de 2025</span></div>
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>YTD 58,3%</strong> — domínio consistente nos 5 primeiros meses de 2026</span></div>
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text">Recuperação de <strong>+21 p.p.</strong> desde o piso de set/25 (38%)</span></div>
+      </div>
+      <div class="crule"></div>
+      <div class="ctag">Concorrência</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Transpetro 20%</strong> — maior recuo do mês (de 31% em abr; pico foi 46% em out/25)</span></div>
+        <div class="c-item"><span class="arr arr-neu">→</span><span class="c-text"><strong>CBL estável em 12%</strong> ao longo do período</span></div>
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Terin subiu p/ 9%</strong> (de 3% em abr) — terminal volátil, monitorar</span></div>
+      </div>
+      <div class="crule"></div>
+      <div class="ctag">Ação</div>
+      <div class="c-items">
+        <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text">Cattalini ganhou share de <strong>Transpetro</strong> em maio — consolidar a captura com contratos de prazo</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fn">Fonte: Power BI Comercial · Market Share por Terminal (%/t) · Mai/25 → Mai/26</div>
+    <div class="fd">Relatório Mensal · Maio 2026</div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const meses = ["mai/25", "jun/25", "jul/25", "ago/25", "set/25", "out/25", "nov/25", "dez/25", "jan/26", "fev/26", "mar/26", "abr/26", "mai/26"];
+const totals = [898,943,881,900,905,829,728,731,725,741,754,873,800];
+// Ordem empilhamento: Terin embaixo -> CBL -> Transpetro -> Cattalini no topo
+const SERIES = [
+  { label:'Terin', color:'#9BBB59', textColor:'#3a5a10', data:[9,8,5,7,15,3,5,7,1,2,3,3,9] },
+  { label:'CBL', color:'#FFC000', textColor:'#7a5500', data:[5,11,10,6,7,6,13,2,11,12,10,12,12] },
+  { label:'Transpetro', color:'#6C809A', textColor:'#ffffff', data:[33,37,37,34,40,46,36,45,30,23,29,31,20] },
+  { label:'Cattalini', color:'#10253F', textColor:'#ffffff', data:[53,44,48,53,38,45,46,46,58,63,58,54,59] },
+];
+const labelsPlugin = {
+  id:'lbls',
+  afterDatasetsDraw(ch){
+    const ctx=ch.ctx;
+    // % dentro de cada segmento
+    ch.data.datasets.forEach((ds,di)=>{
+      const meta=ch.getDatasetMeta(di);
+      meta.data.forEach((bar,i)=>{
+        const v=ds.data[i]; if(v<6) return;
+        const {x,y,base}=bar.getProps(['x','y','base'],true);
+        ctx.save(); ctx.fillStyle=SERIES[di].textColor;
+        ctx.font='700 11px Inter'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(v+'%', x, (y+base)/2); ctx.restore();
+      });
+    });
+    // total kTON acima
+    const top=ch.getDatasetMeta(ch.data.datasets.length-1);
+    top.data.forEach((bar,i)=>{
+      ctx.save(); ctx.fillStyle='#64748b'; ctx.font='600 10px Inter';
+      ctx.textAlign='center'; ctx.fillText(totals[i]+' k', bar.x, bar.y-6); ctx.restore();
+    });
+  }
+};
+new Chart(document.getElementById('rc'), {
+  type:'bar',
+  plugins:[labelsPlugin],
+  data:{ labels:meses, datasets:SERIES.map(s=>({label:s.label,data:s.data,backgroundColor:s.color,
+    borderColor:s.color==='#FFC000'?'#E0AC00':'transparent',borderWidth:0,stack:'s',
+    borderRadius: s.label==='Cattalini'?{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0}:0, borderSkipped:false })) },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false},
+      tooltip:{ backgroundColor:'rgba(2,6,23,.96)', titleColor:'#94a3b8', bodyColor:'#fff',
+        callbacks:{ label:item=>' '+item.dataset.label+': '+item.raw+'%' } } },
+    layout:{padding:{top:22}},
+    scales:{
+      x:{ stacked:true, grid:{display:false}, border:{display:false},
+        ticks:{ color:ctx=>ctx.tick.label && ctx.tick.label.indexOf('mai/26')>=0?'#10253F':'#64748b',
+          font:{family:'Inter',size:10,weight:'600'}, maxRotation:0 } },
+      y:{ stacked:true, min:0, max:100, grid:{color:'rgba(148,163,184,.15)'}, border:{display:false},
+        ticks:{ color:'#94a3b8', font:{size:9,weight:'600'}, callback:v=>v+'%', stepSize:20 } }
+    }
+  }
+});
+</script>
+</body>
+</html>

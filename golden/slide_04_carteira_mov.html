@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Carteira — Movimentação Cliente · YTD Jan–Abr/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#e8e8e8;display:flex;justify-content:center;padding:20px}
+.slide{width:1440px;height:829px;background:#fff;padding:32px 44px 22px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px}
+.slide-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8B92A9}
+.slide-title{font-size:22px;font-weight:700;color:#14204A;letter-spacing:-.2px;margin-top:5px}
+.gold-rule{height:3px;background:#F5C400;margin-bottom:1px}
+.navy-rule{height:1px;background:#14204A;margin-bottom:20px}
+.headline{font-size:13px;font-weight:700;color:#14204A;margin-bottom:5px}
+.hl-pos{color:#0A8F5C}.hl-neg{color:#ef4444}.hl-warn{color:#F59E0B}
+.subhl{font-size:10px;color:#8B92A9;margin-bottom:15px}
+/* KPIS */
+.kpis{display:flex;gap:0;margin-bottom:11px;padding-bottom:10px;border-bottom:1px solid #E8EAF2}
+.kpi{display:flex;flex-direction:column;gap:1px;flex:1;border-right:1px solid #E8EAF2;padding-right:14px;margin-right:14px}
+.kpi:last-child{border-right:none;margin-right:0;padding-right:0}
+.kpi-lbl{font-size:7.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9}
+.kpi-val{font-size:22px;font-weight:700;color:#14204A;letter-spacing:-.4px;line-height:1.1}
+.kpi-val.pos{color:#0A8F5C}.kpi-val.neg{color:#ef4444}.kpi-val.warn{color:#F59E0B}
+.kpi-sub{font-size:9px;color:#8B92A9;margin-top:0}
+.kpi-sub.pos{color:#0A8F5C}.kpi-sub.neg{color:#ef4444}.kpi-sub.warn{color:#F59E0B}
+/* BODY */
+.body-grid{display:grid;grid-template-columns:1fr 290px;gap:0;flex:1;min-height:0}
+.main-col{display:flex;flex-direction:column;padding-right:26px;border-right:1px solid #E8EAF2;min-height:0}
+.side-col{padding-left:22px;display:flex;flex-direction:column;gap:10px}
+/* TABLE */
+.tbl-label{font-size:7.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8B92A9;margin-bottom:5px}
+table{width:100%;border-collapse:collapse}
+thead tr{border-bottom:2px solid #14204A}
+th{font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6B6B6B;padding:0 6px 6px 0;text-align:right;white-space:nowrap}
+th.tl{text-align:left;padding-left:0}
+tbody tr{border-bottom:1px solid #F0EFEB}
+tbody tr:hover{background:#fafaf8}
+td{padding:5px 6px 5px 0;font-size:11px;text-align:right;color:#2a2a2a;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.tl{text-align:left;padding-left:0;font-weight:600;font-size:11px;color:#14204A}
+td.grp{font-size:10px;color:#6B6B6B;font-weight:400}
+td.muted{color:#8B92A9}
+td.up{color:#0A8F5C;font-weight:600}
+td.down{color:#ef4444;font-weight:600}
+td.num{color:#14204A;font-weight:500}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:3px;font-size:8.5px;font-weight:700}
+.ba{background:#D4EDDA;color:#1E7E34}
+.bb{background:#FFF3CD;color:#856404}
+.bc{background:#FDE2E2;color:#C0392B}
+.rank{font-size:9px;color:#8B92A9;font-weight:500}
+.bar-wrap{width:120px}
+.bar-track{width:100%;height:5px;background:#F0EFEB;border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px}
+/* CALLOUTS */
+.ctag{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;display:inline-block;width:fit-content;margin-bottom:4px}
+.ctag-y{background:#F5C400;color:#14204A}
+.ctag-n{background:#14204A;color:#fff}
+.ctag-r{background:#FDE2E2;color:#C0392B}
+.ctag-g{background:#D4EDDA;color:#1E7E34}
+.c-items{display:flex;flex-direction:column;gap:6px}
+.c-item{display:flex;align-items:flex-start;gap:6px}
+.arr{font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.arr-up{color:#0A8F5C}.arr-down{color:#ef4444}.arr-warn{color:#F59E0B}
+.c-text{font-size:10.5px;line-height:1.45;color:#2a2a2a}
+.c-text strong{color:#14204A;font-weight:600}
+.crule{height:1px;background:#E8EAF2;margin:3px 0}
+.prior-list{display:flex;flex-direction:column;gap:5px;margin-top:2px}
+.prior-item{display:flex;align-items:flex-start;gap:7px}
+.prior-num{width:16px;height:16px;border-radius:50%;background:#14204A;color:#fff;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.prior-text{font-size:10px;line-height:1.4;color:#2a2a2a}
+.prior-text strong{color:#14204A}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid #E8EAF2;margin-top:auto}
+.fn,.fd{font-size:8.5px;color:#8B92A9}
+.fd{font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="header">
+    <div>
+      <div class="slide-label">ANÁLISE DE CARTEIRA · TERMINAL CATTALINI · PARANAGUÁ</div>
+      <div class="slide-title">Carteira — Movimentação Cliente</div>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="navy-rule"></div>
+
+  <div class="headline">
+    Derivados e Óleo Vegetal concentram <span class="hl-pos">68%</span> do volume — crescimento total <span class="hl-pos">+14,4% aa</span>, mas Metanol recua <span class="hl-neg">−39,4%</span> no maior cliente
+  </div>
+  <div class="subhl">YTD Jan–Abr/2026 · 1.799,5k TON realizados · comparação vs. jan–abr/2025 · Top 10 por movimentação</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-lbl">Mov. Realizada YTD</div><div class="kpi-val">1.799,5 kTON</div><div class="kpi-sub pos">▲ 14,4% vs. ano anterior</div><div class="kpi-sub">2026 · meses 01, 02, 03, 04</div></div>
+    <div class="kpi"><div class="kpi-lbl">Maior Volume</div><div class="kpi-val" style="font-size:18px">IPIRANGA</div><div class="kpi-sub">328,4k TON · 18,3% do total</div><div class="kpi-sub pos">▲ 58,3% vs. jan–abr/25</div></div>
+    <div class="kpi"><div class="kpi-lbl">Ticket Médio / TON</div><div class="kpi-val">R$ 132,37</div><div class="kpi-sub neg">▼ 11,4% vs. ano anterior</div><div class="kpi-sub">Receita por tonelada movimentada</div></div>
+    <div class="kpi"><div class="kpi-lbl">Gap vs. Orçado</div><div class="kpi-val warn">−10,5 kTON</div><div class="kpi-sub">−0,6% vs. orçado parcial</div><div class="kpi-sub warn">Atingimento: 99,4%</div></div>
+  </div>
+
+  <div class="body-grid">
+    <div class="main-col">
+      <div class="tbl-label">Movimentação por Cliente — YTD Jan–Abr/2026 vs. jan–abr/2025 · Top 10</div>
+      <table>
+        <thead>
+          <tr>
+            <th class="tl" style="width:20px">#</th>
+            <th class="tl">CLIENTE</th>
+            <th class="tl" style="width:88px">GRUPO</th>
+            <th style="width:16px">CLS</th>
+            <th style="width:130px"></th>
+            <th>2026</th>
+            <th>2025</th>
+            <th>VAR. AA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rank">1</td>
+            <td class="tl">IPIRANGA</td>
+            <td class="grp">Óleo Diesel</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:100%;background:#14204A"></div></div></td>
+            <td class="num">328,4k TON</td>
+            <td class="muted">207,4k</td>
+            <td class="up">▲ 58,3%</td>
+          </tr>
+          <tr>
+            <td class="rank">2</td>
+            <td class="tl">SUL PLATA</td>
+            <td class="grp">Óleo Diesel</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:74.8%;background:#14204A"></div></div></td>
+            <td class="num">245,5k TON</td>
+            <td class="muted">136,1k</td>
+            <td class="up">▲ 78,9%</td>
+          </tr>
+          <tr>
+            <td class="rank">3</td>
+            <td class="tl">METHANEX</td>
+            <td class="grp">Metanol</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:64.9%;background:#14204A"></div></div></td>
+            <td class="num">213,1k TON</td>
+            <td class="muted">351,9k</td>
+            <td class="down">▼ 39,4%</td>
+          </tr>
+          <tr>
+            <td class="rank">4</td>
+            <td class="tl">LDC</td>
+            <td class="grp">Óleo de Soja</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:40.3%;background:#14204A"></div></div></td>
+            <td class="num">132,2k TON</td>
+            <td class="muted">90,2k</td>
+            <td class="up">▲ 46,5%</td>
+          </tr>
+          <tr>
+            <td class="rank">5</td>
+            <td class="tl">CARGILL</td>
+            <td class="grp">Estearina P.</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:34.5%;background:#14204A"></div></div></td>
+            <td class="num">113,2k TON</td>
+            <td class="muted">125,4k</td>
+            <td class="down">▼ 9,7%</td>
+          </tr>
+          <tr>
+            <td class="rank">6</td>
+            <td class="tl">RAIZEN</td>
+            <td class="grp">Óleo Diesel</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:20.5%;background:#14204A"></div></div></td>
+            <td class="num">67,3k TON</td>
+            <td class="muted">173,5k</td>
+            <td class="down">▼ 61,2%</td>
+          </tr>
+          <tr>
+            <td class="rank">7</td>
+            <td class="tl">VALENZ</td>
+            <td class="grp">Metanol</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:19.8%;background:#14204A"></div></div></td>
+            <td class="num">65,1k TON</td>
+            <td class="muted">176,0k</td>
+            <td class="down">▼ 63,0%</td>
+          </tr>
+          <tr>
+            <td class="rank">8</td>
+            <td class="tl">COAMO</td>
+            <td class="grp">Estearina P.</td>
+            <td style="text-align:center"><span class="badge bb">B</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:18.3%;background:#14204A"></div></div></td>
+            <td class="num">60,2k TON</td>
+            <td class="muted">43,3k</td>
+            <td class="up">▲ 38,8%</td>
+          </tr>
+          <tr>
+            <td class="rank">9</td>
+            <td class="tl">OLIN BLUE CUBE</td>
+            <td class="grp">Soda Cáustica</td>
+            <td style="text-align:center"><span class="badge bb">B</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:17.8%;background:#14204A"></div></div></td>
+            <td class="num">58,6k TON</td>
+            <td class="muted">124,4k</td>
+            <td class="down">▼ 52,9%</td>
+          </tr>
+          <tr>
+            <td class="rank">10</td>
+            <td class="tl">COMIGO</td>
+            <td class="grp">Óleo de Soja</td>
+            <td style="text-align:center"><span class="badge bb">B</span></td>
+            <td class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:10.8%;background:#14204A"></div></div></td>
+            <td class="num">35,4k TON</td>
+            <td class="muted">46,0k</td>
+            <td class="down">▼ 23,1%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="side-col">
+      <div>
+        <div class="ctag ctag-r">Risco Elevado</div>
+        <div class="c-items">
+          <div class="c-item">
+            <span class="arr arr-warn">→</span>
+            <span class="c-text"><strong>3 clientes Cls A</strong> com queda &gt;10% vs jan–abr/25 — exposição de <strong>356,1k TON</strong> (19,8% do volume). Parcialmente compensado por 16 novos clientes (<strong>+138,1k TON</strong>)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crule"></div>
+
+      <div>
+        <div class="ctag ctag-r">Maior Risco</div>
+        <div class="c-items">
+          <div class="c-item">
+            <span class="arr arr-down">↓</span>
+            <span class="c-text"><strong>VALENZ −63,0%</strong> vs jan–abr/25 — de 176,1k para 65,1k TON. Principal produto: <strong>METANOL</strong></span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-down">↓</span>
+            <span class="c-text"><strong>RAIZEN −61,2%</strong> — de 173,5k para 67,3k TON. Queda estrutural em Derivados</span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-down">↓</span>
+            <span class="c-text"><strong>METHANEX −39,4%</strong> — maior detrator absoluto (−138,8k TON). Pressão de volume em Metanol</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crule"></div>
+
+      <div>
+        <div class="ctag ctag-g">Oportunidade</div>
+        <div class="c-items">
+          <div class="c-item">
+            <span class="arr arr-up">↑</span>
+            <span class="c-text"><strong>4 clientes Cls A crescendo &gt;20%</strong> em volume — 764,1k TON adicionais. Expandir capacidade alocada antes da renovação</span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-up">↑</span>
+            <span class="c-text"><strong>IPIRANGA +58,3%</strong> e <strong>SUL PLATA +78,9%</strong> — motores do crescimento em Derivados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crule"></div>
+
+      <div>
+        <div class="ctag ctag-n">Prioridades de Ação</div>
+        <div class="prior-list">
+          <div class="prior-item">
+            <div class="prior-num">1</div>
+            <div class="prior-text">Acionar recuperação para <strong>VALENZ</strong> — renegociar volume mínimo contratual em Metanol em até 15 dias</div>
+          </div>
+          <div class="prior-item">
+            <div class="prior-num">2</div>
+            <div class="prior-text">Consolidar os <strong>16 novos clientes</strong> (+138,1k TON) — priorizar contratos com compromisso de volume mínimo</div>
+          </div>
+          <div class="prior-item">
+            <div class="prior-num">3</div>
+            <div class="prior-text">Expandir capacidade para os <strong>4 clientes &gt;20% aa</strong> — propor aditivos de volume antes do pico de demanda</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fn">Fonte: Power BI Comercial · Análise de Carteira · YTD Jan–Abr/2026</div>
+    <div class="fd">Relatório Mensal · Maio 2026</div>
+  </div>
+
+</div>
+</body>
+</html>

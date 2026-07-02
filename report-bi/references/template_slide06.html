@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+  .slide { width:1440px; height:829px; background:#fff; padding:44px 72px 40px; display:flex; flex-direction:column; overflow:hidden; }
+  .slide-tag   { font-size:10px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:#8B92A9; margin-bottom:3px; }
+  .slide-title { font-size:22px; font-weight:300; color:#14204A; letter-spacing:-.3px; margin-bottom:6px; }
+  .gold-rule   { height:2px; background:#F5C400; margin-bottom:16px; }
+  .headline { margin-bottom:14px; }
+  .hl-main { font-size:16px; font-weight:400; color:#14204A; line-height:1.4; margin-bottom:3px; }
+  .hl-up   { color:#0A8F5C; font-weight:600; }
+  .hl-down { color:#C93030; font-weight:600; }
+  .hl-sub  { font-size:11.5px; color:#8B92A9; }
+  .abc-strip { display:flex; gap:0; border:1px solid #E4E7F0; border-radius:6px; overflow:hidden; margin-bottom:18px; }
+  .abc-card  { flex:1; padding:10px 16px 12px; border-right:1px solid #E4E7F0; position:relative; }
+  .abc-card:last-child { border-right:none; }
+  .abc-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+  .ca::before { background:#0A8F5C; } .cb::before { background:#D08000; } .cc::before { background:#C93030; }
+  .sep-v { width:3px; background:#14204A; flex-shrink:0; }
+  .ac-lbl { display:flex; align-items:center; gap:6px; margin-bottom:5px; }
+  .ac-dot { width:7px; height:7px; border-radius:50%; }
+  .dot-a{background:#0A8F5C;} .dot-b{background:#D08000;} .dot-c{background:#C93030;}
+  .ac-txt { font-size:9px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
+  .txt-a{color:#0A8F5C;} .txt-b{color:#D08000;} .txt-c{color:#C93030;}
+  .ac-val { font-size:20px; font-weight:300; color:#14204A; line-height:1; letter-spacing:-.3px; margin-bottom:2px; }
+  .ac-sub { font-size:10px; color:#8B92A9; }
+  .body { display:grid; grid-template-columns:220px 1fr 240px; gap:28px; flex:1; min-height:0; }
+  .donut-col { display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .donut-title { font-size:9px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:#14204A; text-align:center; }
+  .legend { display:flex; flex-direction:column; gap:5px; width:100%; }
+  .leg-item { display:flex; align-items:center; gap:7px; }
+  .leg-dot  { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+  .leg-name { font-size:10.5px; color:#4A5280; flex:1; }
+  .leg-pct  { font-size:10.5px; color:#14204A; font-weight:600; }
+  .nivel-col { display:flex; flex-direction:column; gap:0; min-height:0; overflow:hidden; }
+  .sec-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#8B92A9; padding-bottom:8px; border-bottom:1px solid #F0F2F8; margin-bottom:12px; }
+  .nivel-block { margin-bottom:14px; }
+  .nivel-block:last-child { margin-bottom:0; }
+  .nivel-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .nivel-badge { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:4px; font-size:10px; font-weight:700; flex-shrink:0; }
+  .badge-a { background:#14204A; color:#F5C400; }
+  .badge-b { background:#1D9E7518; color:#0A6644; border:1px solid #0A8F5C35; }
+  .badge-c { background:#8B92A915; color:#4A5280; border:1px solid #8B92A935; }
+  .nivel-label { font-size:11px; font-weight:600; color:#14204A; }
+  .nivel-meta  { font-size:10px; color:#8B92A9; margin-left:auto; }
+  .pills { display:flex; flex-wrap:wrap; gap:4px; padding-left:28px; }
+  .pill { display:inline-block; padding:3px 9px; border-radius:4px; font-size:10.5px; font-weight:500; }
+  .pill-a { background:#14204A12; color:#14204A; border:1px solid #14204A25; font-weight:600; }
+  .pill-b { background:#1D9E7510; color:#0A6644;  border:1px solid #0A8F5C25; }
+  .pill-c { background:#F4F5FA;   color:#4A5280;  border:1px solid #E4E7F0; }
+  .pill-pend { background:#FFF7E6; color:#8B5200; border:1px dashed #D0900060; font-style:italic; }
+  .divider { height:1px; background:#F0F2F8; margin:10px 0; }
+  .right { display:flex; flex-direction:column; gap:16px; padding-top:2px; }
+  .callout-tag { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:#F5C400; background:#14204A; padding:3px 10px; display:inline-block; margin-bottom:9px; border-radius:2px; }
+  .c-items { display:flex; flex-direction:column; gap:8px; }
+  .c-item  { display:flex; gap:9px; align-items:flex-start; }
+  .arr     { font-size:14px; flex-shrink:0; line-height:1.4; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size:11.5px; color:#2A3060; line-height:1.6; }
+  .c-text strong { font-weight:600; color:#14204A; }
+  .rule { height:1px; background:#F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="slide-tag">Análise Pareto · Terminal Cattalini · Paranaguá</div>
+  <div class="slide-title">Curva ABC - Faturamento por Cliente</div>
+  <div class="gold-rule"></div>
+  <div class="headline">
+    <div class="hl-main">
+      <span class="hl-up">8 clientes Cls A</span> concentram <span class="hl-up">60%</span> do faturamento (R$ 40,1 Mi) —
+      taxa de retenção <span class="hl-down">84,0%</span>, abaixo do referencial de 85%
+    </div>
+    <div class="hl-sub">mai/2026 · 53 clientes ativos · Fat. total R$67,9Mi · Classificação: A &gt;R$2,5Mi · B &gt;R$0,8Mi · C demais</div>
+  </div>
+
+  <div class="abc-strip">
+    <div class="abc-card ca"><div class="ac-lbl"><span class="ac-dot dot-a"></span><span class="ac-txt txt-a">Classe A — Produtos</span></div><div class="ac-val">R$ 42,1 Mi</div><div class="ac-sub">62% · 2 produtos</div></div>
+    <div class="abc-card cb"><div class="ac-lbl"><span class="ac-dot dot-b"></span><span class="ac-txt txt-b">Classe B — Produtos</span></div><div class="ac-val">R$ 16,1 Mi</div><div class="ac-sub">24% · 2 produtos</div></div>
+    <div class="abc-card cc"><div class="ac-lbl"><span class="ac-dot dot-c"></span><span class="ac-txt txt-c">Classe C — Produtos</span></div><div class="ac-val">R$ 9,1 Mi</div><div class="ac-sub">14% · 3 produtos</div></div>
+    <div class="sep-v"></div>
+    <div class="abc-card ca"><div class="ac-lbl"><span class="ac-dot dot-a"></span><span class="ac-txt txt-a">Classe A — Clientes</span></div><div class="ac-val">R$ 40,1 Mi</div><div class="ac-sub">60% · 8 clientes</div></div>
+    <div class="abc-card cb"><div class="ac-lbl"><span class="ac-dot dot-b"></span><span class="ac-txt txt-b">Classe B — Clientes</span></div><div class="ac-val">R$ 20,1 Mi</div><div class="ac-sub">29% · 14 clientes</div></div>
+    <div class="abc-card cc"><div class="ac-lbl"><span class="ac-dot dot-c"></span><span class="ac-txt txt-c">Classe C — Clientes</span></div><div class="ac-val">R$ 8,1 Mi</div><div class="ac-sub">12% · 31 clientes</div></div>
+  </div>
+
+  <div class="body">
+    <div class="donut-col">
+      <div class="donut-title">Carteira — Mai/2026</div>
+      <canvas id="donut" width="190" height="190"></canvas>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="nivel-col">
+      <div class="sec-label">Distribuição por Nível — Mai/2026</div>
+      <div class="nivel-block">
+        <div class="nivel-header">
+          <span class="nivel-badge badge-a">A</span>
+          <span class="nivel-label">Nível A</span>
+          <span class="nivel-meta">60% do fat. · 8 clientes · &gt;R$2,5Mi</span>
+        </div>
+        <div class="pills">
+          <span class="pill pill-a">IPIRANGA 12,8%</span>
+          <span class="pill pill-a">METHANEX 10,3%</span>
+          <span class="pill pill-a">BLUEWAY 9,0%</span>
+          <span class="pill pill-a">VALENZ 7,8%</span>
+          <span class="pill pill-a">MITSUBISHI 6,4%</span>
+          <span class="pill pill-a">VIBRA 4,9%</span>
+          <span class="pill pill-a">FS 4,2%</span>
+          <span class="pill pill-a">SUL PLATA 4,2%</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="nivel-block">
+        <div class="nivel-header">
+          <span class="nivel-badge badge-b">B</span>
+          <span class="nivel-label">Nível B</span>
+          <span class="nivel-meta">29% do fat. · 14 clientes · &gt;R$0,8Mi</span>
+        </div>
+        <div class="pills">
+          <span class="pill pill-b">CARGILL</span>
+          <span class="pill pill-b">OLIN BLUE CUBE</span>
+          <span class="pill pill-b">LDC</span>
+          <span class="pill pill-b">CELENA</span>
+          <span class="pill pill-b">INTER-CONTINENTAL</span>
+          <span class="pill pill-b">INPASA</span>
+          <span class="pill pill-b">BRF</span>
+          <span class="pill pill-b">CIAPETRO</span>
+          <span class="pill pill-b">ADISSEO</span>
+          <span class="pill pill-b">AAK DO BRASIL</span>
+          <span class="pill pill-b">COAMO</span>
+          <span class="pill pill-b">JBS</span>
+          <span class="pill pill-b">OIL TRADING</span>
+          <span class="pill pill-b">GOLDEN AGRI</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="nivel-block">
+        <div class="nivel-header">
+          <span class="nivel-badge badge-c">C</span>
+          <span class="nivel-label">Nível C</span>
+          <span class="nivel-meta">12% do fat. · 31 clientes · demais</span>
+        </div>
+        <div class="pills">
+          <span class="pill pill-c">OLAM</span>
+          <span class="pill pill-c">BE8</span>
+          <span class="pill pill-c">AAA OILS & FATS</span>
+          <span class="pill pill-c">OQ GROUP</span>
+          <span class="pill pill-c">BUNGE</span>
+          <span class="pill pill-c">COMIGO</span>
+          <span class="pill pill-c">EVONIK</span>
+          <span class="pill pill-c">BTG</span>
+          <span class="pill pill-c">ADM</span>
+          <span class="pill pill-c">AGÊNCIA</span>
+          <span class="pill pill-c">GPC</span>
+          <span class="pill pill-c">TRICON ENERGY</span>
+          <span class="pill pill-c">RODOBRAS</span>
+          <span class="pill pill-c">PRISMA</span>
+          <span class="pill pill-c">TRES TENTOS</span>
+          <span class="pill pill-c">BRENNTAG</span>
+          <span class="pill pill-c">BREJEIRO</span>
+          <span class="pill pill-c">BSC QUIMICA</span>
+          <span class="pill pill-c">AGRARIA</span>
+          <span class="pill pill-c">BIMCO TRADING</span>
+          <span class="pill pill-c">C.VALE</span>
+          <span class="pill pill-c">MUNDO NOVO</span>
+          <span class="pill pill-c">AMAGGI</span>
+          <span class="pill pill-c">COFCO</span>
+          <span class="pill pill-c">CARAMURU</span>
+          <span class="pill pill-c">AGRODANIELI</span>
+          <span class="pill pill-c">INGREDION</span>
+          <span class="pill pill-c">COPACOL</span>
+          <span class="pill pill-c">ALFA</span>
+          <span class="pill pill-c">TRANSATLANTICA</span>
+          <span class="pill pill-c">BALDO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <div class="callout-tag">Concentração — alerta</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>8 clientes Cls A = 60%</strong> da receita — concentração moderada. Risco elevado se 1–2 saírem</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>IPIRANGA = 12,8%</strong> do fat. — maior cliente, mas em forte alta (+101,2% aa)</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>4 dos 8 Cls A em queda</strong> — METHANEX, VALENZ, MITSUBISHI, SUL PLATA</span></div>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <div class="callout-tag">Expansão de carteira</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>IPIRANGA +101,2%</strong>, <strong>VIBRA +87,7%</strong>, <strong>FS +77,5%</strong> e <strong>BLUEWAY +61,7%</strong> — expansão forte em Cls A</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>11 novos clientes</strong> incorporados — base crescendo mesmo com mercado em retração</span></div>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <div class="callout-tag">Retenção</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Taxa de retenção 84,0%</strong> — abaixo do referencial de 85%. Plano de retenção Cls A necessário</span></div>
+          <div class="c-item"><span class="arr arr-neu">→</span><span class="c-text"><strong>VALENZ −14,2%</strong> e <strong>SUL PLATA −14,1%</strong> — dois Cls A em queda relevante</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const segs = [
+  { label:'IPIRANGA',   pct:13, color:'#F5C400' },
+  { label:'METHANEX',   pct:10, color:'#14204A' },
+  { label:'BLUEWAY',    pct: 9, color:'#3D6FCC' },
+  { label:'VALENZ',     pct: 8, color:'#5A82B5' },
+  { label:'MITSUBISHI', pct: 6, color:'#7B9FE8' },
+  { label:'VIBRA',      pct: 5, color:'#A8C4FF' },
+  { label:'FS',         pct: 4, color:'#C8D8FF' },
+  { label:'SUL PLATA',  pct: 4, color:'#DCE7F5' },
+  { label:'Nível B',    pct:29, color:'#1D9E75' },
+  { label:'Nível C',    pct:12, color:'#E4E7F0' },
+];
+const c = document.getElementById('donut');
+const ctx = c.getContext('2d');
+const cx=95, cy=95, R=88, r=56;
+let start = -Math.PI/2;
+segs.forEach(s => {
+  const sw = (s.pct/100)*2*Math.PI;
+  ctx.beginPath();
+  ctx.moveTo(cx+R*Math.cos(start), cy+R*Math.sin(start));
+  ctx.arc(cx,cy,R,start,start+sw);
+  ctx.arc(cx,cy,r,start+sw,start,true);
+  ctx.closePath();
+  ctx.fillStyle = s.color; ctx.fill();
+  start += sw;
+});
+ctx.beginPath(); ctx.arc(cx,cy,r-1,0,2*Math.PI);
+ctx.fillStyle='#fff'; ctx.fill();
+ctx.fillStyle='#14204A'; ctx.font='700 18px Inter'; ctx.textAlign='center'; ctx.textBaseline='middle';
+ctx.fillText('53',cx,cy-9);
+ctx.font='500 9px Inter'; ctx.fillStyle='#8B92A9';
+ctx.fillText('CLIENTES',cx,cy+8);
+const leg = document.getElementById('legend');
+segs.forEach(s => {
+  leg.innerHTML += `<div class="leg-item"><div class="leg-dot" style="background:${s.color};${s.color==='#E4E7F0'?'border:1px solid #ccc;':''}"></div><span class="leg-name">${s.label}</span><span class="leg-pct">${s.pct}%</span></div>`;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; width: 1440px; }
+  .slide { width:1440px; height:829px; background:#fff; padding:44px 72px 40px; display:flex; flex-direction:column; overflow:hidden; }
+  .slide-tag   { font-size:10px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:#8B92A9; margin-bottom:3px; }
+  .slide-title { font-size:22px; font-weight:300; color:#14204A; letter-spacing:-.3px; margin-bottom:6px; }
+  .gold-rule   { height:2px; background:#F5C400; margin-bottom:16px; }
+  .headline { margin-bottom:14px; }
+  .hl-main { font-size:16px; font-weight:400; color:#14204A; line-height:1.4; margin-bottom:3px; }
+  .hl-up   { color:#0A8F5C; font-weight:600; }
+  .hl-down { color:#C93030; font-weight:600; }
+  .hl-sub  { font-size:11.5px; color:#8B92A9; }
+  .abc-strip { display:flex; gap:0; border:1px solid #E4E7F0; border-radius:6px; overflow:hidden; margin-bottom:18px; }
+  .abc-card  { flex:1; padding:10px 16px 12px; border-right:1px solid #E4E7F0; position:relative; }
+  .abc-card:last-child { border-right:none; }
+  .abc-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+  .ca::before { background:#0A8F5C; } .cb::before { background:#D08000; } .cc::before { background:#C93030; }
+  .sep-v { width:3px; background:#14204A; flex-shrink:0; }
+  .ac-lbl { display:flex; align-items:center; gap:6px; margin-bottom:5px; }
+  .ac-dot { width:7px; height:7px; border-radius:50%; }
+  .dot-a{background:#0A8F5C;} .dot-b{background:#D08000;} .dot-c{background:#C93030;}
+  .ac-txt { font-size:9px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
+  .txt-a{color:#0A8F5C;} .txt-b{color:#D08000;} .txt-c{color:#C93030;}
+  .ac-val { font-size:20px; font-weight:300; color:#14204A; line-height:1; letter-spacing:-.3px; margin-bottom:2px; }
+  .ac-sub { font-size:10px; color:#8B92A9; }
+  .body { display:grid; grid-template-columns:260px 1fr 280px; gap:36px; flex:1; min-height:0; }
+  .donut-col { display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .donut-title { font-size:9px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:#14204A; text-align:center; }
+  .legend { display:flex; flex-direction:column; gap:5px; width:100%; }
+  .leg-item { display:flex; align-items:center; gap:7px; }
+  .leg-dot { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+  .leg-name { font-size:10.5px; color:#4A5280; flex:1; }
+  .leg-pct  { font-size:10.5px; color:#14204A; font-weight:600; }
+  .pareto-col { display:flex; flex-direction:column; }
+  .sec-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#8B92A9; padding-bottom:8px; border-bottom:1px solid #F0F2F8; margin-bottom:10px; }
+  .p-header { display:flex; align-items:center; gap:10px; margin-bottom:5px; }
+  .ph { font-size:9px; color:#8B92A9; }
+  .ph-lbl { width:108px; flex-shrink:0; }
+  .ph-bar { flex:1; }
+  .ph-acum { width:44px; text-align:right; flex-shrink:0; }
+  .ph-orc  { width:52px; text-align:right; flex-shrink:0; }
+  .ph-aa   { width:52px; text-align:right; flex-shrink:0; }
+  .pareto-rows { display:flex; flex-direction:column; gap:5px; }
+  .p-row { display:flex; align-items:center; gap:10px; }
+  .p-lbl { font-size:11px; font-weight:500; color:#14204A; width:108px; flex-shrink:0; display:flex; align-items:center; gap:4px; }
+  .p-outer { flex:1; height:19px; background:#F4F5FA; border-radius:3px; overflow:hidden; }
+  .p-fill  { height:100%; border-radius:3px; display:flex; align-items:center; padding-left:7px; }
+  .p-fill-lbl { font-size:9.5px; font-weight:600; color:#fff; white-space:nowrap; }
+  .p-acum { font-size:10px; color:#8B92A9; width:44px; text-align:right; flex-shrink:0; }
+  .p-orc  { font-size:10px; font-weight:600; width:52px; text-align:right; flex-shrink:0; }
+  .p-aa   { font-size:10px; font-weight:600; width:52px; text-align:right; flex-shrink:0; }
+  .col-a { background:#14204A; } .col-b { background:#3D6FCC; } .col-c { background:#8B92A9; }
+  .abc-b2 { display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:3px;font-size:8px;font-weight:700; }
+  .ba{background:#DCF3EB;color:#0A6644;} .bb{background:#FEF3DC;color:#8B5200;} .bc{background:#FDEAEA;color:#9B1C1C;}
+  .up{color:#0A8F5C;} .down{color:#C93030;} .flat{color:#8B92A9;}
+  .right { display:flex; flex-direction:column; gap:14px; }
+  .callout-tag { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:#F5C400; background:#14204A; padding:3px 10px; display:inline-block; margin-bottom:9px; border-radius:2px; }
+  .c-items { display:flex; flex-direction:column; gap:8px; }
+  .c-item  { display:flex; gap:9px; align-items:flex-start; }
+  .arr     { font-size:14px; flex-shrink:0; line-height:1.4; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;} .arr-neu{color:#8B92A9;}
+  .c-text  { font-size:11.5px; color:#2A3060; line-height:1.55; }
+  .c-text strong { font-weight:600; color:#14204A; }
+  .rule { height:1px; background:#F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="slide-tag">Análise Pareto · Terminal Cattalini · Paranaguá</div>
+  <div class="slide-title">Curva ABC - Faturamento por Produto</div>
+  <div class="gold-rule"></div>
+  <div class="headline">
+    <div class="hl-main">
+      <span class="hl-up">2 produtos Cls A</span> (Derivados + Metanol) concentram <span class="hl-up">62%</span> do faturamento (R$ 42,1 Mi) —
+      <span class="hl-down">Biocombustíveis</span> entrega só <span class="hl-down">43%</span> da meta ·
+      <span class="hl-up">8 clientes Cls A</span> = 60% da receita
+    </div>
+    <div class="hl-sub">mai/2026 · Fat. total R$67,9Mi · Concentração por produto e por cliente · Var. vs. orçado e vs. mai/2025</div>
+  </div>
+
+  <div class="abc-strip">
+    <div class="abc-card ca"><div class="ac-lbl"><span class="ac-dot dot-a"></span><span class="ac-txt txt-a">Classe A — Produtos</span></div><div class="ac-val">R$ 42,1 Mi</div><div class="ac-sub">62% · 2 produtos</div></div>
+    <div class="abc-card cb"><div class="ac-lbl"><span class="ac-dot dot-b"></span><span class="ac-txt txt-b">Classe B — Produtos</span></div><div class="ac-val">R$ 16,1 Mi</div><div class="ac-sub">24% · 2 produtos</div></div>
+    <div class="abc-card cc"><div class="ac-lbl"><span class="ac-dot dot-c"></span><span class="ac-txt txt-c">Classe C — Produtos</span></div><div class="ac-val">R$ 9,1 Mi</div><div class="ac-sub">14% · 3 produtos</div></div>
+    <div class="sep-v"></div>
+    <div class="abc-card ca"><div class="ac-lbl"><span class="ac-dot dot-a"></span><span class="ac-txt txt-a">Classe A — Clientes</span></div><div class="ac-val">R$ 40,1 Mi</div><div class="ac-sub">60% · 8 clientes</div></div>
+    <div class="abc-card cb"><div class="ac-lbl"><span class="ac-dot dot-b"></span><span class="ac-txt txt-b">Classe B — Clientes</span></div><div class="ac-val">R$ 20,1 Mi</div><div class="ac-sub">29% · 14 clientes</div></div>
+    <div class="abc-card cc"><div class="ac-lbl"><span class="ac-dot dot-c"></span><span class="ac-txt txt-c">Classe C — Clientes</span></div><div class="ac-val">R$ 8,1 Mi</div><div class="ac-sub">12% · 31 clientes · A&gt;2,5Mi B&gt;0,8Mi</div></div>
+  </div>
+
+  <div class="body">
+    <div class="donut-col">
+      <div class="donut-title">Fat. por Produto — Mai/2026</div>
+      <canvas id="donut" width="190" height="190"></canvas>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="pareto-col">
+      <div class="sec-label">Pareto — Faturamento por Produto · mai/2026</div>
+      <div class="p-header">
+        <div class="ph ph-lbl">Produto</div>
+        <div class="ph ph-bar">Fat. Real · distribuição acumulada</div>
+        <div class="ph ph-acum">Acum.</div>
+        <div class="ph ph-orc">Var. Orç.</div>
+        <div class="ph ph-aa">Var. AA</div>
+      </div>
+      <div class="pareto-rows">
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 ba">A</span>Derivados</div>
+          <div class="p-outer"><div class="p-fill col-a" style="width:100%"><span class="p-fill-lbl">R$24,8Mi · 37%</span></div></div>
+          <div class="p-acum">37%</div><div class="p-orc up">+12,4%</div><div class="p-aa up">+34,2%</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 ba">A</span>Metanol</div>
+          <div class="p-outer"><div class="p-fill col-a" style="width:69%"><span class="p-fill-lbl">R$17,1Mi · 25%</span></div></div>
+          <div class="p-acum">62%</div><div class="p-orc down">−23,6%</div><div class="p-aa down">−17,8%</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bb">B</span>Óleo Vegetal</div>
+          <div class="p-outer"><div class="p-fill col-b" style="width:35%"><span class="p-fill-lbl">R$8,8Mi · 13%</span></div></div>
+          <div class="p-acum">75%</div><div class="p-orc up">+67,9%</div><div class="p-aa up">+61,7%</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bb">B</span>Aquecidos</div>
+          <div class="p-outer"><div class="p-fill col-b" style="width:32%"><span class="p-fill-lbl">R$8,0Mi · 12%</span></div></div>
+          <div class="p-acum">86%</div><div class="p-orc up">+9,2%</div><div class="p-aa up">+19,8%</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bc">C</span>Soda Cáustica</div>
+          <div class="p-outer"><div class="p-fill col-c" style="width:16%"><span class="p-fill-lbl">R$4,0Mi · 6%</span></div></div>
+          <div class="p-acum">92%</div><div class="p-orc up">+17,3%</div><div class="p-aa up">+42,2%</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bc">C</span>Biocombust.</div>
+          <div class="p-outer"><div class="p-fill col-c" style="width:13%"><span class="p-fill-lbl">R$3,3Mi · 5%</span></div></div>
+          <div class="p-acum">97%</div><div class="p-orc down">−57,3%</div><div class="p-aa up">+32,4%</div>
+        </div>
+        <div class="p-row">
+          <div class="p-lbl"><span class="abc-b2 bc">C</span>Outros</div>
+          <div class="p-outer"><div class="p-fill col-c" style="width:8%"></div></div>
+          <div class="p-acum">100%</div><div class="p-orc down">−5,0%</div><div class="p-aa up">+35,3%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div>
+        <div class="callout-tag">Concentração — alerta</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Derivados + Metanol = 62%</strong> da receita com 2 produtos — dependência alta. Risco em renovações</span></div>
+          <div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Metanol −23,6% vs orçado</strong> e −17,8% aa — único grupo em queda anual</span></div>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <div class="callout-tag">Destaques positivos</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Derivados +12,4% vs orçado</strong> e +34,2% aa — único Cls A acima da meta</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Óleo Vegetal +67,9% vs orçado</strong> e +61,7% aa — volume forte, base em expansão</span></div>
+          <div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Soda +42,2% aa</strong> e <strong>Aquecidos +19,8% aa</strong> — Cls C/B reforçando</span></div>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <div class="callout-tag">Ação necessária</div>
+        <div class="c-items">
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Metanol −23,6% vs orçado</strong> — Cls A em queda. Principal risco da carteira</span></div>
+          <div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Biocombustíveis −57,3% vs orçado</strong> — R$3,3Mi vs R$7,7Mi orçados. Revisão contratual urgente</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const segs = [
+  { label:'Derivados',     pct:37, color:'#14204A' },
+  { label:'Metanol',       pct:25, color:'#00B050' },
+  { label:'Óleo Vegetal',  pct:13, color:'#F5C400' },
+  { label:'Aquecidos',     pct:12, color:'#8A9BB0' },
+  { label:'Soda Cáustica', pct: 6, color:'#C8D4DF' },
+  { label:'Biocombust.',   pct: 5, color:'#F0A33A' },
+  { label:'Outros',        pct: 3, color:'#5A82B5' },
+];
+const c = document.getElementById('donut');
+const ctx = c.getContext('2d');
+const cx=95, cy=95, R=88, r=56;
+let start = -Math.PI/2;
+segs.forEach(s => {
+  const sw = (s.pct/100)*2*Math.PI;
+  ctx.beginPath();
+  ctx.moveTo(cx+R*Math.cos(start), cy+R*Math.sin(start));
+  ctx.arc(cx,cy,R,start,start+sw);
+  ctx.arc(cx,cy,r,start+sw,start,true);
+  ctx.closePath();
+  ctx.fillStyle = s.color; ctx.fill();
+  start += sw;
+});
+ctx.beginPath(); ctx.arc(cx,cy,r-1,0,2*Math.PI);
+ctx.fillStyle='#fff'; ctx.fill();
+ctx.fillStyle='#14204A'; ctx.font='700 16px Inter'; ctx.textAlign='center'; ctx.textBaseline='middle';
+ctx.fillText('R$67,9Mi',cx,cy-9);
+ctx.font='500 9px Inter'; ctx.fillStyle='#8B92A9';
+ctx.fillText('FAT. MAI/26',cx,cy+10);
+const leg = document.getElementById('legend');
+segs.forEach(s => {
+  leg.innerHTML += `<div class="leg-item"><div class="leg-dot" style="background:${s.color}"></div><span class="leg-name">${s.label}</span><span class="leg-pct">${s.pct}%</span></div>`;
+});
+</script>
+</body>
+</html>

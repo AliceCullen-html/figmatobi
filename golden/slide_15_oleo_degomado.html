@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Inter',sans-serif; background:#fff; width:1440px; }
+  .slide { width:1440px; height:829px; background:#fff; padding:44px 64px 32px; display:flex; flex-direction:column; overflow:hidden; }
+  .slide-tag   { font-size:10px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:#8B92A9; margin-bottom:3px; }
+  .slide-title { font-size:24px; font-weight:300; color:#14204A; letter-spacing:-.3px; margin-bottom:6px; }
+  .gold-rule   { height:2px; background:#F5C400; margin-bottom:14px; }
+  .headline { margin-bottom:14px; }
+  .hl-main { font-size:15px; font-weight:400; color:#14204A; line-height:1.4; margin-bottom:3px; }
+  .hl-up { color:#0A8F5C; font-weight:600; } .hl-down { color:#C93030; font-weight:600; }
+  .hl-sub { font-size:11px; color:#8B92A9; }
+  .kpi-row { display:flex; gap:0; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid #F0F2F8; }
+  .kpi { flex:1; padding-right:18px; border-right:1px solid #F0F2F8; margin-right:18px; }
+  .kpi:last-child { border-right:none; margin-right:0; padding-right:0; }
+  .kpi-lbl { font-size:8.5px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:#8B92A9; margin-bottom:3px; }
+  .kpi-val { font-size:19px; font-weight:300; color:#14204A; line-height:1; letter-spacing:-.3px; margin-bottom:2px; }
+  .kpi-val.up { color:#0A8F5C; }
+  .kpi-sub { font-size:10px; color:#8B92A9; }
+  .up { color:#0A8F5C; } .down { color:#C93030; }
+  /* 4 colunas: grafico mov | callouts mov | grafico fat | callouts fat */
+  .body { display:grid; grid-template-columns:1fr 185px 1fr 185px; gap:20px; flex:1; min-height:0; }
+  .chart-col { display:flex; flex-direction:column; min-height:0; }
+  .sec-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#8B92A9; padding-bottom:6px; border-bottom:1px solid #F0F2F8; margin-bottom:8px; }
+  .chart-wrap { flex:1; position:relative; min-height:0; }
+  .callout-col { display:flex; flex-direction:column; gap:13px; padding-top:24px; min-height:0; }
+  .callout-tag { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; color:#F5C400; background:#14204A; padding:3px 10px; display:inline-block; margin-bottom:7px; border-radius:2px; }
+  .c-items { display:flex; flex-direction:column; gap:7px; }
+  .c-item { display:flex; gap:7px; align-items:flex-start; }
+  .arr { font-size:12px; flex-shrink:0; line-height:1.4; }
+  .arr-up{color:#0A8F5C;} .arr-down{color:#C93030;} .arr-warn{color:#D08000;}
+  .c-text { font-size:10px; color:#2A3060; line-height:1.5; }
+  .c-text strong { font-weight:600; color:#14204A; }
+  .rule { height:1px; background:#F0F2F8; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="slide-tag">Análise de Carteira · Óleo Vegetal · Terminal Cattalini · Paranaguá</div>
+  <div class="slide-title">Óleo de Soja Degomado – Exportação</div>
+  <div class="gold-rule"></div>
+  <div class="headline">
+    <div class="hl-main">
+      LDC lidera volume com <span class="hl-up">149,5k TON</span> — Cargill lidera faturamento com <span class="hl-up">R$ 9,28 Mi</span> · exportação de óleo degomado cresce <span class="hl-up">+44%</span> aa no volume
+    </div>
+    <div class="hl-sub">Jan–Mai/2026 · Óleo de Soja Degomado – Exportação · Movimentação (TON) e Faturamento (R$) por cliente</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-lbl">MOV. Total Jan–Mai/26</div><div class="kpi-val up">647k TON</div><div class="kpi-sub"><span class="up">▲ +44%</span> vs jan–mai/2025</div></div>
+    <div class="kpi"><div class="kpi-lbl">Fat. Total Jan–Mai/26</div><div class="kpi-val">R$ 39,1 Mi</div><div class="kpi-sub">Óleo de Soja Degomado</div></div>
+    <div class="kpi"><div class="kpi-lbl">Top Volume — LDC</div><div class="kpi-val">149,5k TON</div><div class="kpi-sub">23,1% do volume total</div></div>
+    <div class="kpi"><div class="kpi-lbl">Top Fat. — Cargill</div><div class="kpi-val">R$ 9,28 Mi</div><div class="kpi-sub">23,7% do fat. total</div></div>
+    <div class="kpi"><div class="kpi-lbl">Top 3 concentram</div><div class="kpi-val">55%</div><div class="kpi-sub">volume (LDC + Cargill + Coamo)</div></div>
+    <div class="kpi"><div class="kpi-lbl">Clientes ativos</div><div class="kpi-val up">21</div><div class="kpi-sub">Jan–Mai/26 nesse produto</div></div>
+  </div>
+
+  <div class="body">
+    <!-- GRAFICO MOVIMENTACAO -->
+    <div class="chart-col">
+      <div class="sec-label">Movimentação por Cliente (TON) · Jan–Mai/2026</div>
+      <div class="chart-wrap"><canvas id="mov"></canvas></div>
+    </div>
+    <!-- CALLOUTS MOVIMENTACAO (TON) -->
+    <div class="callout-col">
+      <div>
+        <div class="callout-tag">Concentração · Receita</div>
+        <div class="c-items"><div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Cargill R$9,28Mi</strong> (23,7%) e LDC R$8,63Mi (22,1%) — top 2 = 46% da receita</span></div><div class="c-item"><span class="arr arr-warn">→</span><span class="c-text"><strong>Cargill é 2ª em volume</strong> mas 1ª em receita — ticket mais alto</span></div></div>
+      </div>
+      <div>
+        <div class="callout-tag">Destaque · Receita</div>
+        <div class="c-items"><div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>BTG +2899%</strong> e Brejeiro +1063% aa — forte crescimento em receita</span></div><div class="c-item"><span class="arr arr-up">↑</span><span class="c-text"><strong>Carteira saudável:</strong> Classe A estável · 9 novos (+R$6,1Mi)</span></div></div>
+      </div>
+      <div>
+        <div class="callout-tag">Atenção · Receita</div>
+        <div class="c-items"><div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>COMIGO −17,4%</strong> e Bunge −49,9% aa — retração de receita</span></div><div class="c-item"><span class="arr arr-down">↓</span><span class="c-text"><strong>Bunge −68,7% vs orçado</strong> — R$0,68Mi vs R$2,18Mi previstos</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const movLabels = ['LDC','Cargill','Coamo','Olam','Comigo','ADM','BTG','Brejeiro','Inpasa','Tres Tentos','Coop. Agraria','Bunge','Celena','Agraria','Amaggi','Cofco'];
+const movVals = [149500,138800,68000,54000,39200,35900,28500,22000,21900,17200,10800,10700,9000,7300,7000,6000];
+const fatLabels = ['Cargill','LDC','Coamo','Olam','Comigo','BTG','ADM','Tres Tentos','Brejeiro','Agraria','Bunge','C.Vale','Amaggi','Cofco','Caramuru','Agrodanieli'];
+const fatVals = [9280,8630,3760,3620,2510,1900,1780,1310,1310,970,680,680,450,380,350,340];
+
+const barLabelPlugin = {
+  id:'barLbls',
+  afterDatasetsDraw(ch){
+    const ctx=ch.ctx;
+    ch.getDatasetMeta(0).data.forEach((bar,i)=>{
+      const v=ch.data.datasets[0].data[i];
+      const isMove=ch.canvas.id==='mov';
+      const txt=isMove ? (v>=1000?(v/1000).toFixed(1)+'k':v)
+                       : 'R$'+(v>=1000?(v/1000).toFixed(2)+'Mi':v+'k');
+      ctx.save(); ctx.textAlign='left'; ctx.textBaseline='middle';
+      ctx.fillStyle='#14204A'; ctx.font='600 9px Inter';
+      ctx.fillText(txt, bar.x+5, bar.y); ctx.restore();
+    });
+  }
+};
+function makeChart(id,labels,values,color){
+  new Chart(document.getElementById(id),{
+    type:'bar', plugins:[barLabelPlugin],
+    data:{ labels, datasets:[{ data:values,
+      backgroundColor:labels.map((_,i)=>i<3?color:color+'AA'),
+      borderRadius:3, borderSkipped:false }] },
+    options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false},
+        tooltip:{ backgroundColor:'rgba(2,6,23,.96)', titleColor:'#94a3b8', bodyColor:'#fff',
+          padding:10, cornerRadius:8,
+          callbacks:{ label:item=> id==='mov' ? ' '+item.raw.toLocaleString('pt-BR')+' TON' : ' R$ '+item.raw.toLocaleString('pt-BR')+' k' } } },
+      layout:{ padding:{ right:48 } },
+      scales:{
+        x:{ display:false, max:Math.max(...values)*1.30, grid:{display:false}, border:{display:false} },
+        y:{ grid:{display:false}, border:{display:false},
+          ticks:{ color:ctx=>ctx.index<3?'#14204A':'#4A5280',
+            font:ctx=>({family:'Inter',size:9.5,weight:ctx.index<3?'700':'500'}), padding:2 } }
+      } }
+  });
+}
+makeChart('mov',movLabels,movVals,'#14204A');
+makeChart('fat',fatLabels,fatVals,'#F5C400');
+</script>
+</body>
+</html>

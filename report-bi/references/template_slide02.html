@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Faturamento — %%MES_ANO%%</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#e8e8e8;display:flex;justify-content:center;padding:20px}
+.slide{width:1440px;height:829px;background:#fff;padding:26px 44px 20px;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+
+/* HEADER */
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
+.slide-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8B92A9}
+.slide-title{font-size:21px;font-weight:700;color:#14204A;letter-spacing:-.2px;margin-top:1px}
+
+
+
+.gold-rule{height:3px;background:#F5C400;margin-bottom:1px}
+.navy-rule{height:1px;background:#14204A;margin-bottom:12px}
+
+/* HEADLINE */
+.headline{font-size:14px;font-weight:700;color:#14204A;margin-bottom:2px;line-height:1.3}
+.hl-pos{color:#0A8F5C}.hl-neg{color:#ef4444}
+.hl-rec{color:#14204A;background:#F5C400;padding:1px 7px;border-radius:3px;font-weight:700} /* destaque recorde histórico */
+.subhl{font-size:10px;color:#8B92A9;margin-bottom:11px;font-weight:400}
+
+/* KPIs */
+.kpis{display:flex;gap:0;margin-bottom:12px;padding-bottom:11px;border-bottom:1px solid #E8EAF2}
+.kpi{display:flex;flex-direction:column;gap:1px;flex:1;border-right:1px solid #E8EAF2;padding-right:16px;margin-right:16px}
+.kpi:last-child{border-right:none;margin-right:0;padding-right:0}
+.kpi-lbl{font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9}
+.kpi-val{font-size:22px;font-weight:700;letter-spacing:-.4px;line-height:1.15}
+.kpi-d1{font-size:10px;font-weight:600;margin-top:1px}
+.kpi-d2{font-size:9px;color:#8B92A9;margin-top:0px}
+.up{color:#0A8F5C}.down{color:#ef4444}.neu{color:#8B92A9}.warn{color:#F59E0B}
+.kpi-val.pos{color:#0A8F5C}.kpi-val.big{font-size:26px;color:#14204A}
+
+/* BODY GRID */
+.body-grid{display:grid;grid-template-columns:1fr 268px;gap:0;flex:1;min-height:0}
+.main-col{display:flex;flex-direction:column;gap:0;padding-right:26px;border-right:1px solid #E8EAF2;min-height:0}
+.side-col{padding-left:22px;display:flex;flex-direction:column;gap:12px}
+
+/* TABLE */
+.tbl-label{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8B92A9;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px}
+thead tr{border-bottom:2px solid #14204A}
+th{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6B6B6B;padding:0 6px 7px 0;text-align:right;white-space:nowrap}
+th.tl{text-align:left;padding-left:0}
+tbody tr{border-bottom:1px solid #F0EFEB}
+tbody tr:hover{background:#fafaf8}
+tbody tr.total-row{border-top:2px solid #14204A;border-bottom:none}
+td{padding:6px 6px 6px 0;font-size:11px;text-align:right;color:#2a2a2a;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.tl{text-align:left;padding-left:0;font-weight:500;font-size:11.5px}
+td.muted{color:#8B92A9}
+td.bold{font-weight:700;color:#14204A}
+td.up{color:#0A8F5C;font-weight:600}
+td.down{color:#ef4444;font-weight:600}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:4px;font-size:9px;font-weight:700}
+.ba{background:#D4EDDA;color:#1E7E34}.bb{background:#FFF3CD;color:#856404}.bc{background:#FDE2E2;color:#C0392B}
+
+/* WATERFALL AREA */
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}
+.chart-block{display:flex;flex-direction:column}
+.chart-lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8B92A9;margin-bottom:5px}
+.chart-placeholder{flex:1;min-height:108px} /* sem borda: espaço limpo p/ waterfall via canvas */
+
+/* CALLOUTS */
+.callout-block{display:flex;flex-direction:column;gap:8px}
+.ctag{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;display:inline-block;width:fit-content;margin-bottom:2px}
+.ctag-y{background:#F5C400;color:#14204A}
+.ctag-n{background:#14204A;color:#fff}
+.c-items{display:flex;flex-direction:column;gap:7px}
+.c-item{display:flex;align-items:flex-start;gap:6px}
+.arr{font-size:12px;font-weight:700;flex-shrink:0;margin-top:0px}
+.arr-up{color:#0A8F5C}.arr-down{color:#ef4444}.arr-warn{color:#F59E0B}
+.c-text{font-size:10.5px;line-height:1.45;color:#2a2a2a}
+.c-text strong{color:#14204A;font-weight:600}
+.crule{height:1px;background:#E8EAF2;margin:4px 0}
+
+/* FOOTER */
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid #E8EAF2;margin-top:8px}
+.fn,.fd{font-size:8.5px;color:#8B92A9}
+.fd{font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="header">
+    <div>
+      <div class="slide-label">RESULTADOS COMERCIAIS · TERMINAL CATTALINI · PARANAGUÁ</div>
+      <div class="slide-title">Faturamento</div>
+    </div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="navy-rule"></div>
+
+  <!-- HEADLINE -->
+  <div class="headline">
+    [%%MES_ANO%%] Faturamento <span class="hl-pos">+%%FAT_VAR_ORC%%% acima da meta</span> — %%GRUPO_DESTAQUE%% <span class="hl-pos">+%%GRUPO_DESTAQUE_VAR%%% aa</span> compensa retração de %%GRUPO_DETRATOR%% <span class="hl-neg">−%%GRUPO_DETRATOR_VAR%%%</span>
+  </div>
+  <div class="subhl">%%SUBHL%%</div>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi">
+      <div class="kpi-lbl">FAT. REALIZADO</div>
+      <div class="kpi-val big">R$ %%FAT_REAL%% Mi</div>
+      <div class="kpi-d1 up">▲ %%ATING%%% do orçado</div>
+      <div class="kpi-d2 down">%%FAT_SINAL_AA%% %%FAT_VAR_AA%%% vs %%MES_ANO_ANT%%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">MOVIMENTAÇÃO</div>
+      <div class="kpi-val big" style="color:#14204A">%%MOV_CAT%%k TON</div>
+      <div class="kpi-d1 down">%%MOV_SINAL_AA%% %%MOV_VAR_AA%%% vs %%MES_ANO_ANT%%</div>
+      <div class="kpi-d2 neu">Apenas Cattalini</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">TICKET MÉDIO / TON</div>
+      <div class="kpi-val big" style="color:#0A8F5C">R$ %%TICKET%%</div>
+      <div class="kpi-d1 up">▲ %%TICKET_VAR_AA%%% vs %%MES_ANO_ANT%%</div>
+      <div class="kpi-d2 neu">Mix sustenta o faturamento</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">% ATINGIMENTO</div>
+      <div class="kpi-val big" style="color:#0A8F5C">%%ATING%%%</div>
+      <div class="kpi-d1 up">Meta ≥ 100% · %%MESES_CONS%%º mês consecutivo</div>
+      <div class="kpi-d2 neu">Meta: R$ %%FAT_ORC%% Mi</div>
+    </div>
+  </div>
+
+  <div class="body-grid">
+    <div class="main-col">
+
+      <!-- TABELA -->
+      <div class="tbl-label">Realizado vs. Orçado · %%MES_ANO%%</div>
+      <table>
+        <thead>
+          <tr>
+            <th class="tl">GRUPO</th>
+            <th style="text-align:center">ABC</th>
+            <th>FAT.<br>REAL</th>
+            <th>FAT.<br>ORC.</th>
+            <th>VAR.<br>R$</th>
+            <th>TON<br>REAL</th>
+            <th>TON<br>ORC.</th>
+            <th>VAR. MOV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tl">Derivados</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td>%%D_FAT_R%%</td>
+            <td class="muted">%%D_FAT_O%%</td>
+            <td class="%%D_VAR_F_CLS%%">%%D_VAR_F%%</td>
+            <td>%%D_TON_R%%</td>
+            <td class="muted">%%D_TON_O%%</td>
+            <td class="%%D_VAR_M_CLS%%">%%D_VAR_M%%</td>
+          </tr>
+          <tr>
+            <td class="tl">Metanol</td>
+            <td style="text-align:center"><span class="badge ba">A</span></td>
+            <td>%%M_FAT_R%%</td>
+            <td class="muted">%%M_FAT_O%%</td>
+            <td class="%%M_VAR_F_CLS%%">%%M_VAR_F%%</td>
+            <td>%%M_TON_R%%</td>
+            <td class="muted">%%M_TON_O%%</td>
+            <td class="%%M_VAR_M_CLS%%">%%M_VAR_M%%</td>
+          </tr>
+          <tr>
+            <td class="tl">Aquecidos</td>
+            <td style="text-align:center"><span class="badge bb">B</span></td>
+            <td>%%A_FAT_R%%</td>
+            <td class="muted">%%A_FAT_O%%</td>
+            <td class="%%A_VAR_F_CLS%%">%%A_VAR_F%%</td>
+            <td>%%A_TON_R%%</td>
+            <td class="muted">%%A_TON_O%%</td>
+            <td class="%%A_VAR_M_CLS%%">%%A_VAR_M%%</td>
+          </tr>
+          <tr>
+            <td class="tl">Óleo Vegetal</td>
+            <td style="text-align:center"><span class="badge bb">B</span></td>
+            <td>%%OV_FAT_R%%</td>
+            <td class="muted">%%OV_FAT_O%%</td>
+            <td class="%%OV_VAR_F_CLS%%">%%OV_VAR_F%%</td>
+            <td>%%OV_TON_R%%</td>
+            <td class="muted">%%OV_TON_O%%</td>
+            <td class="%%OV_VAR_M_CLS%%">%%OV_VAR_M%%</td>
+          </tr>
+          <tr>
+            <td class="tl">Soda Cáustica</td>
+            <td style="text-align:center"><span class="badge bc">C</span></td>
+            <td>%%S_FAT_R%%</td>
+            <td class="muted">%%S_FAT_O%%</td>
+            <td class="%%S_VAR_F_CLS%%">%%S_VAR_F%%</td>
+            <td>%%S_TON_R%%</td>
+            <td class="muted">%%S_TON_O%%</td>
+            <td class="%%S_VAR_M_CLS%%">%%S_VAR_M%%</td>
+          </tr>
+          <tr>
+            <td class="tl">Biocombustíveis</td>
+            <td style="text-align:center"><span class="badge bc">C</span></td>
+            <td>%%B_FAT_R%%</td>
+            <td class="muted">%%B_FAT_O%%</td>
+            <td class="%%B_VAR_F_CLS%%">%%B_VAR_F%%</td>
+            <td>%%B_TON_R%%</td>
+            <td class="muted">%%B_TON_O%%</td>
+            <td class="%%B_VAR_M_CLS%%">%%B_VAR_M%%</td>
+          </tr>
+          <tr>
+            <td class="tl">Outros</td>
+            <td style="text-align:center"><span class="badge bc">C</span></td>
+            <td>%%O_FAT_R%%</td>
+            <td class="muted">%%O_FAT_O%%</td>
+            <td class="%%O_VAR_F_CLS%%">%%O_VAR_F%%</td>
+            <td>%%O_TON_R%%</td>
+            <td class="muted">%%O_TON_O%%</td>
+            <td class="%%O_VAR_M_CLS%%">%%O_VAR_M%%</td>
+          </tr>
+          <tr class="total-row">
+            <td class="tl bold">Total</td>
+            <td style="text-align:center">–</td>
+            <td class="bold">%%TOT_FAT_R%%</td>
+            <td class="bold muted">%%TOT_FAT_O%%</td>
+            <td class="bold %%TOT_VAR_F_CLS%%">%%TOT_VAR_F%%</td>
+            <td class="bold">%%TOT_TON_R%%</td>
+            <td class="bold muted">%%TOT_TON_O%%</td>
+            <td class="bold %%TOT_VAR_M_CLS%%">%%TOT_VAR_M%%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- WATERFALLS PLACEHOLDER -->
+      <div class="charts-row">
+        <div class="chart-block">
+          <div class="chart-lbl">Waterfall Faturamento (R$ MI)</div>
+          <div class="chart-placeholder"></div>
+        </div>
+        <div class="chart-block">
+          <div class="chart-lbl">Waterfall Movimentação (kTON)</div>
+          <div class="chart-placeholder"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CALLOUTS -->
+    <div class="side-col">
+      <div class="callout-block">
+        <div class="ctag ctag-n">O que ajudou</div>
+        <div class="c-items">
+          <div class="c-item">
+            <span class="arr arr-up">↑</span>
+            <span class="c-text"><strong>%%CALLOUT_POS_1%%</span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-up">↑</span>
+            <span class="c-text"><strong>%%CALLOUT_POS_2%%</span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-up">↑</span>
+            <span class="c-text"><strong>%%CALLOUT_POS_3%%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crule"></div>
+
+      <div class="callout-block">
+        <div class="ctag ctag-n">O que pressionou</div>
+        <div class="c-items">
+          <div class="c-item">
+            <span class="arr arr-down">↓</span>
+            <span class="c-text"><strong>%%CALLOUT_NEG_1%%</span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-down">↓</span>
+            <span class="c-text"><strong>%%CALLOUT_NEG_2%%</span>
+          </div>
+          <div class="c-item">
+            <span class="arr arr-warn">→</span>
+            <span class="c-text"><strong>%%CALLOUT_WARN_1%%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fn">Fonte: Power BI Comercial · Base histórica 2021–2026 · Dados até %%MES_ANO%%</div>
+    <div class="fd">Relatório Mensal · %%MES_ANO%%</div>
+  </div>
+</div>
+
+</body>
+</html>
