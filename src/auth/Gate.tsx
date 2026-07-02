@@ -6,8 +6,30 @@
  */
 import { type ReactNode } from 'react';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { authEnabled, loginRequest, allowedDomain, dominioOk } from './msal';
+import { authEnabled, loginRequest, allowedDomain, dominioOk, authState } from './msal';
 import { LoginBackground } from './LoginBackground';
+
+/** Casca da tela de login (fundo animado + card). */
+function LoginShell({ children }: { children: ReactNode }) {
+  return (
+    <div className="login-wrap">
+      <LoginBackground />
+      <div className="login-card">{children}</div>
+    </div>
+  );
+}
+
+/** Tela "Entrando…" enquanto o MSAL conclui o redirect. */
+export function LoadingScreen() {
+  return (
+    <LoginShell>
+      <div className="login-tag">CATTALINI · COMERCIAL</div>
+      <h1>Entrando…</h1>
+      <p>Concluindo o login Microsoft.</p>
+      <div className="login-spinner" aria-hidden="true" />
+    </LoginShell>
+  );
+}
 
 export function AuthGate({ children }: { children: ReactNode }) {
   if (!authEnabled) return <>{children}</>;
@@ -25,19 +47,29 @@ export function AuthGate({ children }: { children: ReactNode }) {
 
 function TelaLogin() {
   const { instance } = useMsal();
+  const erro = authState.error;
+  // AADSTS9002326 / "cross-origin" = redirect URI não registrada como SPA no Azure
+  const ehSpaError = /9002326|cross-origin|single-page/i.test(erro);
   return (
-    <div className="login-wrap">
-      <LoginBackground />
-      <div className="login-card">
-        <div className="login-tag">CATTALINI · COMERCIAL</div>
-        <h1>Deck Mensal — Excel → 18 slides</h1>
-        <p>Acesso restrito à equipe Cattalini. Entre com sua conta Microsoft corporativa.</p>
-        <button className="btn login-ms" onClick={() => instance.loginRedirect(loginRequest)}>
-          <MicrosoftLogo /> Entrar com Microsoft
-        </button>
-        {allowedDomain && <p className="login-dom">Somente contas <strong>@{allowedDomain}</strong>.</p>}
-      </div>
-    </div>
+    <LoginShell>
+      <div className="login-tag">CATTALINI · COMERCIAL</div>
+      <h1>Deck Mensal — Excel → 18 slides</h1>
+      <p>Acesso restrito à equipe Cattalini. Entre com sua conta Microsoft corporativa.</p>
+      <button className="btn login-ms" onClick={() => { authState.error = ''; instance.loginRedirect(loginRequest); }}>
+        <MicrosoftLogo /> Entrar com Microsoft
+      </button>
+      {allowedDomain && <p className="login-dom">Somente contas <strong>@{allowedDomain}</strong>.</p>}
+      {erro && (
+        <div className="login-erro">
+          <strong>Não foi possível concluir o login.</strong>
+          {ehSpaError ? (
+            <p>A URL de retorno precisa estar registrada no Azure como <strong>Single-page application (SPA)</strong>, não como "Web". Vá em <em>App registration → Autenticação</em>, remova a URL da seção "Web" e adicione-a em <strong>+ Adicionar plataforma → SPA</strong>: <code>{window.location.origin}</code></p>
+          ) : (
+            <p>{erro}</p>
+          )}
+        </div>
+      )}
+    </LoginShell>
   );
 }
 
@@ -47,14 +79,12 @@ function DominioGuard({ children }: { children: ReactNode }) {
   const user = accounts[0];
   if (!dominioOk(user?.username)) {
     return (
-      <div className="login-wrap">
-        <div className="login-card">
-          <div className="login-tag">ACESSO NEGADO</div>
-          <h1>Conta fora do domínio permitido</h1>
-          <p>Você entrou como <strong>{user?.username}</strong>, mas este app é restrito a contas <strong>@{allowedDomain}</strong>.</p>
-          <button className="btn sec" onClick={() => instance.logoutRedirect()}>Sair e trocar de conta</button>
-        </div>
-      </div>
+      <LoginShell>
+        <div className="login-tag">ACESSO NEGADO</div>
+        <h1>Conta fora do domínio permitido</h1>
+        <p>Você entrou como <strong>{user?.username}</strong>, mas este app é restrito a contas <strong>@{allowedDomain}</strong>.</p>
+        <button className="btn sec" onClick={() => instance.logoutRedirect()}>Sair e trocar de conta</button>
+      </LoginShell>
     );
   }
   return <>{children}</>;

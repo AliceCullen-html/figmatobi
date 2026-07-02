@@ -41,6 +41,9 @@ export const msalInstance = new PublicClientApplication(msalConfig);
 /** Escopos mínimos para identificar o usuário. */
 export const loginRequest = { scopes: ['User.Read'] };
 
+/** Estado de erro do último redirect (mostrado na tela de login). */
+export const authState: { error: string } = { error: '' };
+
 /** Verifica se o e-mail do usuário pertence ao domínio permitido. */
 export function dominioOk(username: string | undefined): boolean {
   if (!allowedDomain) return true;

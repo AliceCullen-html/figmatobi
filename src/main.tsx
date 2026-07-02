@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client'
 import { MsalProvider } from '@azure/msal-react'
 import './index.css'
 import App from './App.tsx'
-import { AuthGate } from './auth/Gate'
-import { msalInstance, authEnabled } from './auth/msal'
+import { AuthGate, LoadingScreen } from './auth/Gate'
+import { msalInstance, authEnabled, authState } from './auth/msal'
 
 const root = createRoot(document.getElementById('root')!)
 
-function render() {
+function renderApp() {
   root.render(
     <StrictMode>
       {authEnabled ? (
@@ -25,19 +25,23 @@ function render() {
 }
 
 if (authEnabled) {
-  // MSAL v5 exige initialize() + tratar o retorno do redirect antes de renderizar
+  // mostra "Entrando…" enquanto o MSAL inicializa / conclui o redirect
+  root.render(<StrictMode><LoadingScreen /></StrictMode>)
   msalInstance
     .initialize()
-    .then(() => msalInstance.handleRedirectPromise())
-    .then(() => {
-      const account = msalInstance.getActiveAccount() ?? msalInstance.getAllAccounts()[0]
+    // navigateToLoginRequestUrl:false → processa a resposta aqui, sem reload extra
+    .then(() => msalInstance.handleRedirectPromise({ navigateToLoginRequestUrl: false }))
+    .then((res) => {
+      const account = res?.account ?? msalInstance.getActiveAccount() ?? msalInstance.getAllAccounts()[0]
       if (account) msalInstance.setActiveAccount(account)
-      render()
+      renderApp()
     })
     .catch((e) => {
-      console.error('Falha ao inicializar login Microsoft:', e)
-      render() // ainda renderiza (cai na tela de login)
+      // surfacia o erro na tela de login (ex.: AADSTS9002326 = redirect não é SPA)
+      authState.error = (e && (e.errorMessage || e.message)) ? String(e.errorMessage || e.message) : String(e)
+      console.error('MSAL redirect:', e)
+      renderApp()
     })
 } else {
-  render()
+  renderApp()
 }
