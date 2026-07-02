@@ -39,6 +39,7 @@ export default function App() {
     }
   }, []);
 
+  // adiciona arquivos SEM avançar de tela — o deck só é gerado no botão "Gerar deck"
   const onFiles = useCallback(async (files: FileList | File[]) => {
     setCarregando(true);
     setErro('');
@@ -57,23 +58,29 @@ export default function App() {
         novas.push(...parseWorkbook(f.name, buf));
       }
       if (proj !== projeto) salvar(proj);
-      const todas = [...sheets.filter((s) => !novas.some((n) => n.file === s.file)), ...novas];
-      setSheets(todas);
-      if (!todas.length) return;
-      // se há mapping salvo compatível → pula direto pro preview
-      if (proj.mapping && mappingCompativel(proj.mapping, todas)) {
-        rodarEtl(todas, proj.mapping);
-        return;
-      }
-      const auto = autoDetect(todas);
-      auto.criadoEm = new Date().toISOString();
-      salvar({ ...proj, mapping: auto });
-      setTela('mapeamento');
+      setSheets((atuais) => [...atuais.filter((s) => !novas.some((n) => n.file === s.file)), ...novas]);
     } catch (e) {
       setErro(String((e as Error).message ?? e));
     } finally {
       setCarregando(false);
     }
+  }, [projeto, salvar]);
+
+  const removerArquivo = useCallback((file: string) => {
+    setSheets((atuais) => atuais.filter((s) => s.file !== file));
+  }, []);
+
+  const gerarDeck = useCallback(() => {
+    if (!sheets.length) return;
+    // se há mapping salvo compatível → pula direto pro preview
+    if (projeto.mapping && mappingCompativel(projeto.mapping, sheets)) {
+      rodarEtl(sheets, projeto.mapping);
+      return;
+    }
+    const auto = autoDetect(sheets);
+    auto.criadoEm = new Date().toISOString();
+    salvar({ ...projeto, mapping: auto });
+    setTela('mapeamento');
   }, [sheets, projeto, salvar, rodarEtl]);
 
   // manifesto com overrides aplicados
@@ -113,7 +120,14 @@ export default function App() {
       {erro && <div className="erro-bar">⛔ {erro}</div>}
 
       {tela === 'upload' && (
-        <TelaUpload onFiles={onFiles} carregando={carregando} temMapping={!!projeto.mapping} />
+        <TelaUpload
+          onFiles={onFiles}
+          carregando={carregando}
+          temMapping={!!projeto.mapping}
+          sheets={sheets}
+          onRemover={removerArquivo}
+          onGerar={gerarDeck}
+        />
       )}
 
       {tela === 'mapeamento' && projeto.mapping && (
@@ -223,8 +237,19 @@ export default function App() {
 }
 
 // ---------------- Upload ----------------
-function TelaUpload({ onFiles, carregando, temMapping }: { onFiles: (f: FileList) => void; carregando: boolean; temMapping: boolean }) {
+function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGerar }: {
+  onFiles: (f: FileList) => void;
+  carregando: boolean;
+  temMapping: boolean;
+  sheets: SheetData[];
+  onRemover: (file: string) => void;
+  onGerar: () => void;
+}) {
   const [drag, setDrag] = useState(false);
+  const arquivos = [...new Set(sheets.map((s) => s.file))];
+  const pareceOrcamento = (f: string) => /or[cç]amento|or[cç]ado/i.test(f);
+  const temRealizado = arquivos.some((f) => !pareceOrcamento(f));
+  const temOrcado = arquivos.some(pareceOrcamento);
   return (
     <div
       className={`dropzone ${drag ? 'drag' : ''}`}
@@ -233,14 +258,37 @@ function TelaUpload({ onFiles, carregando, temMapping }: { onFiles: (f: FileList
       onDrop={(e) => { e.preventDefault(); setDrag(false); onFiles(e.dataTransfer.files); }}
     >
       <div className="drop-icone">📊</div>
-      <h2>{carregando ? 'Lendo Excel…' : 'Arraste o Excel do mês aqui'}</h2>
-      <p>Export do Power BI Comercial (.xlsx) — pode subir <strong>Realizado</strong> e <strong>Orçamento</strong> juntos.<br />
+      <h2>{carregando ? 'Lendo Excel…' : 'Arraste os Excel do mês aqui'}</h2>
+      <p>Suba os <strong>dois</strong> arquivos: <strong>Realizado</strong> e <strong>Orçamento</strong> (.xlsx) — um de cada vez ou juntos.<br />
         Também aceita <code>mapping.config.json</code> e <code>projeto.json</code> salvos.</p>
       {temMapping && <p className="ok-mapping">✅ Já existe um mapeamento salvo — se o layout for igual, o preview abre direto.</p>}
-      <label className="btn">
-        Escolher arquivos
-        <input type="file" multiple accept=".xlsx,.xls,.json" hidden onChange={(e) => e.target.files && onFiles(e.target.files)} />
-      </label>
+
+      {arquivos.length > 0 && (
+        <div className="lista-arquivos">
+          {arquivos.map((f) => (
+            <div key={f} className="arq-chip">
+              <span className="arq-tipo">{pareceOrcamento(f) ? '🎯 Orçamento' : '📈 Realizado'}</span>
+              <span className="arq-nome">{f.split('/').pop()}</span>
+              <span className="arq-abas">{sheets.filter((s) => s.file === f).length} abas</span>
+              <button className="arq-x" title="Remover" onClick={(e) => { e.stopPropagation(); onRemover(f); }}>✕</button>
+            </div>
+          ))}
+          {!temOrcado && <p className="falta-arquivo">⚠️ Falta o Excel de <strong>Orçamento</strong> — sem ele o slide 02 (Real × Orçado) fica bloqueado.</p>}
+          {!temRealizado && <p className="falta-arquivo">⚠️ Falta o Excel de <strong>Realizado</strong>.</p>}
+        </div>
+      )}
+
+      <div className="upload-acoes">
+        <label className="btn sec">
+          + Adicionar arquivo
+          <input type="file" multiple accept=".xlsx,.xls,.json" hidden onChange={(e) => { if (e.target.files) { onFiles(e.target.files); e.target.value = ''; } }} />
+        </label>
+        {arquivos.length > 0 && (
+          <button className="btn" disabled={carregando} onClick={(e) => { e.stopPropagation(); onGerar(); }}>
+            Gerar deck ({arquivos.length} arquivo{arquivos.length > 1 ? 's' : ''}) →
+          </button>
+        )}
+      </div>
     </div>
   );
 }
