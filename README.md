@@ -54,9 +54,10 @@ npx vitest run
    inventados (Regra de Ouro 8); preencha no editor (há um atalho para colar do print
    do BI no slide 15) ou marque "sem alteração este mês". Toda edição re-renderiza só
    o slide afetado e vai junto nos exports.
-5. **Export** — "Baixar deck .zip" (HTML para `html.to.design`), PDF (18 páginas
-   1440×829), PNGs e `manifesto.json`. O `.zip` inclui manifesto, mapping e estado do
-   projeto para reaproveitar no mês seguinte.
+5. **Export** — "Baixar deck .zip" (HTML para `html.to.design`), **PDF** (abre a janela
+   de impressão do navegador → escolha *Salvar como PDF*, paisagem, sem margens — sai
+   vetorial e com as fontes reais), **PNGs** e `manifesto.json`. O `.zip` inclui manifesto,
+   mapping e estado do projeto para reaproveitar no mês seguinte.
 
 ### Toggle SVG ↔ Chart.js
 

@@ -189,10 +189,7 @@ export default function App() {
                 'mapping.config.json': JSON.stringify(projeto.mapping, null, 2),
                 'projeto.json': JSON.stringify(projeto, null, 1),
               })}>⬇ Baixar deck .zip (HTML p/ Figma)</button>
-              <button className="btn sec" disabled={!!progresso} onClick={async () => {
-                await baixarPdf(deckExibicao, (i, t) => setProgresso(`PDF ${i}/${t}…`));
-                setProgresso('');
-              }}>⬇ PDF</button>
+              <button className="btn sec" title="Abre a janela de impressão — escolha 'Salvar como PDF'" onClick={() => baixarPdf(deckExibicao)}>🖨 PDF</button>
               <button className="btn sec" disabled={!!progresso} onClick={async () => {
                 await baixarPngsZip(deckExibicao, (i, t) => setProgresso(`PNG ${i}/${t}…`));
                 setProgresso('');
