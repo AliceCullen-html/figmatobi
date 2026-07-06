@@ -9,18 +9,20 @@ import { autoDetect } from '../src/etl/mapping';
 import { buildManifest } from '../src/etl/etl';
 import { renderDeck, ORDER } from '../src/engine/engine';
 
-function load(file: string) {
+async function load(file: string) {
   const buf = readFileSync(file);
   return parseWorkbook(file, buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
 }
 
-describe('ETL sobre o Excel real', () => {
-  const sheets = [
-    ...load('Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_Realizado.xlsx'),
-    ...load('Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_orcamento.xlsx'),
-  ];
-  const cfg = autoDetect(sheets);
+// top-level await: xlsx é carregado sob demanda (parseWorkbook agora é async)
+const sheets = [
+  ...(await load('Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_Realizado.xlsx')),
+  ...(await load('Consolidado_Fat.Mes_a_Mes_por_produto_e_grupo_orcamento.xlsx')),
+];
+const cfg = autoDetect(sheets);
+const { manifesto, pendencias, validacoes } = buildManifest(sheets, cfg);
 
+describe('ETL sobre o Excel real', () => {
   it('auto-detecta os datasets principais', () => {
     expect(cfg.datasets.fat_realizado?.sheet).toBe('Banco de Dados - Faturamento');
     expect(cfg.datasets.mov_terminal?.sheet).toBe('Mov - Realizada');
@@ -28,8 +30,6 @@ describe('ETL sobre o Excel real', () => {
     expect(cfg.datasets.fat_orcado?.sheet).toBe('Banco de Dados - Fat.');
     expect(cfg.datasets.mov_orcada?.sheet).toBe('Mov - Orçada');
   });
-
-  const { manifesto, pendencias, validacoes } = buildManifest(sheets, cfg);
 
   it('identifica o mês de referência (mai/26)', () => {
     expect(manifesto.meta.ref).toBe('mai/26');

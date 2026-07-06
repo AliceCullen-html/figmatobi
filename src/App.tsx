@@ -68,7 +68,7 @@ export default function App() {
           continue;
         }
         const buf = await f.arrayBuffer();
-        novas.push(...parseWorkbook(f.name, buf));
+        novas.push(...(await parseWorkbook(f.name, buf)));
       }
       if (proj !== projeto) salvar(proj);
       setSheets((atuais) => [...atuais.filter((s) => !novas.some((n) => n.file === s.file)), ...novas]);

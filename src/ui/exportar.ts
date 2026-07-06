@@ -1,6 +1,6 @@
-/** Exportação: HTML standalone (html.to.design), ZIP, PDF e PNG — 1440×829. */
-import JSZip from 'jszip';
-import { toPng } from 'html-to-image';
+/** Exportação: HTML standalone (html.to.design), ZIP, PDF e PNG — 1440×829.
+ * As libs pesadas (jszip, html-to-image) são carregadas sob demanda (lazy)
+ * para não pesar no carregamento inicial do app. */
 import type { RenderResult } from '../engine/engine';
 import { download } from './state';
 
@@ -9,6 +9,7 @@ export function baixarHtml(slide: RenderResult): void {
 }
 
 export async function baixarZip(slides: RenderResult[], extras: Record<string, string> = {}): Promise<void> {
+  const { default: JSZip } = await import('jszip');
   const zip = new JSZip();
   for (const s of slides) zip.file(s.file, s.html);
   for (const [nome, conteudo] of Object.entries(extras)) zip.file(nome, conteudo);
@@ -58,6 +59,7 @@ export function baixarPdf(slides: RenderResult[]): void {
 /** rasteriza um slide para PNG (conveniência). skipFonts evita travar embutindo
  * fontes externas; o texto sai em fonte de sistema (o entregável fiel é o HTML). */
 async function renderParaImagem(html: string): Promise<string> {
+  const { toPng } = await import('html-to-image');
   const host = document.createElement('div');
   host.style.cssText = 'position:fixed;left:-20000px;top:0;width:1440px;height:829px;overflow:hidden;background:#fff;';
   const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -83,6 +85,7 @@ export async function baixarPng(slide: RenderResult): Promise<void> {
 }
 
 export async function baixarPngsZip(slides: RenderResult[], onProgress?: (i: number, total: number) => void): Promise<void> {
+  const { default: JSZip } = await import('jszip');
   const zip = new JSZip();
   for (let i = 0; i < slides.length; i++) {
     onProgress?.(i + 1, slides.length);

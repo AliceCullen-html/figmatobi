@@ -7,7 +7,7 @@
  * deixa um fundo navy). Respeita prefers-reduced-motion. Limpa tudo no unmount.
  */
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+// three.js é carregado sob demanda (lazy) — só pesa quando a tela de login aparece
 
 const VERT = /* glsl */ `
   uniform float uTime;
@@ -49,88 +49,98 @@ export function LoginBackground() {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
+    let cancelado = false;
+    let limpar = () => {};
 
-    let renderer: THREE.WebGLRenderer;
-    try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'low-power' });
-    } catch {
-      return; // sem WebGL → fundo navy do CSS assume
-    }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x0b1428, 1);
+    // three.js carregado sob demanda (não pesa no bundle inicial do app)
+    void (async () => {
+      const THREE = await import('three');
+      if (cancelado || !canvas.isConnected) return;
 
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0b1428, 0.03);
-
-    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
-    camera.position.set(0, 6.5, 15);
-    camera.lookAt(0, 0, 0);
-
-    // grade de pontos no plano XZ
-    const COLS = 140, ROWS = 140, GAP = 0.55;
-    const count = COLS * ROWS;
-    const positions = new Float32Array(count * 3);
-    const scales = new Float32Array(count);
-    let i = 0;
-    for (let x = 0; x < COLS; x++) {
-      for (let z = 0; z < ROWS; z++) {
-        positions[i * 3] = (x - COLS / 2) * GAP;
-        positions[i * 3 + 1] = 0;
-        positions[i * 3 + 2] = (z - ROWS / 2) * GAP;
-        scales[i] = 6 + Math.sin(x * 12.9898 + z * 78.233) * 3; // pseudo-aleatório determinístico
-        i++;
+      let renderer: import('three').WebGLRenderer;
+      try {
+        renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'low-power' });
+      } catch {
+        return; // sem WebGL → fundo navy do CSS assume
       }
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geo.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x0b1428, 1);
 
-    const mat = new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0 },
-        uSize: { value: 26 },
-        uNavy: { value: new THREE.Color(0x14204a) },
-        uGold: { value: new THREE.Color(0xf5c400) },
-      },
-      vertexShader: VERT,
-      fragmentShader: FRAG,
-      transparent: true,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-    });
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x0b1428, 0.03);
 
-    const points = new THREE.Points(geo, mat);
-    scene.add(points);
+      const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+      camera.position.set(0, 6.5, 15);
+      camera.lookAt(0, 0, 0);
 
-    const resize = () => {
-      const w = canvas.clientWidth || window.innerWidth;
-      const h = canvas.clientHeight || window.innerHeight;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-    };
-    resize();
-    window.addEventListener('resize', resize);
+      // grade de pontos no plano XZ
+      const COLS = 140, ROWS = 140, GAP = 0.55;
+      const count = COLS * ROWS;
+      const positions = new Float32Array(count * 3);
+      const scales = new Float32Array(count);
+      let i = 0;
+      for (let x = 0; x < COLS; x++) {
+        for (let z = 0; z < ROWS; z++) {
+          positions[i * 3] = (x - COLS / 2) * GAP;
+          positions[i * 3 + 1] = 0;
+          positions[i * 3 + 2] = (z - ROWS / 2) * GAP;
+          scales[i] = 6 + Math.sin(x * 12.9898 + z * 78.233) * 3; // pseudo-aleatório determinístico
+          i++;
+        }
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geo.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let raf = 0;
-    const start = performance.now();
-    const loop = () => {
-      const t = (performance.now() - start) / 1000;
-      mat.uniforms.uTime.value = t;
-      points.rotation.y = Math.sin(t * 0.05) * 0.15; // deriva suave
-      renderer.render(scene, camera);
-      if (!reduced) raf = requestAnimationFrame(loop);
-    };
-    loop();
+      const mat = new THREE.ShaderMaterial({
+        uniforms: {
+          uTime: { value: 0 },
+          uSize: { value: 26 },
+          uNavy: { value: new THREE.Color(0x14204a) },
+          uGold: { value: new THREE.Color(0xf5c400) },
+        },
+        vertexShader: VERT,
+        fragmentShader: FRAG,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      });
 
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('resize', resize);
-      geo.dispose();
-      mat.dispose();
-      renderer.dispose();
-    };
+      const points = new THREE.Points(geo, mat);
+      scene.add(points);
+
+      const resize = () => {
+        const w = canvas.clientWidth || window.innerWidth;
+        const h = canvas.clientHeight || window.innerHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      };
+      resize();
+      window.addEventListener('resize', resize);
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let raf = 0;
+      const start = performance.now();
+      const loop = () => {
+        const t = (performance.now() - start) / 1000;
+        mat.uniforms.uTime.value = t;
+        points.rotation.y = Math.sin(t * 0.05) * 0.15; // deriva suave
+        renderer.render(scene, camera);
+        if (!reduced) raf = requestAnimationFrame(loop);
+      };
+      loop();
+
+      limpar = () => {
+        cancelAnimationFrame(raf);
+        window.removeEventListener('resize', resize);
+        geo.dispose();
+        mat.dispose();
+        renderer.dispose();
+      };
+    })();
+
+    return () => { cancelado = true; limpar(); };
   }, []);
 
   return <canvas ref={ref} className="login-bg" aria-hidden="true" />;

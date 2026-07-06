@@ -1,9 +1,10 @@
-/** Parser de Excel no browser via SheetJS. */
-import * as XLSX from 'xlsx';
+/** Parser de Excel no browser via SheetJS (carregado sob demanda). */
 import type { SheetData } from './types';
 
-/** Lê um ArrayBuffer de .xlsx e devolve todas as abas como objetos. */
-export function parseWorkbook(fileName: string, buf: ArrayBuffer): SheetData[] {
+/** Lê um ArrayBuffer de .xlsx e devolve todas as abas como objetos.
+ * O SheetJS (xlsx) é a maior lib do app — carregado sob demanda (lazy). */
+export async function parseWorkbook(fileName: string, buf: ArrayBuffer): Promise<SheetData[]> {
+  const XLSX = await import('xlsx');
   const wb = XLSX.read(buf, { type: 'array', dense: true });
   const out: SheetData[] = [];
   for (const name of wb.SheetNames) {
