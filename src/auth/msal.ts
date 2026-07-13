@@ -26,8 +26,14 @@ export const allowedDomains = ((import.meta.env.VITE_AZURE_ALLOWED_DOMAIN as str
 /** Texto para exibir (ex.: "cattaliniterminais.com.br ou cattalini.com.br"). */
 export const allowedDomainLabel = allowedDomains.map((d) => '@' + d).join(' ou ');
 
-/** Login só é exigido quando tenant + client estão configurados. */
-export const authEnabled = Boolean(tenant && clientId);
+/**
+ * Interruptor do login Microsoft.
+ * DESLIGADO a pedido (o fluxo bugou em produção). O app abre direto no upload.
+ * Para RELIGAR no futuro: troque LOGIN_ATIVO para true e garanta as env vars
+ * VITE_AZURE_TENANT_ID / VITE_AZURE_CLIENT_ID no Vercel.
+ */
+const LOGIN_ATIVO = false;
+export const authEnabled = LOGIN_ATIVO && Boolean(tenant && clientId);
 
 const msalConfig: Configuration = {
   auth: {
