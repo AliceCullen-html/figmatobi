@@ -54,9 +54,9 @@ npx vitest run
    inventados (Regra de Ouro 8); preencha no editor (há um atalho para colar do print
    do BI no slide 15) ou marque "sem alteração este mês". Toda edição re-renderiza só
    o slide afetado e vai junto nos exports.
-5. **Export** — **⬇ .zip HTML (Figma)** (HTML para `html.to.design`), **▶ Levar pro Figma**
-   (guia rápido do plugin), **🖨 PDF** (abre a janela de impressão do navegador → escolha
-   *Salvar como PDF*, paisagem, sem margens — sai vetorial e com as fontes reais),
+5. **Export** — **⬇ .zip HTML (Figma)** (HTML para importar no Figma), **▶ Levar pro Figma**
+   (guia dos caminhos grátis), **⬇ PDF** (baixa direto — paisagem, uma página por slide,
+   sem abrir a janela de impressão; **não corta elementos**),
    **⬇ Imagens** (PNG/JPEG em `.zip`) e `manifesto.json`. Cada card ainda exporta
    **HTML / PNG / JPG**, **📋 Colar no Figma** (imagem, cola com Ctrl/Cmd+V) e
    **📋 Figma (HTML)** (para o plugin grátis). O `.zip` inclui manifesto,

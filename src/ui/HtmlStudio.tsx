@@ -63,7 +63,7 @@ export function HtmlStudio({ iniciais, onVoltar }: { iniciais: HtmlSlide[]; onVo
         {slides.length > 0 && <>
           <button className="btn" onClick={() => baixarZip(asResults())}>⬇ .zip HTML (Figma)</button>
           <button className="btn sec" onClick={() => setAjudaFigma(true)}>▶ Levar pro Figma</button>
-          <button className="btn sec" title="Abre a janela de impressão — escolha 'Salvar como PDF'" onClick={() => baixarPdf(asResults())}>🖨 PDF</button>
+          <button className="btn sec" disabled={!!prog} title="Baixa em PDF (paisagem, uma página por slide)" onClick={async () => { await baixarPdf(asResults(), (i, t) => setProg(`PDF ${i}/${t}…`)); setProg(''); }}>⬇ PDF</button>
           <ExportImgBulk onExport={async (tipo) => { await baixarImagensZip(asResults(), tipo, (i, t) => setProg(`${tipo.toUpperCase()} ${i}/${t}…`)); setProg(''); }} disabled={!!prog} />
           {prog && <span className="progresso">{prog}</span>}
         </>}

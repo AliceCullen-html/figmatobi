@@ -1,8 +1,13 @@
-/** Exportação: HTML standalone (html.to.design), ZIP, PDF e PNG — 1440×829.
- * As libs pesadas (jszip, html-to-image) são carregadas sob demanda (lazy)
- * para não pesar no carregamento inicial do app. */
+/** Exportação: HTML standalone, ZIP, PDF, PNG e JPEG — 1440×829.
+ * A rasterização (PNG/JPEG/PDF) é feita 100% no navegador via SVG
+ * <foreignObject> + canvas — sem libs externas e sem depender de fontes/recursos
+ * remotos (que travavam o método antigo e geravam imagem em branco).
+ * jszip é carregado sob demanda (lazy). */
 import type { RenderResult } from '../engine/engine';
 import { download } from './state';
+
+const W = 1440;
+const H = 829;
 
 export function baixarHtml(slide: RenderResult): void {
   download(slide.file, slide.html, 'text/html;charset=utf-8');
@@ -17,84 +22,113 @@ export async function baixarZip(slides: RenderResult[], extras: Record<string, s
   download('deck_cattalini.zip', blob);
 }
 
-/**
- * PDF via janela de impressão: cada slide num iframe isolado (sem colisão de
- * CSS), o navegador renderiza nativamente — fontes reais e gráficos SVG como
- * VETOR — e o usuário salva como PDF. Robusto (não depende de rasterização) e
- * mantém a qualidade vetorial, coerente com o alvo Figma.
- */
-export function baixarPdf(slides: RenderResult[]): void {
-  const win = window.open('', '_blank');
-  if (!win) {
-    alert('O navegador bloqueou a janela de impressão. Habilite pop-ups para este site e clique em PDF de novo.');
-    return;
-  }
-  const esc = (h: string) => h.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
-  const paginas = slides.map((s, i) => `<div class="pg"><iframe data-i="${i}" srcdoc="${esc(s.html)}"></iframe></div>`).join('');
-  const html =
-    '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Deck Cattalini — PDF</title>' +
-    '<style>' +
-    '@page{size:381mm 219.3mm;margin:0;}' +
-    'html,body{margin:0;padding:0;background:#33373f;}' +
-    '.pg{width:1440px;height:829px;overflow:hidden;background:#fff;page-break-after:always;}' +
-    '.pg:last-child{page-break-after:auto;}' +
-    'iframe{width:1440px;height:829px;border:0;display:block;}' +
-    '.barra{position:fixed;top:0;left:0;right:0;background:#14204A;color:#fff;font:600 13px system-ui,sans-serif;padding:10px 16px;text-align:center;z-index:9;}' +
-    '.barra b{color:#F5C400;}' +
-    '@media screen{body{padding-top:44px;}.pg{margin:14px auto;box-shadow:0 4px 18px rgba(0,0,0,.5);}}' +
-    '@media print{.barra{display:none;}body{padding-top:0;background:#fff;}.pg{margin:0;box-shadow:none;}}' +
-    '</style></head><body>' +
-    '<div class="barra">Na janela de impressão escolha: <b>Destino = Salvar como PDF</b> · <b>Layout = Paisagem</b> · <b>Margens = Nenhuma</b>. A impressão abre sozinha…</div>' +
-    paginas +
-    '<scr' + 'ipt>var fs=document.querySelectorAll("iframe"),n=0,feito=false;' +
-    'function imprimir(){if(feito)return;feito=true;try{window.focus();window.print();}catch(e){}}' +
-    'if(fs.length===0){imprimir();}else{fs.forEach(function(f){f.addEventListener("load",function(){if(++n===fs.length)setTimeout(imprimir,1200);});});}' +
-    'setTimeout(imprimir,9000);</scr' + 'ipt>' +
-    '</body></html>';
-  win.document.open();
-  win.document.write(html);
-  win.document.close();
-}
-
 export type FormatoImg = 'png' | 'jpeg';
 
 /**
- * Rasteriza um slide para PNG/JPEG renderizando o HTML **completo** num iframe
- * isolado (mesma origem via srcdoc) — do jeitinho que ele aparece na tela, com
- * scripts (gráficos) rodando e o CSS do próprio slide, sem interferência do CSS
- * do app. Depois captura com html-to-image sobre o documento do iframe.
- * (O método antigo injetava HTML parcial numa <div> e saía branco.)
- * skipFonts evita travar embutindo fontes externas; o texto sai em fonte de
- * sistema — o entregável fiel/editável é o HTML/SVG.
+ * Rasteriza um slide (1440×829) para PNG/JPEG. Renderiza o HTML dentro de um
+ * SVG <foreignObject> e desenha num canvas — técnica nativa do navegador, sem
+ * bibliotecas. Remove scripts, <link> e @import de fontes externas para não
+ * depender de rede nem "sujar" (taint) o canvas — por isso é robusto e nunca
+ * mais sai em branco. As fontes caem para a fonte de sistema; o entregável fiel
+ * e editável continua sendo o HTML/SVG.
  */
+async function renderParaCanvas(html: string): Promise<HTMLCanvasElement> {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  // sem scripts, sem folhas/links externos e sem @import — evita CORS e taint
+  doc.querySelectorAll('script, link').forEach((e) => e.remove());
+  doc.querySelectorAll('style').forEach((s) => { s.textContent = (s.textContent || '').replace(/@import[^;]+;/g, ''); });
+  const serial = new XMLSerializer().serializeToString(doc.documentElement);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><foreignObject x="0" y="0" width="${W}" height="${H}">${serial}</foreignObject></svg>`;
+  const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  const img = new Image();
+  img.width = W; img.height = H;
+  await new Promise<void>((res, rej) => {
+    img.onload = () => res();
+    img.onerror = () => rej(new Error('falha ao renderizar o slide para imagem'));
+    img.src = url;
+  });
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d')!;
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, W, H);
+  ctx.drawImage(img, 0, 0, W, H);
+  return canvas;
+}
+
 async function renderParaImagem(html: string, tipo: FormatoImg = 'png'): Promise<string> {
-  const mod = await import('html-to-image');
-  const render = tipo === 'jpeg' ? mod.toJpeg : mod.toPng;
-  const iframe = document.createElement('iframe');
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-  iframe.style.cssText = 'position:fixed;left:-20000px;top:0;width:1440px;height:829px;border:0;background:#fff;';
-  document.body.appendChild(iframe);
-  try {
-    await new Promise<void>((res) => {
-      iframe.addEventListener('load', () => res(), { once: true });
-      iframe.srcdoc = html;
-    });
-    const doc = iframe.contentDocument!;
-    // espera fontes/paint estabilizarem antes de capturar
-    try { await (doc as any).fonts?.ready; } catch { /* ignore */ }
-    await new Promise((r) => setTimeout(r, 400));
-    const alvo = (doc.querySelector('.slide') as HTMLElement) ?? doc.body;
-    const bg = getComputedStyle(alvo).backgroundColor;
-    const opaco = bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent' ? bg : '#ffffff';
-    // 1ª captura às vezes sai incompleta (fontes/imagens) — repete p/ garantir
-    await render(alvo, { width: 1440, height: 829, pixelRatio: 1, backgroundColor: opaco, skipFonts: true, quality: 0.95 });
-    return await render(alvo, { width: 1440, height: 829, pixelRatio: 1, backgroundColor: opaco, skipFonts: true, quality: 0.95 });
-  } finally {
-    iframe.remove();
-  }
+  const canvas = await renderParaCanvas(html);
+  return tipo === 'jpeg' ? canvas.toDataURL('image/jpeg', 0.95) : canvas.toDataURL('image/png');
 }
 
 const ext = (tipo: FormatoImg) => (tipo === 'jpeg' ? '.jpg' : '.png');
+
+// ---------- PDF (montado à mão, imagens JPEG — sem libs, sem janela de impressão) ----------
+
+function base64ParaBytes(b64: string): Uint8Array {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+/**
+ * Monta um PDF paisagem, uma página por slide, cada página com o slide como
+ * imagem JPEG ocupando a página inteira (mesmas proporções 1440×829). Como a
+ * imagem é do tamanho exato da página, **nunca corta elemento** e não depende
+ * das configurações da janela de impressão do navegador.
+ */
+function montarPdfDeJpegs(jpegs: Uint8Array[]): Blob {
+  const wPt = +(W * 72 / 96).toFixed(2); // 1080
+  const hPt = +(H * 72 / 96).toFixed(2); // 621.75
+  const enc = new TextEncoder();
+  const partes: Uint8Array[] = [];
+  let offset = 0;
+  const offsets: number[] = [];
+  const put = (d: Uint8Array | string) => { const u = typeof d === 'string' ? enc.encode(d) : d; partes.push(u); offset += u.length; };
+
+  put('%PDF-1.4\n');
+  put(new Uint8Array([0x25, 0xE2, 0xE3, 0xCF, 0xD3, 0x0A])); // marcador binário
+
+  const N = jpegs.length;
+  const catalogId = 1, pagesId = 2;
+  const pageIds: number[] = [], contentIds: number[] = [], imgIds: number[] = [];
+  for (let i = 0; i < N; i++) { pageIds.push(3 + i * 3); contentIds.push(4 + i * 3); imgIds.push(5 + i * 3); }
+
+  const obj = (id: number, body: string) => { offsets[id] = offset; put(`${id} 0 obj\n${body}\nendobj\n`); };
+
+  obj(catalogId, `<< /Type /Catalog /Pages ${pagesId} 0 R >>`);
+  obj(pagesId, `<< /Type /Pages /Count ${N} /Kids [${pageIds.map((id) => `${id} 0 R`).join(' ')}] >>`);
+
+  for (let i = 0; i < N; i++) {
+    const content = `q ${wPt} 0 0 ${hPt} 0 0 cm /Im0 Do Q`;
+    obj(pageIds[i], `<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${wPt} ${hPt}] /Resources << /XObject << /Im0 ${imgIds[i]} 0 R >> >> /Contents ${contentIds[i]} 0 R >>`);
+    obj(contentIds[i], `<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
+    offsets[imgIds[i]] = offset;
+    put(`${imgIds[i]} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${W} /Height ${H} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpegs[i].length} >>\nstream\n`);
+    put(jpegs[i]);
+    put('\nendstream\nendobj\n');
+  }
+
+  const totalObjs = 2 + N * 3;
+  const xrefStart = offset;
+  let xref = `xref\n0 ${totalObjs + 1}\n0000000000 65535 f \n`;
+  for (let id = 1; id <= totalObjs; id++) xref += String(offsets[id]).padStart(10, '0') + ' 00000 n \n';
+  put(xref);
+  put(`trailer\n<< /Size ${totalObjs + 1} /Root ${catalogId} 0 R >>\nstartxref\n${xrefStart}\n%%EOF\n`);
+
+  return new Blob(partes as BlobPart[], { type: 'application/pdf' });
+}
+
+export async function baixarPdf(slides: RenderResult[], onProgress?: (i: number, total: number) => void): Promise<void> {
+  const jpegs: Uint8Array[] = [];
+  for (let i = 0; i < slides.length; i++) {
+    onProgress?.(i + 1, slides.length);
+    const url = await renderParaImagem(slides[i].html, 'jpeg');
+    jpegs.push(base64ParaBytes(url.split(',')[1]));
+  }
+  download('deck_cattalini.pdf', montarPdfDeJpegs(jpegs));
+}
 
 export async function baixarImagem(slide: RenderResult, tipo: FormatoImg = 'png'): Promise<void> {
   const url = await renderParaImagem(slide.html, tipo);

@@ -12,7 +12,6 @@
   "dependencies": {
     "@azure/msal-browser": "^5.16.0",
     "@azure/msal-react": "^5.5.1",
-    "html-to-image": "^1.11.13",
     "jszip": "^3.10.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

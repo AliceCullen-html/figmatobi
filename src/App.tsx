@@ -211,7 +211,7 @@ export default function App() {
                 'projeto.json': JSON.stringify(projeto, null, 1),
               })}>⬇ .zip HTML (Figma)</button>
               <button className="btn sec" onClick={() => setAjudaFigma(true)}>▶ Levar pro Figma</button>
-              <button className="btn sec" title="Abre a janela de impressão — escolha 'Salvar como PDF'" onClick={() => baixarPdf(deckExibicao)}>🖨 PDF</button>
+              <button className="btn sec" disabled={!!progresso} title="Baixa o deck em PDF (paisagem, uma página por slide)" onClick={async () => { await baixarPdf(deckExibicao, (i, t) => setProgresso(`PDF ${i}/${t}…`)); setProgresso(''); }}>⬇ PDF</button>
               <ExportImgBulk disabled={!!progresso} onExport={async (tipo) => { await baixarImagensZip(deckExibicao, tipo, (i, t) => setProgresso(`${tipo.toUpperCase()} ${i}/${t}…`)); setProgresso(''); }} />
               <button className="btn sec" onClick={() => download('manifesto.json', JSON.stringify(manifesto, null, 1), 'application/json')}>⬇ manifesto.json</button>
               {progresso && <span className="progresso">{progresso}</span>}
