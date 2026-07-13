@@ -6,7 +6,8 @@
  */
 import { useState, useRef, useEffect } from 'react';
 import type { RenderResult } from '../engine/engine';
-import { baixarZip, baixarPdf, baixarPngsZip, baixarHtml, baixarPng } from './exportar';
+import { baixarZip, baixarPdf, baixarHtml, baixarImagem, baixarImagensZip, copiarHtml, type FormatoImg } from './exportar';
+import { AjudaFigma } from './figma';
 
 export interface HtmlSlide { file: string; html: string; }
 const LS = 'reportbi.htmlstudio.v1';
@@ -30,6 +31,8 @@ export function HtmlStudio({ iniciais, onVoltar }: { iniciais: HtmlSlide[]; onVo
   const [visual, setVisual] = useState<number | null>(null);
   const [codigo, setCodigo] = useState<number | null>(null);
   const [prog, setProg] = useState('');
+  const [ajudaFigma, setAjudaFigma] = useState(false);
+  const [copiado, setCopiado] = useState<number | null>(null);
 
   const asResults = (): RenderResult[] => slides.map((s, i) => ({ nn: String(i + 1).padStart(2, '0'), file: s.file, html: s.html }));
   const atualizar = (i: number, html: string) => setSlides((prev) => prev.map((s, j) => (j === i ? { ...s, html } : s)));
@@ -57,9 +60,10 @@ export function HtmlStudio({ iniciais, onVoltar }: { iniciais: HtmlSlide[]; onVo
           <input type="file" multiple accept=".html,.htm" hidden onChange={(e) => { const fs = Array.from(e.target.files ?? []); e.target.value = ''; if (fs.length) adicionar(fs); }} />
         </label>
         {slides.length > 0 && <>
-          <button className="btn" onClick={() => baixarZip(asResults())}>⬇ Baixar .zip (HTML p/ Figma)</button>
+          <button className="btn" onClick={() => baixarZip(asResults())}>⬇ .zip HTML (Figma)</button>
+          <button className="btn sec" onClick={() => setAjudaFigma(true)}>▶ Levar pro Figma</button>
           <button className="btn sec" title="Abre a janela de impressão — escolha 'Salvar como PDF'" onClick={() => baixarPdf(asResults())}>🖨 PDF</button>
-          <button className="btn sec" disabled={!!prog} onClick={async () => { await baixarPngsZip(asResults(), (i, t) => setProg(`PNG ${i}/${t}…`)); setProg(''); }}>⬇ PNGs</button>
+          <ExportImgBulk onExport={async (tipo) => { await baixarImagensZip(asResults(), tipo, (i, t) => setProg(`${tipo.toUpperCase()} ${i}/${t}…`)); setProg(''); }} disabled={!!prog} />
           {prog && <span className="progresso">{prog}</span>}
         </>}
       </div>
@@ -84,11 +88,13 @@ export function HtmlStudio({ iniciais, onVoltar }: { iniciais: HtmlSlide[]; onVo
                 <iframe title={s.file} srcDoc={s.html} scrolling="no" loading="lazy" />
               </div>
               <div className="card-acoes">
-                <button className="mini" onClick={() => setAberto(i)}>Abrir 1440×829</button>
                 <button className="mini mini-edit" onClick={() => setVisual(i)}>🖱 Editar visual</button>
                 <button className="mini" onClick={() => setCodigo(i)}>&lt;/&gt; Código</button>
+                <button className="mini" onClick={() => setAberto(i)}>Abrir</button>
                 <button className="mini" onClick={() => baixarHtml({ nn: String(i + 1), file: s.file, html: s.html })}>⬇ HTML</button>
-                <button className="mini" onClick={() => baixarPng({ nn: String(i + 1), file: s.file, html: s.html })}>⬇ PNG</button>
+                <button className="mini" onClick={() => baixarImagem({ nn: String(i + 1), file: s.file, html: s.html }, 'png')}>PNG</button>
+                <button className="mini" onClick={() => baixarImagem({ nn: String(i + 1), file: s.file, html: s.html }, 'jpeg')}>JPG</button>
+                <button className="mini" title="Copiar HTML para colar no html.to.design (Figma)" onClick={async () => { if (await copiarHtml({ nn: String(i + 1), file: s.file, html: s.html })) { setCopiado(i); setTimeout(() => setCopiado(null), 1500); } }}>{copiado === i ? '✓ copiado' : '📋 Figma'}</button>
               </div>
             </div>
           ))}
@@ -125,7 +131,25 @@ export function HtmlStudio({ iniciais, onVoltar }: { iniciais: HtmlSlide[]; onVo
           onFechar={() => setCodigo(null)}
         />
       )}
+
+      {ajudaFigma && <AjudaFigma onFechar={() => setAjudaFigma(false)} />}
     </div>
+  );
+}
+
+/** Botão com menu PNG/JPEG para export em lote. */
+export function ExportImgBulk({ onExport, disabled }: { onExport: (tipo: FormatoImg) => void; disabled?: boolean }) {
+  const [aberto, setAberto] = useState(false);
+  return (
+    <span className="img-menu">
+      <button className="btn sec" disabled={disabled} onClick={() => setAberto((v) => !v)}>⬇ Imagens ▾</button>
+      {aberto && (
+        <span className="img-menu-pop" onMouseLeave={() => setAberto(false)}>
+          <button className="mini" onClick={() => { setAberto(false); onExport('png'); }}>PNG (.zip)</button>
+          <button className="mini" onClick={() => { setAberto(false); onExport('jpeg'); }}>JPEG (.zip)</button>
+        </span>
+      )}
+    </span>
   );
 }
 

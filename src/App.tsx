@@ -10,11 +10,12 @@ import { DATASET_FIELDS, DATASET_LABELS, type DatasetKey, type MappingConfig, ty
 import { renderDeck, ORDER, SLIDE_LABELS, type RenderResult } from './engine/engine';
 import { toSvgMode } from './charts/svg';
 import { loadProjeto, saveProjeto, aplicarOverrides, statusSlide, download, SLIDE_KEY, type ProjetoState } from './ui/state';
-import { baixarZip, baixarPdf, baixarPngsZip, baixarHtml, baixarPng } from './ui/exportar';
+import { baixarZip, baixarPdf, baixarHtml, baixarImagem, baixarImagensZip, copiarHtml } from './ui/exportar';
 import { UserChip } from './auth/Gate';
 import { authEnabled } from './auth/msal';
 import { FriendlyEditor } from './ui/FriendlyEditor';
-import { HtmlStudio, type HtmlSlide } from './ui/HtmlStudio';
+import { HtmlStudio, ExportImgBulk, type HtmlSlide } from './ui/HtmlStudio';
+import { AjudaFigma } from './ui/figma';
 
 type Tela = 'upload' | 'mapeamento' | 'deck' | 'html';
 
@@ -32,6 +33,8 @@ export default function App() {
   const [carregando, setCarregando] = useState(false);
   const [mesSel, setMesSel] = useState<string>(''); // 'ano-mes' ou '' = mais recente
   const [htmlUploads, setHtmlUploads] = useState<HtmlSlide[]>([]); // .html enviados p/ o estúdio
+  const [ajudaFigma, setAjudaFigma] = useState(false);
+  const [copiado, setCopiado] = useState<string | null>(null);
 
   const salvar = useCallback((p: ProjetoState) => { setProjeto(p); saveProjeto(p); }, []);
 
@@ -205,12 +208,10 @@ export default function App() {
                 'manifesto.json': JSON.stringify(manifesto, null, 1),
                 'mapping.config.json': JSON.stringify(projeto.mapping, null, 2),
                 'projeto.json': JSON.stringify(projeto, null, 1),
-              })}>⬇ Baixar deck .zip (HTML p/ Figma)</button>
+              })}>⬇ .zip HTML (Figma)</button>
+              <button className="btn sec" onClick={() => setAjudaFigma(true)}>▶ Levar pro Figma</button>
               <button className="btn sec" title="Abre a janela de impressão — escolha 'Salvar como PDF'" onClick={() => baixarPdf(deckExibicao)}>🖨 PDF</button>
-              <button className="btn sec" disabled={!!progresso} onClick={async () => {
-                await baixarPngsZip(deckExibicao, (i, t) => setProgresso(`PNG ${i}/${t}…`));
-                setProgresso('');
-              }}>⬇ PNGs</button>
+              <ExportImgBulk disabled={!!progresso} onExport={async (tipo) => { await baixarImagensZip(deckExibicao, tipo, (i, t) => setProgresso(`${tipo.toUpperCase()} ${i}/${t}…`)); setProgresso(''); }} />
               <button className="btn sec" onClick={() => download('manifesto.json', JSON.stringify(manifesto, null, 1), 'application/json')}>⬇ manifesto.json</button>
               {progresso && <span className="progresso">{progresso}</span>}
               {!completo && <span className="aviso-incompleto">⚠️ Deck com pendências — resolva ou marque "sem alteração" antes de publicar</span>}
@@ -233,7 +234,9 @@ export default function App() {
                       <button className="mini" onClick={() => setSlideAberto(s.nn)}>Abrir 1440×829</button>
                       <button className="mini mini-edit" onClick={() => { setEditTabInicial('form'); setEditorSlide(s.nn); }}>✏️ Editar</button>
                       <button className="mini" onClick={() => baixarHtml(s)}>⬇ HTML</button>
-                      <button className="mini" onClick={() => baixarPng(s)}>⬇ PNG</button>
+                      <button className="mini" onClick={() => baixarImagem(s, 'png')}>PNG</button>
+                      <button className="mini" onClick={() => baixarImagem(s, 'jpeg')}>JPG</button>
+                      <button className="mini" title="Copiar HTML para colar no html.to.design (Figma)" onClick={async () => { if (await copiarHtml(s)) { setCopiado(s.nn); setTimeout(() => setCopiado(null), 1500); } }}>{copiado === s.nn ? '✓ copiado' : '📋 Figma'}</button>
                     </div>
                   </div>
                 );
@@ -286,6 +289,8 @@ export default function App() {
           onResolver={(id) => salvar({ ...projeto, pendResolvidas: [...new Set([...projeto.pendResolvidas, id])] })}
         />
       )}
+
+      {ajudaFigma && <AjudaFigma onFechar={() => setAjudaFigma(false)} />}
     </div>
   );
 }
@@ -316,11 +321,32 @@ function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGera
       onDragLeave={() => setDrag(false)}
       onDrop={(e) => { e.preventDefault(); setDrag(false); onFiles(Array.from(e.dataTransfer.files)); }}
     >
+      <div className="dois-caminhos" onClick={(e) => e.stopPropagation()}>
+        <label className="caminho">
+          <div className="caminho-ic">📊</div>
+          <strong>Gerar do Excel</strong>
+          <span>Suba o Excel do BI e o app monta o deck de 18 slides.</span>
+          <input type="file" multiple accept=".xlsx,.xls,.json" hidden onChange={(e) => {
+            const fs = Array.from(e.target.files ?? []);
+            e.target.value = '';
+            if (fs.length) onFiles(fs);
+          }} />
+          <span className="caminho-cta">📁 Escolher Excel/JSON</span>
+        </label>
+        <button className="caminho caminho-html" onClick={(e) => { e.stopPropagation(); onEditarHtml(); }}>
+          <div className="caminho-ic">🧩</div>
+          <strong>Editar HTML direto</strong>
+          <span>Já tem os HTML (ex.: gerados por IA)? Edite aqui — visual ou código — e converta para Figma, PNG ou JPEG.</span>
+          <span className="caminho-cta">🖱 Abrir editor de HTML</span>
+        </button>
+      </div>
+
+      <div className="drop-ou">ou arraste os arquivos aqui</div>
       <div className="drop-icone">📊</div>
-      <h2>{carregando ? 'Lendo Excel…' : 'Arraste os Excel do mês aqui'}</h2>
-      <p>Suba os <strong>dois</strong> arquivos: <strong>Realizado</strong> e <strong>Orçamento</strong> (.xlsx) — um de cada vez ou juntos.<br />
-        Também aceita os <strong>JSON do Power BI</strong> (<code>resumo-bi*.json</code>), <code>mapping.config.json</code> e <code>projeto.json</code>.<br />
-        Ou suba <strong>HTML prontos</strong> (<code>.html</code>) para editar direto aqui.</p>
+      <h2>{carregando ? 'Lendo Excel…' : 'Arraste os arquivos do mês aqui'}</h2>
+      <p>Excel: <strong>Realizado</strong> e <strong>Orçamento</strong> (.xlsx) — juntos ou um de cada vez.
+        Também aceita <strong>JSON do Power BI</strong> (<code>resumo-bi*.json</code>), <code>mapping.config.json</code> e <code>projeto.json</code>.<br />
+        Ou solte <strong>HTML prontos</strong> (<code>.html</code>) para editar direto aqui.</p>
       {temMapping && <p className="ok-mapping">✅ Já existe um mapeamento salvo — se o layout for igual, o preview abre direto.</p>}
 
       {htmlUploads.length > 0 && (

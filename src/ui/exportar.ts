@@ -56,10 +56,14 @@ export function baixarPdf(slides: RenderResult[]): void {
   win.document.close();
 }
 
-/** rasteriza um slide para PNG (conveniência). skipFonts evita travar embutindo
- * fontes externas; o texto sai em fonte de sistema (o entregável fiel é o HTML). */
-async function renderParaImagem(html: string): Promise<string> {
-  const { toPng } = await import('html-to-image');
+export type FormatoImg = 'png' | 'jpeg';
+
+/** rasteriza um slide para PNG/JPEG (conveniência). skipFonts evita travar
+ * embutindo fontes externas; o texto sai em fonte de sistema (o entregável
+ * fiel é o HTML). */
+async function renderParaImagem(html: string, tipo: FormatoImg = 'png'): Promise<string> {
+  const mod = await import('html-to-image');
+  const render = tipo === 'jpeg' ? mod.toJpeg : mod.toPng;
   const host = document.createElement('div');
   host.style.cssText = 'position:fixed;left:-20000px;top:0;width:1440px;height:829px;overflow:hidden;background:#fff;';
   const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -70,28 +74,44 @@ async function renderParaImagem(html: string): Promise<string> {
   host.innerHTML = styles + slide;
   document.body.appendChild(host);
   try {
-    return await toPng(host, { width: 1440, height: 829, pixelRatio: 1, backgroundColor: '#ffffff', skipFonts: true });
+    return await render(host, { width: 1440, height: 829, pixelRatio: 1, backgroundColor: '#ffffff', skipFonts: true, quality: 0.95 });
   } finally {
     host.remove();
   }
 }
 
-export async function baixarPng(slide: RenderResult): Promise<void> {
-  const png = await renderParaImagem(slide.html);
+const ext = (tipo: FormatoImg) => (tipo === 'jpeg' ? '.jpg' : '.png');
+
+export async function baixarImagem(slide: RenderResult, tipo: FormatoImg = 'png'): Promise<void> {
+  const url = await renderParaImagem(slide.html, tipo);
   const a = document.createElement('a');
-  a.href = png;
-  a.download = slide.file.replace('.html', '.png');
+  a.href = url;
+  a.download = slide.file.replace(/\.html?$/i, ext(tipo));
   a.click();
 }
 
-export async function baixarPngsZip(slides: RenderResult[], onProgress?: (i: number, total: number) => void): Promise<void> {
+export async function baixarImagensZip(slides: RenderResult[], tipo: FormatoImg = 'png', onProgress?: (i: number, total: number) => void): Promise<void> {
   const { default: JSZip } = await import('jszip');
   const zip = new JSZip();
   for (let i = 0; i < slides.length; i++) {
     onProgress?.(i + 1, slides.length);
-    const png = await renderParaImagem(slides[i].html);
-    zip.file(slides[i].file.replace('.html', '.png'), png.split(',')[1], { base64: true });
+    const url = await renderParaImagem(slides[i].html, tipo);
+    zip.file(slides[i].file.replace(/\.html?$/i, ext(tipo)), url.split(',')[1], { base64: true });
   }
   const blob = await zip.generateAsync({ type: 'blob' });
-  download('deck_cattalini_png.zip', blob);
+  download(`deck_cattalini_${tipo}.zip`, blob);
+}
+
+// compat: nomes antigos
+export const baixarPng = (slide: RenderResult) => baixarImagem(slide, 'png');
+export const baixarPngsZip = (slides: RenderResult[], onProgress?: (i: number, total: number) => void) => baixarImagensZip(slides, 'png', onProgress);
+
+/** Copia o HTML do slide para a área de transferência (colar no html.to.design do Figma). */
+export async function copiarHtml(slide: RenderResult): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(slide.html);
+    return true;
+  } catch {
+    return false;
+  }
 }

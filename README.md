@@ -54,21 +54,31 @@ npx vitest run
    inventados (Regra de Ouro 8); preencha no editor (há um atalho para colar do print
    do BI no slide 15) ou marque "sem alteração este mês". Toda edição re-renderiza só
    o slide afetado e vai junto nos exports.
-5. **Export** — "Baixar deck .zip" (HTML para `html.to.design`), **PDF** (abre a janela
-   de impressão do navegador → escolha *Salvar como PDF*, paisagem, sem margens — sai
-   vetorial e com as fontes reais), **PNGs** e `manifesto.json`. O `.zip` inclui manifesto,
+5. **Export** — **⬇ .zip HTML (Figma)** (HTML para `html.to.design`), **▶ Levar pro Figma**
+   (guia rápido do plugin), **🖨 PDF** (abre a janela de impressão do navegador → escolha
+   *Salvar como PDF*, paisagem, sem margens — sai vetorial e com as fontes reais),
+   **⬇ Imagens** (PNG/JPEG em `.zip`) e `manifesto.json`. Cada card ainda exporta
+   **HTML / PNG / JPG** e **📋 Figma** (copia o HTML do slide). O `.zip` inclui manifesto,
    mapping e estado do projeto para reaproveitar no mês seguinte.
 
-### Estúdio de HTML (editar HTML prontos)
+### Estúdio de HTML (editar HTML prontos) — caminho co-igual ao Excel
 
-Além do fluxo Excel → deck, dá para **subir arquivos `.html` prontos** (ex.: gerados por
-IA) e editá-los direto no app, sem Excel: na tela de upload, arraste os `.html` (ou clique
-em **🧩 Editor de HTML**). Cada arquivo vira um slide editável, com:
+A tela inicial abre com **dois caminhos lado a lado**: **📊 Gerar do Excel** e
+**🧩 Editar HTML direto**. Não precisa passar pelo Excel — se você já tem os `.html`
+(ex.: gerados por IA), clique em **Editar HTML direto** (ou arraste os `.html` na tela)
+e edite tudo dentro do app. Cada arquivo vira um slide editável, com:
 
 - **🖱 Editar visual** — o slide fica editável na tela (designMode): clique em qualquer
   texto e digite, como no Word (Ctrl+Z desfaz). Ideal para quem não conhece HTML.
 - **&lt;/&gt; Código** — edição do HTML com preview ao vivo.
-- Export **ZIP / PDF / PNG** igual ao deck. As edições ficam salvas no navegador.
+- **Converter** — cada card exporta **⬇ HTML**, **PNG**, **JPG** e **📋 Figma** (copia o
+  HTML para colar no plugin `html.to.design`). Na barra de topo: **⬇ .zip HTML (Figma)**,
+  **▶ Levar pro Figma** (guia rápido), **🖨 PDF** e **⬇ Imagens** (PNG/JPEG em `.zip`).
+  As edições ficam salvas no navegador.
+
+> **Levar pro Figma:** os slides são HTML/SVG, então entram no Figma como **vetor editável**
+> (não imagem) pelo plugin gratuito **html.to.design** — cole o HTML (📋 Figma) ou importe os
+> arquivos do `.zip`. PNG/JPEG são a saída achatada (imagem), para quando não precisa editar.
 
 ### Toggle SVG ↔ Chart.js
 
