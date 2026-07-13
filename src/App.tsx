@@ -14,8 +14,9 @@ import { baixarZip, baixarPdf, baixarPngsZip, baixarHtml, baixarPng } from './ui
 import { UserChip } from './auth/Gate';
 import { authEnabled } from './auth/msal';
 import { FriendlyEditor } from './ui/FriendlyEditor';
+import { HtmlStudio, type HtmlSlide } from './ui/HtmlStudio';
 
-type Tela = 'upload' | 'mapeamento' | 'deck';
+type Tela = 'upload' | 'mapeamento' | 'deck' | 'html';
 
 export default function App() {
   const [tela, setTela] = useState<Tela>('upload');
@@ -30,6 +31,7 @@ export default function App() {
   const [progresso, setProgresso] = useState<string>('');
   const [carregando, setCarregando] = useState(false);
   const [mesSel, setMesSel] = useState<string>(''); // 'ano-mes' ou '' = mais recente
+  const [htmlUploads, setHtmlUploads] = useState<HtmlSlide[]>([]); // .html enviados p/ o estúdio
 
   const salvar = useCallback((p: ProjetoState) => { setProjeto(p); saveProjeto(p); }, []);
 
@@ -54,6 +56,12 @@ export default function App() {
       const novas: SheetData[] = [];
       let proj = projeto;
       for (const f of files) {
+        if (/\.html?$/i.test(f.name)) {
+          // HTML pronto → vai para o Estúdio de HTML
+          const html = await f.text();
+          setHtmlUploads((prev) => [...prev.filter((s) => s.file !== f.name), { file: f.name, html }]);
+          continue;
+        }
         if (f.name.endsWith('.json')) {
           const txt = await f.text();
           const j = JSON.parse(txt.replace(/^﻿/, ''));
@@ -159,7 +167,16 @@ export default function App() {
           sheets={sheets}
           onRemover={removerArquivo}
           onGerar={gerarDeck}
+          htmlUploads={htmlUploads}
+          onRemoverHtml={(file) => setHtmlUploads((prev) => prev.filter((s) => s.file !== file))}
+          onEditarHtml={() => setTela('html')}
         />
+      )}
+
+      {tela === 'html' && (
+        <div className="deck-grid-wrap html-wrap">
+          <HtmlStudio iniciais={htmlUploads} onVoltar={() => setTela('upload')} />
+        </div>
       )}
 
       {tela === 'mapeamento' && projeto.mapping && (
@@ -274,13 +291,16 @@ export default function App() {
 }
 
 // ---------------- Upload ----------------
-function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGerar }: {
+function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGerar, htmlUploads, onRemoverHtml, onEditarHtml }: {
   onFiles: (f: File[]) => void;
   carregando: boolean;
   temMapping: boolean;
   sheets: SheetData[];
   onRemover: (file: string) => void;
   onGerar: () => void;
+  htmlUploads: HtmlSlide[];
+  onRemoverHtml: (file: string) => void;
+  onEditarHtml: () => void;
 }) {
   const [drag, setDrag] = useState(false);
   const arquivos = [...new Set(sheets.map((s) => s.file))];
@@ -299,8 +319,22 @@ function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGera
       <div className="drop-icone">📊</div>
       <h2>{carregando ? 'Lendo Excel…' : 'Arraste os Excel do mês aqui'}</h2>
       <p>Suba os <strong>dois</strong> arquivos: <strong>Realizado</strong> e <strong>Orçamento</strong> (.xlsx) — um de cada vez ou juntos.<br />
-        Também aceita os <strong>JSON do Power BI</strong> (<code>resumo-bi*.json</code>), <code>mapping.config.json</code> e <code>projeto.json</code>.</p>
+        Também aceita os <strong>JSON do Power BI</strong> (<code>resumo-bi*.json</code>), <code>mapping.config.json</code> e <code>projeto.json</code>.<br />
+        Ou suba <strong>HTML prontos</strong> (<code>.html</code>) para editar direto aqui.</p>
       {temMapping && <p className="ok-mapping">✅ Já existe um mapeamento salvo — se o layout for igual, o preview abre direto.</p>}
+
+      {htmlUploads.length > 0 && (
+        <div className="lista-arquivos">
+          {htmlUploads.map((s) => (
+            <div key={s.file} className="arq-chip">
+              <span className="arq-tipo">🧩 HTML</span>
+              <span className="arq-nome">{s.file}</span>
+              <button className="arq-x" title="Remover" onClick={(e) => { e.stopPropagation(); onRemoverHtml(s.file); }}>✕</button>
+            </div>
+          ))}
+          <button className="btn" onClick={(e) => { e.stopPropagation(); onEditarHtml(); }}>✏️ Editar {htmlUploads.length} HTML{htmlUploads.length > 1 ? 's' : ''} →</button>
+        </div>
+      )}
 
       {arquivos.length > 0 && (
         <div className="lista-arquivos">
@@ -320,8 +354,8 @@ function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGera
       <div className="upload-acoes">
         {/* sem arquivos → botão de escolher em destaque (amarelo); com arquivos → secundário */}
         <label className={arquivos.length ? 'btn sec' : 'btn'}>
-          {arquivos.length ? '+ Adicionar arquivo' : '📁 Escolher os Excel do mês'}
-          <input type="file" multiple accept=".xlsx,.xls,.json" hidden onChange={(e) => {
+          {arquivos.length ? '+ Adicionar arquivo' : '📁 Escolher arquivos (Excel ou HTML)'}
+          <input type="file" multiple accept=".xlsx,.xls,.json,.html,.htm" hidden onChange={(e) => {
             // snapshot: o FileList é "vivo" e esvazia quando o input é limpo
             const fs = Array.from(e.target.files ?? []);
             e.target.value = '';
@@ -333,6 +367,7 @@ function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGera
             Gerar deck ({arquivos.length} arquivo{arquivos.length > 1 ? 's' : ''}) →
           </button>
         )}
+        <button className="btn sec" title="Editar arquivos HTML prontos, sem Excel" onClick={(e) => { e.stopPropagation(); onEditarHtml(); }}>🧩 Editor de HTML</button>
       </div>
     </div>
   );

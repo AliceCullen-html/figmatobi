@@ -59,6 +59,17 @@ npx vitest run
    vetorial e com as fontes reais), **PNGs** e `manifesto.json`. O `.zip` inclui manifesto,
    mapping e estado do projeto para reaproveitar no mês seguinte.
 
+### Estúdio de HTML (editar HTML prontos)
+
+Além do fluxo Excel → deck, dá para **subir arquivos `.html` prontos** (ex.: gerados por
+IA) e editá-los direto no app, sem Excel: na tela de upload, arraste os `.html` (ou clique
+em **🧩 Editor de HTML**). Cada arquivo vira um slide editável, com:
+
+- **🖱 Editar visual** — o slide fica editável na tela (designMode): clique em qualquer
+  texto e digite, como no Word (Ctrl+Z desfaz). Ideal para quem não conhece HTML.
+- **&lt;/&gt; Código** — edição do HTML com preview ao vivo.
+- Export **ZIP / PDF / PNG** igual ao deck. As edições ficam salvas no navegador.
+
 ### Toggle SVG ↔ Chart.js
 
 - **SVG (default)** — gráficos como vetor nativo (`<path>`/`<rect>`), editáveis no Figma
