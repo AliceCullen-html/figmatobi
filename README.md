@@ -58,7 +58,8 @@ npx vitest run
    (guia rápido do plugin), **🖨 PDF** (abre a janela de impressão do navegador → escolha
    *Salvar como PDF*, paisagem, sem margens — sai vetorial e com as fontes reais),
    **⬇ Imagens** (PNG/JPEG em `.zip`) e `manifesto.json`. Cada card ainda exporta
-   **HTML / PNG / JPG** e **📋 Figma** (copia o HTML do slide). O `.zip` inclui manifesto,
+   **HTML / PNG / JPG**, **📋 Colar no Figma** (imagem, cola com Ctrl/Cmd+V) e
+   **📋 Figma (HTML)** (para o plugin grátis). O `.zip` inclui manifesto,
    mapping e estado do projeto para reaproveitar no mês seguinte.
 
 ### Estúdio de HTML (editar HTML prontos) — caminho co-igual ao Excel
@@ -71,14 +72,18 @@ e edite tudo dentro do app. Cada arquivo vira um slide editável, com:
 - **🖱 Editar visual** — o slide fica editável na tela (designMode): clique em qualquer
   texto e digite, como no Word (Ctrl+Z desfaz). Ideal para quem não conhece HTML.
 - **&lt;/&gt; Código** — edição do HTML com preview ao vivo.
-- **Converter** — cada card exporta **⬇ HTML**, **PNG**, **JPG** e **📋 Figma** (copia o
-  HTML para colar no plugin `html.to.design`). Na barra de topo: **⬇ .zip HTML (Figma)**,
-  **▶ Levar pro Figma** (guia rápido), **🖨 PDF** e **⬇ Imagens** (PNG/JPEG em `.zip`).
+- **Converter** — cada card exporta **⬇ HTML**, **PNG**, **JPG**, **📋 Colar no Figma**
+  (copia o slide como imagem — cole com Ctrl/Cmd+V) e **📋 Figma (HTML)** (copia o HTML
+  para um plugin HTML→Figma). Na barra de topo: **⬇ .zip HTML (Figma)**, **▶ Levar pro Figma**
+  (guia dos caminhos grátis), **🖨 PDF** e **⬇ Imagens** (PNG/JPEG em `.zip`).
   As edições ficam salvas no navegador.
 
-> **Levar pro Figma:** os slides são HTML/SVG, então entram no Figma como **vetor editável**
-> (não imagem) pelo plugin gratuito **html.to.design** — cole o HTML (📋 Figma) ou importe os
-> arquivos do `.zip`. PNG/JPEG são a saída achatada (imagem), para quando não precisa editar.
+> **Levar pro Figma (grátis):** o `html.to.design` virou pago, então há caminhos sem custo:
+> 1. **📋 Colar no Figma** — copia o slide como **imagem** e cola direto no canvas (Ctrl/Cmd+V),
+>    sem plugin. Rápido, mas fica achatado.
+> 2. **PNG/JPG** — arraste o arquivo pro Figma (também imagem).
+> 3. **Plugin grátis “HTML to Figma” (Builder.io)** — alternativa open-source ao html.to.design;
+>    cole o HTML (📋 Figma (HTML)) ou importe o `.zip` e os slides entram como **vetor/texto editável**.
 
 ### Toggle SVG ↔ Chart.js
 

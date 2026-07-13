@@ -58,25 +58,39 @@ export function baixarPdf(slides: RenderResult[]): void {
 
 export type FormatoImg = 'png' | 'jpeg';
 
-/** rasteriza um slide para PNG/JPEG (conveniência). skipFonts evita travar
- * embutindo fontes externas; o texto sai em fonte de sistema (o entregável
- * fiel é o HTML). */
+/**
+ * Rasteriza um slide para PNG/JPEG renderizando o HTML **completo** num iframe
+ * isolado (mesma origem via srcdoc) — do jeitinho que ele aparece na tela, com
+ * scripts (gráficos) rodando e o CSS do próprio slide, sem interferência do CSS
+ * do app. Depois captura com html-to-image sobre o documento do iframe.
+ * (O método antigo injetava HTML parcial numa <div> e saía branco.)
+ * skipFonts evita travar embutindo fontes externas; o texto sai em fonte de
+ * sistema — o entregável fiel/editável é o HTML/SVG.
+ */
 async function renderParaImagem(html: string, tipo: FormatoImg = 'png'): Promise<string> {
   const mod = await import('html-to-image');
   const render = tipo === 'jpeg' ? mod.toJpeg : mod.toPng;
-  const host = document.createElement('div');
-  host.style.cssText = 'position:fixed;left:-20000px;top:0;width:1440px;height:829px;overflow:hidden;background:#fff;';
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  doc.querySelectorAll('script').forEach((s) => s.remove());
-  // remove @import de fontes externas — html-to-image trava tentando embuti-las
-  const styles = [...doc.querySelectorAll('style')].map((s) => s.outerHTML).join('').replace(/@import[^;]+;/g, '');
-  const slide = doc.querySelector('.slide')?.outerHTML ?? doc.body.innerHTML;
-  host.innerHTML = styles + slide;
-  document.body.appendChild(host);
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+  iframe.style.cssText = 'position:fixed;left:-20000px;top:0;width:1440px;height:829px;border:0;background:#fff;';
+  document.body.appendChild(iframe);
   try {
-    return await render(host, { width: 1440, height: 829, pixelRatio: 1, backgroundColor: '#ffffff', skipFonts: true, quality: 0.95 });
+    await new Promise<void>((res) => {
+      iframe.addEventListener('load', () => res(), { once: true });
+      iframe.srcdoc = html;
+    });
+    const doc = iframe.contentDocument!;
+    // espera fontes/paint estabilizarem antes de capturar
+    try { await (doc as any).fonts?.ready; } catch { /* ignore */ }
+    await new Promise((r) => setTimeout(r, 400));
+    const alvo = (doc.querySelector('.slide') as HTMLElement) ?? doc.body;
+    const bg = getComputedStyle(alvo).backgroundColor;
+    const opaco = bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent' ? bg : '#ffffff';
+    // 1ª captura às vezes sai incompleta (fontes/imagens) — repete p/ garantir
+    await render(alvo, { width: 1440, height: 829, pixelRatio: 1, backgroundColor: opaco, skipFonts: true, quality: 0.95 });
+    return await render(alvo, { width: 1440, height: 829, pixelRatio: 1, backgroundColor: opaco, skipFonts: true, quality: 0.95 });
   } finally {
-    host.remove();
+    iframe.remove();
   }
 }
 
@@ -106,10 +120,26 @@ export async function baixarImagensZip(slides: RenderResult[], tipo: FormatoImg 
 export const baixarPng = (slide: RenderResult) => baixarImagem(slide, 'png');
 export const baixarPngsZip = (slides: RenderResult[], onProgress?: (i: number, total: number) => void) => baixarImagensZip(slides, 'png', onProgress);
 
-/** Copia o HTML do slide para a área de transferência (colar no html.to.design do Figma). */
+/** Copia o HTML do slide para a área de transferência (colar num plugin HTML→Figma). */
 export async function copiarHtml(slide: RenderResult): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(slide.html);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Copia o slide como IMAGEM (PNG) para a área de transferência — cole direto no
+ * Figma com Ctrl/Cmd+V (sem plugin, sem custo). Caminho mais rápido de "jogar
+ * direto pra lá". Precisa ser chamado a partir de um clique (gesto do usuário).
+ */
+export async function copiarImagem(slide: RenderResult): Promise<boolean> {
+  try {
+    const url = await renderParaImagem(slide.html, 'png');
+    const blob = await (await fetch(url)).blob();
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
     return true;
   } catch {
     return false;

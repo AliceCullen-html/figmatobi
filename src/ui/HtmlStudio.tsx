@@ -6,7 +6,7 @@
  */
 import { useState, useRef, useEffect } from 'react';
 import type { RenderResult } from '../engine/engine';
-import { baixarZip, baixarPdf, baixarHtml, baixarImagem, baixarImagensZip, copiarHtml, type FormatoImg } from './exportar';
+import { baixarZip, baixarPdf, baixarHtml, baixarImagem, baixarImagensZip, copiarHtml, copiarImagem, type FormatoImg } from './exportar';
 import { AjudaFigma } from './figma';
 
 export interface HtmlSlide { file: string; html: string; }
@@ -32,7 +32,8 @@ export function HtmlStudio({ iniciais, onVoltar }: { iniciais: HtmlSlide[]; onVo
   const [codigo, setCodigo] = useState<number | null>(null);
   const [prog, setProg] = useState('');
   const [ajudaFigma, setAjudaFigma] = useState(false);
-  const [copiado, setCopiado] = useState<number | null>(null);
+  const [copiado, setCopiado] = useState<string | null>(null); // `${i}:html` | `${i}:img`
+  const marcarCopiado = (chave: string) => { setCopiado(chave); setTimeout(() => setCopiado((c) => (c === chave ? null : c)), 1600); };
 
   const asResults = (): RenderResult[] => slides.map((s, i) => ({ nn: String(i + 1).padStart(2, '0'), file: s.file, html: s.html }));
   const atualizar = (i: number, html: string) => setSlides((prev) => prev.map((s, j) => (j === i ? { ...s, html } : s)));
@@ -94,7 +95,8 @@ export function HtmlStudio({ iniciais, onVoltar }: { iniciais: HtmlSlide[]; onVo
                 <button className="mini" onClick={() => baixarHtml({ nn: String(i + 1), file: s.file, html: s.html })}>⬇ HTML</button>
                 <button className="mini" onClick={() => baixarImagem({ nn: String(i + 1), file: s.file, html: s.html }, 'png')}>PNG</button>
                 <button className="mini" onClick={() => baixarImagem({ nn: String(i + 1), file: s.file, html: s.html }, 'jpeg')}>JPG</button>
-                <button className="mini" title="Copiar HTML para colar no html.to.design (Figma)" onClick={async () => { if (await copiarHtml({ nn: String(i + 1), file: s.file, html: s.html })) { setCopiado(i); setTimeout(() => setCopiado(null), 1500); } }}>{copiado === i ? '✓ copiado' : '📋 Figma'}</button>
+                <button className="mini mini-figma" title="Copiar como imagem — cole no Figma com Ctrl/Cmd+V (grátis, sem plugin)" onClick={async () => { if (await copiarImagem({ nn: String(i + 1), file: s.file, html: s.html })) marcarCopiado(`${i}:img`); }}>{copiado === `${i}:img` ? '✓ colar no Figma' : '📋 Colar no Figma'}</button>
+                <button className="mini" title="Copiar o HTML — para o plugin grátis 'HTML to Figma' (Builder.io)" onClick={async () => { if (await copiarHtml({ nn: String(i + 1), file: s.file, html: s.html })) marcarCopiado(`${i}:html`); }}>{copiado === `${i}:html` ? '✓ copiado' : '📋 Figma (HTML)'}</button>
               </div>
             </div>
           ))}

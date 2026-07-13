@@ -10,7 +10,7 @@ import { DATASET_FIELDS, DATASET_LABELS, type DatasetKey, type MappingConfig, ty
 import { renderDeck, ORDER, SLIDE_LABELS, type RenderResult } from './engine/engine';
 import { toSvgMode } from './charts/svg';
 import { loadProjeto, saveProjeto, aplicarOverrides, statusSlide, download, SLIDE_KEY, type ProjetoState } from './ui/state';
-import { baixarZip, baixarPdf, baixarHtml, baixarImagem, baixarImagensZip, copiarHtml } from './ui/exportar';
+import { baixarZip, baixarPdf, baixarHtml, baixarImagem, baixarImagensZip, copiarHtml, copiarImagem } from './ui/exportar';
 import { UserChip } from './auth/Gate';
 import { authEnabled } from './auth/msal';
 import { FriendlyEditor } from './ui/FriendlyEditor';
@@ -34,7 +34,8 @@ export default function App() {
   const [mesSel, setMesSel] = useState<string>(''); // 'ano-mes' ou '' = mais recente
   const [htmlUploads, setHtmlUploads] = useState<HtmlSlide[]>([]); // .html enviados p/ o estúdio
   const [ajudaFigma, setAjudaFigma] = useState(false);
-  const [copiado, setCopiado] = useState<string | null>(null);
+  const [copiado, setCopiado] = useState<string | null>(null); // `${nn}:html` | `${nn}:img`
+  const marcarCopiado = useCallback((chave: string) => { setCopiado(chave); setTimeout(() => setCopiado((c) => (c === chave ? null : c)), 1600); }, []);
 
   const salvar = useCallback((p: ProjetoState) => { setProjeto(p); saveProjeto(p); }, []);
 
@@ -236,7 +237,8 @@ export default function App() {
                       <button className="mini" onClick={() => baixarHtml(s)}>⬇ HTML</button>
                       <button className="mini" onClick={() => baixarImagem(s, 'png')}>PNG</button>
                       <button className="mini" onClick={() => baixarImagem(s, 'jpeg')}>JPG</button>
-                      <button className="mini" title="Copiar HTML para colar no html.to.design (Figma)" onClick={async () => { if (await copiarHtml(s)) { setCopiado(s.nn); setTimeout(() => setCopiado(null), 1500); } }}>{copiado === s.nn ? '✓ copiado' : '📋 Figma'}</button>
+                      <button className="mini mini-figma" title="Copiar como imagem — cole no Figma com Ctrl/Cmd+V (grátis, sem plugin)" onClick={async () => { if (await copiarImagem(s)) marcarCopiado(`${s.nn}:img`); }}>{copiado === `${s.nn}:img` ? '✓ colar no Figma' : '📋 Colar no Figma'}</button>
+                      <button className="mini" title="Copiar o HTML — para o plugin grátis 'HTML to Figma' (Builder.io)" onClick={async () => { if (await copiarHtml(s)) marcarCopiado(`${s.nn}:html`); }}>{copiado === `${s.nn}:html` ? '✓ copiado' : '📋 Figma (HTML)'}</button>
                     </div>
                   </div>
                 );
@@ -336,7 +338,7 @@ function TelaUpload({ onFiles, carregando, temMapping, sheets, onRemover, onGera
         <button className="caminho caminho-html" onClick={(e) => { e.stopPropagation(); onEditarHtml(); }}>
           <div className="caminho-ic">🧩</div>
           <strong>Editar HTML direto</strong>
-          <span>Já tem os HTML (ex.: gerados por IA)? Edite aqui — visual ou código — e converta para Figma, PNG ou JPEG.</span>
+          <span>Já tem os HTML (ex.: gerados por IA)? Edite aqui — visual ou código — e jogue no Figma (grátis), PNG ou JPEG.</span>
           <span className="caminho-cta">🖱 Abrir editor de HTML</span>
         </button>
       </div>

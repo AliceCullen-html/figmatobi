@@ -268,3 +268,7 @@ select {
 .figma-passo strong { font-size: 13.5px; color: #14204A; }
 .figma-passo p { font-size: 12px; color: #6B7280; line-height: 1.55; margin: 3px 0 0; }
 .figma-passo code { background: #EEF1F7; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+
+/* Botão destaque: colar no Figma (caminho grátis principal) */
+.mini-figma { background: #EDE9FB; border-color: #C9BEF3; color: #4B2E9E; font-weight: 700; }
+.mini-figma:hover { background: #E1DAF7; }
